@@ -1,0 +1,14 @@
+<div
+    style="display: flex; justify-content: space-between; align-items: center; width: 100%; height: 4rem; background-color: black;">
+    <div>
+        <p style="color: #f59e0b; font-size: 1.4rem; padding: 1rem;">
+            House Rentals
+        </p>
+    </div>
+    <div>
+        <button type="button" style="margin-right: 1rem;" class="p-button-rounded p-button-warning p-button-text"
+            pButton icon="pi pi-bars" (click)="menu.toggle($event)"></button>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    </div>
+
+</div>
