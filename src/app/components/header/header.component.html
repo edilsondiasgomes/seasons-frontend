@@ -5,10 +5,13 @@
             House Rentals
         </p>
     </div>
-    <div>
-        <button type="button" style="margin-right: 1rem;" class="p-button-rounded p-button-warning p-button-text"
-            pButton icon="pi pi-bars" (click)="menu.toggle($event)"></button>
+    <div style="display: flex; justify-content: space-between; align-items: center">
+        <button type="button" class="p-button-rounded p-button-warning p-button-text" pButton icon="pi pi-bars"
+            (click)="menu.toggle($event)"></button>
         <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        <div style="margin-right: 1rem;">
+            <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
+        </div>
     </div>
 
 </div>
