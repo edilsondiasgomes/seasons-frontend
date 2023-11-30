@@ -8,9 +8,16 @@ import { MenuItem } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
 
+  informations: any;
+  date!: Date;
+  minDate = new Date();
+  maxDate = new Date();
+  hospedes = 1
   public items!: MenuItem[];
 
   ngOnInit() {
+    this.date = new Date();
+    this.minDate = new Date()
     this.items = [{
       label: 'Options',
       items: [{
@@ -45,5 +52,7 @@ export class HeaderComponent implements OnInit {
     }
     ];
   }
+
+
 
 }

@@ -1,0 +1,17 @@
+.imagem {
+  width: 40rem;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+:host {
+  ::ng-deep {
+    .p-inputnumber-input {
+      // width: 100%;
+    }
+
+    .p.button {
+      justify-content: center !important;
+    }
+  }
+}

@@ -1,0 +1,95 @@
+<div style="margin-left: 5rem;margin-right: 5rem;">
+
+  <div class="mt-3">
+    <h1 class="header">{{information.title}}</h1>
+  </div>
+
+  <div class="grid grid-nogutter flex justify-content-between">
+
+    <div class="col-6 mb-3">
+      <div class="mt-3">
+        <img class="imagem" style="box-shadow: 10px 5px 11px grey; border-radius: 10px;" alt="'"
+          [src]="information.src">
+      </div>
+      <h2 class="sub-header mt-3">{{information.stateUF}}</h2>
+      <p style="color:#222121b8; font-size: 1rem;">{{information.hospedes}} Hóspedes -
+        {{information.room}} quartos - {{information.toilet}} banheiros
+      </p>
+
+      <p class="mt-3" style="line-height: 1.5rem;">{{information.description}}</p>
+
+      <h2 class="sub-header mt-3">Comodidades</h2>
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+
+      <div class="flex flex-direction-row align-items-center flex-wrap">
+
+        <div *ngFor="let convenience of information.conveniences">
+
+          <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
+            <i class={{findIcon(convenience)}}></i>
+            <p class="ml-1">{{convenience}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-6 p-fluid" style="width: auto;">
+      <div class="mb-3" style="text-align: end;">
+        <h1> {{information.price | currency: 'BRL'}} </h1>
+        <h3>diária</h3>
+      </div>
+
+      <div class="grid">
+        <div class="col-6" style="margin-top: inherit;">
+          <label>Check-in</label>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="minDate" dateFormat="dd/mm/yy"
+            [minDate]="minDate"></p-calendar>
+        </div>
+
+        <div class="col-6" style="margin-top: inherit;">
+          <label>Check-out</label>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="maxDate" dateFormat="dd/mm/yy"
+            [minDate]="minDate"></p-calendar>
+        </div>
+      </div>
+
+      <p-inputNumber class="flex-auto" style="margin-top: 1rem;" [suffix]=" hospedes < 2 ? ' hóspede': ' hóspedes'"
+        [(ngModel)]="hospedes" [showButtons]="true" inputId="stacked"> </p-inputNumber>
+
+      <div class="mt-3">
+
+        <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+          <p>Valor da diária</p>
+          <p>{{ information.price | currency: 'BRL'}}</p>
+        </div>
+
+        <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+          <p>{{verificarQuantasDiarias() }} {{diarias < 2 ? 'Diária' : 'Diárias' }} </p>
+              <!-- <p>{{diarias }} {{diarias < 2 ? 'Diária' : 'Diárias' }} </p> -->
+              <p>{{ information.price * diarias | currency: 'BRL'}}</p>
+        </div>
+
+        <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+          <p>Taxa de limpeza </p>
+          <p> {{taxaLimpeza() | currency: 'BRL'}}</p>
+        </div>
+
+        <div style="font-size: 1.2rem; color: grey;     font-weight: 600;"
+          class="mt-3 flex flex-direction-row justify-content-between">
+          <p>Total </p>
+          <p> {{calcularTotal() | currency: 'BRL'}}</p>
+        </div>
+
+      </div>
+      <div style="text-align: center;" class="mt-3">
+        <button type="button" pButton>Solicitar reserva</button>
+      </div>
+      <h2 class="sub-header mt-3">Informações</h2>
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+    </div>
+
+  </div>
+</div>
