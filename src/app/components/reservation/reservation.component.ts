@@ -33,7 +33,6 @@ export class ReservationComponent implements OnInit {
 
   backDetais() {
     this.location.back();
-
   }
 
   findIcon(convenience: string) {

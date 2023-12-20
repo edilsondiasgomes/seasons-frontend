@@ -19,34 +19,35 @@ export class HeaderComponent implements OnInit {
     this.date = new Date();
     this.minDate = new Date()
     this.items = [{
-      label: 'Options',
+      // label: 'Options',
       items: [{
-        label: 'Update',
-        icon: 'pi pi-refresh',
-        command: () => {
-          // this.update();
-        }
+        label: 'Meus dados',
+        icon: 'fa-solid fa-user',
+        routerLink: '/registration'
       },
       {
-        label: 'Delete',
-        icon: 'pi pi-times',
-        command: () => {
-          // this.delete();
-        }
+        label: 'Sair',
+        icon: 'fa-solid fa-right-from-bracket',
+        routerLink: '/'
       }
       ]
     },
     {
-      label: 'Navigate',
+      label: 'Área administrativa',
       items: [{
-        label: 'Angular',
-        icon: 'pi pi-external-link',
-        url: 'http://angular.io'
+        label: 'Cadastrar acomodações',
+        icon: 'fa-solid fa-plus',
+        // routerLink: '/registration'
       },
       {
-        label: 'Router',
-        icon: 'pi pi-upload',
+        label: 'Acomodações cadastradas',
+        icon: 'fa-solid fa-house-chimney',
         routerLink: '/fileupload'
+      },
+      {
+        label: 'Clientes',
+        icon: 'fa-solid fa-users',
+        routerLink: '/customers'
       }
       ]
     }

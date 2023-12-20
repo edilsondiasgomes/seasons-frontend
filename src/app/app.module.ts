@@ -13,6 +13,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { PrimengModule } from './primeng/primeng.module';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { CustomersComponent } from './components/customers/customers.component';
 
 registerLocaleData(localeBr, 'pt')
 
@@ -25,6 +27,8 @@ registerLocaleData(localeBr, 'pt')
     DetailsComponent,
     FooterComponent,
     ReservationComponent,
+    RegistrationComponent,
+    CustomersComponent,
   ],
   imports: [
     BrowserModule,
