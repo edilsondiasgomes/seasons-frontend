@@ -1,95 +1,166 @@
 <div style="margin-left: 5rem;margin-right: 5rem;">
 
-  <div class="mt-3">
-    <h1 class="header">{{information.title}}</h1>
+  <div class="mt-3 flex flex-direction-row align-items-center">
+
+    <div style="text-align: left;">
+      <i class="pi pi-angle-left"
+        style="font-size: 2rem; color: grey; margin-left: -1rem; margin-right: .5rem;cursor: pointer;"
+        (click)="backDetais()"></i>
+    </div>
+
+    <div>
+      <h2 class="sub-header">{{property.title}} em {{property.stateUF}}</h2>
+      <p style="color:#222121b8; ">{{property.guests}} Hóspedes -
+        {{property.rooms}} quartos - {{property.toilets}} banheiros
+      </p>
+    </div>
   </div>
+
+  <!-- end-description-->
 
   <div class="grid grid-nogutter flex justify-content-between">
 
     <div class="col-6 mb-3">
-      <div class="mt-3">
-        <img class="imagem" style="box-shadow: 10px 5px 11px grey; border-radius: 10px;" alt="'"
-          [src]="information.src">
-      </div>
-      <h2 class="sub-header mt-3">{{information.stateUF}}</h2>
-      <p style="color:#222121b8; font-size: 1rem;">{{information.hospedes}} Hóspedes -
-        {{information.room}} quartos - {{information.toilet}} banheiros
-      </p>
 
-      <p class="mt-3" style="line-height: 1.5rem;">{{information.description}}</p>
-
-      <h2 class="sub-header mt-3">Comodidades</h2>
-      <hr style="height: 1px; background-color: #ebebeb;border: none;">
-
-      <div class="flex flex-direction-row align-items-center flex-wrap">
-
-        <div *ngFor="let convenience of information.conveniences">
-
-          <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
-            <i class={{findIcon(convenience)}}></i>
-            <p class="ml-1">{{convenience}}</p>
+      <p-galleria [value]="property.images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
+        [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true"
+        [containerStyle]="{ 'max-width': '100%', 'margin-top':'1rem' }">
+        <ng-template pTemplate="item" let-item>
+          <img [src]="item.itemImage"
+            style="height: 27rem; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; display: block; border-radius: 5px"
+            alt="imagem" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+          <div class="grid grid-nogutter justify-content-center">
+            <img [src]="item.thumbnailImageSrc" style="display: block;" alt="imagem" />
           </div>
-
-        </div>
-
-      </div>
-
+        </ng-template>
+      </p-galleria>
+      <!-- end-imagem-principal -->
     </div>
-
-    <div class="col-6 p-fluid" style="width: auto;">
+    <!-- container-reserva -->
+    <div class="col-6 p-fluid" style="padding-left: 5rem;">
       <div class="mb-3" style="text-align: end;">
-        <h1> {{information.price | currency: 'BRL'}} </h1>
+        <h1> {{property.dailyRate | currency: 'BRL'}} </h1>
         <h3>diária</h3>
       </div>
 
       <div class="grid">
         <div class="col-6" style="margin-top: inherit;">
           <label>Check-in</label>
-          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="minDate" dateFormat="dd/mm/yy"
-            [minDate]="minDate"></p-calendar>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="property.initialDate" dateFormat="dd/mm/yy"
+            [minDate]="property.finalDate"></p-calendar>
         </div>
 
         <div class="col-6" style="margin-top: inherit;">
           <label>Check-out</label>
-          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="maxDate" dateFormat="dd/mm/yy"
-            [minDate]="minDate"></p-calendar>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="property.finalDate" dateFormat="dd/mm/yy"
+            [minDate]="property.initialDate"></p-calendar>
         </div>
       </div>
 
-      <p-inputNumber class="flex-auto" style="margin-top: 1rem;" [suffix]=" hospedes < 2 ? ' hóspede': ' hóspedes'"
-        [(ngModel)]="hospedes" [showButtons]="true" inputId="stacked"> </p-inputNumber>
+      <p-inputNumber class="flex-auto" style="margin-top: 1rem;"
+        [suffix]=" property.guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="property.guests" [showButtons]="true"
+        inputId="stacked"> </p-inputNumber>
 
       <div class="mt-3">
 
         <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
           <p>Valor da diária</p>
-          <p>{{ information.price | currency: 'BRL'}}</p>
+          <p>{{ property.dailyRate | currency: 'BRL'}}</p>
         </div>
 
         <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
-          <p>{{verificarQuantasDiarias() }} {{diarias < 2 ? 'Diária' : 'Diárias' }} </p>
-              <!-- <p>{{diarias }} {{diarias < 2 ? 'Diária' : 'Diárias' }} </p> -->
-              <p>{{ information.price * diarias | currency: 'BRL'}}</p>
+          <p>{{verificarQuantasDiarias() }} {{property.quantityDaily < 2 ? 'Diária' : 'Diárias' }} </p>
+              <p>{{ property.totalDailyRate | currency: 'BRL'}}</p>
         </div>
 
         <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
           <p>Taxa de limpeza </p>
-          <p> {{taxaLimpeza() | currency: 'BRL'}}</p>
+          <p> {{calcularTaxaLimpeza() | currency: 'BRL'}}</p>
         </div>
 
         <div style="font-size: 1.2rem; color: grey;     font-weight: 600;"
           class="mt-3 flex flex-direction-row justify-content-between">
           <p>Total </p>
-          <p> {{calcularTotal() | currency: 'BRL'}}</p>
+          <p> {{calcularValorTotal() | currency: 'BRL'}}</p>
         </div>
 
       </div>
       <div style="text-align: center;" class="mt-3">
-        <button type="button" pButton>Solicitar reserva</button>
+        <button type="button" style="justify-content: center; font-weight: 600; font-size: 1.2rem;" pButton
+          (click)="requestReservation()">Solicitar
+          reserva</button>
       </div>
-      <h2 class="sub-header mt-3">Informações</h2>
+      <!-- end-container-reserva -->
+    </div>
+
+    <div class="col-6">
+
+      <!-- text-description-->
+      <p class="mt-2  " style="line-height: 1.5rem; color:#222121b8;">{{property.description}}</p>
+      <!-- end-text-description-->
+
+      <!-- pagamento -->
+      <h3 class="sub-header mt-5" style="color: #4ecbd3;">Pagamento</h3>
       <hr style="height: 1px; background-color: #ebebeb;border: none;">
+      <p class="mt-2" style="color:#222121b8; ">Aguarde a confirmação da reserva para receber informações sobre
+        pagamento. </p>
+      <!-- end-pagamento -->
+
+      <!-- cancelamento -->
+      <h3 class="sub-header mt-5" style="color: #4ecbd3;">Política de cancelamento</h3>
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+      <p class="mt-2" style="color:#222121b8;  width: 40rem;">Cancelando até 2 dias da acomodação receberá 100% do
+        valor. Caso
+        cancele no dia receberá 50% do valor. </p>
+      <!-- end-cancelamento -->
+    </div>
+
+    <div class="col-6" style="padding-left: 5rem;">
+      <!-- comodidades -->
+      <h3 class="sub-header" style="color: #4ecbd3;">Comodidades</h3>
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+      <div class="flex flex-direction-row align-items-center flex-wrap">
+        <div *ngFor="let convenience of property.conveniences">
+          <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
+            <i class={{findIcon(convenience)}}></i>
+            <p style="color:#222121b8;" class="ml-1">{{convenience}}</p>
+          </div>
+        </div>
+      </div>
+      <!-- end-comodidades -->
+
+
+      <!-- informações -->
+      <h3 class="sub-header mt-5" style="color: #4ecbd3;">Informações</h3>
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+
+      <div class="grid">
+        <div class="col-3">
+          <h4 class="sub-header mt-2">Check-in</h4>
+          <p style="color:#222121b8; "> às {{property.checkIn}} horas </p>
+        </div>
+
+        <div class="col-3">
+          <h4 class="sub-header mt-2">Check-out</h4>
+          <p style="color:#222121b8; ">às {{property.checkOut}} horas </p>
+        </div>
+
+        <div class="col-6">
+          <h4 class="sub-header mt-2">Animais de estimação</h4>
+          <ng-container *ngIf="property.petsAllowed; else notAllowed">
+            <p style="color:#222121b8;">Permitido</p>
+          </ng-container>
+          <ng-template #notAllowed>
+            <p style="color:#222121b8;">Não permitido</p>
+          </ng-template>
+        </div>
+      </div>
+      <!-- end-informações -->
+
     </div>
 
   </div>
+
 </div>

@@ -40,6 +40,9 @@ export class ConvenienceUtils {
       case 'Próximo a praia':
         return "fa-solid fa-water"
 
+      case 'Pets':
+        return "fa-solid fa-cat"
+
       default:
         break;
     }

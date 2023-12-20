@@ -4,7 +4,7 @@
 </div>
 <div class="mt-3 ml-7">
   <h2 class="header">Aluguéis de Temporadas</h2>
-  <p class="sub-header">em Santa Catarina</p>
+  <p class="sub-header" style="color:#222121b8; ">em Santa Catarina</p>
 </div>
 
 <!-- <div class="mt-3">
@@ -12,20 +12,31 @@
   <p class="sub-header">{{information.stateUF}}</p>
 </div> -->
 
-<div class="ml-8 mr-3 grid grid-nogutter flex flex-direction-row">
+<div class="ml-7 mr-7 grid grid-nogutter flex flex-direction-row">
 
-  <div class="col-3" *ngFor="let information of informations">
-    <div (click)="sendDetails(information)">
-      <div class=" mt-3">
-        <img style="width:19rem; height: 19rem; box-shadow: 10px 5px 11px grey; border-radius: 10px;" alt="'"
-          [src]="information.src">
+  <div class="col-3" *ngFor="let property of properties">
+    <div class="m-2">
+      <p-galleria [value]="property.images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
+        [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [circular]="true"
+        [containerStyle]="{ 'max-width': '640px', 'margin-top':'1em' }">
+        <ng-template pTemplate="item" let-item>
+          <img [src]="item.itemImage" style="width: 100%; display: block; border-radius: 5px" alt="imagem" />
+        </ng-template>
+      </p-galleria>
+    </div>
+
+    <div style="cursor: pointer;" (click)="sendDetails(property)">
+      <div class=" m-2">
+        <!-- <img style="width:19rem; height: 19rem; box-shadow: 10px 5px 11px grey; border-radius: 10px;" alt="'"
+          [src]="information.src"> -->
+
         <div
           style="width: 21rem; height: 4.2rem; margin: .5rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <h3> {{information.stateUF}}</h3>
-          <p style="color:#222121b8">{{information.hospedes}} Hóspedes - {{information.room}} quartos -
-            {{information.toilet}} banheiros
+          <h3> {{property.stateUF}}</h3>
+          <p style="color:#222121b8">{{property.guestsAllowed}} Hóspedes - {{property.rooms}} quartos -
+            {{property.toilets}} banheiros
           </p>
-          <p style="color:#222121b8"><b> {{information.price | currency:'BRL' }} </b>diária</p>
+          <p style="color:#222121b8"><b> {{property.dailyRate| currency:'BRL' }} </b>diária</p>
         </div>
       </div>
     </div>

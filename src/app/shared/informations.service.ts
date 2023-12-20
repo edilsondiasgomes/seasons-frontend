@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class InformationsService {
 
-  information: any
+  property: any
 
   constructor() { }
 

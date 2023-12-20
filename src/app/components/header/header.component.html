@@ -10,11 +10,11 @@
   <div class="flex">
     <span class="p-input-icon-left mr-2">
       <i class="pi pi-search"></i>
-      <input type="text" pInputText placeholder="Digite um lugar" />
+      <input size="small" type="text" pInputText placeholder="Digite um lugar" styleClass="p-button-sm" />
     </span>
 
     <div class="card mr-2">
-      <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="minDate" dateFormat="dd/mm/yy"
+      <p-calendar [readonlyInput]="true" size="small" [showIcon]="true" [(ngModel)]="minDate" dateFormat="dd/mm/yy"
         [minDate]="minDate"></p-calendar>
     </div>
     <div class="card mr-2">
@@ -25,11 +25,12 @@
     <p-inputNumber class="flex-auto mr-2" [suffix]=" hospedes < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="hospedes"
       [showButtons]="true" inputId="stacked"> </p-inputNumber>
 
-    <p-button icon="pi pi-search"></p-button>
+    <p-button label="Buscar" icon="pi pi-search"></p-button>
   </div>
   <div class="mr-7" style="display: flex; justify-content: space-between; align-items: center">
     <button type="button" class="p-button-rounded p-button-text" pButton icon="pi pi-bars"
       (click)="menu.toggle($event)"></button>
+
     <p-menu #menu [popup]="true" [model]="items"></p-menu>
     <div style="margin-right: 1rem;">
       <p-avatar icon="pi pi-user" shape="circle"></p-avatar>

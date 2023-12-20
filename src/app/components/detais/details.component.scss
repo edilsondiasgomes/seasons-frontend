@@ -1,7 +1,8 @@
 .imagem {
-  width: 40rem;
-  aspect-ratio: 3 / 2;
+  width: 100%;
+  aspect-ratio: 6 / 2;
   object-fit: cover;
+  cursor: pointer;
 }
 
 :host {
@@ -10,8 +11,8 @@
       // width: 100%;
     }
 
-    .p.button {
-      justify-content: center !important;
-    }
+    // .p.button {
+    //   justify-content: center !important;
+    // }
   }
 }
