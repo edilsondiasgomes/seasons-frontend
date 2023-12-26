@@ -8,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class RegistrationComponent {
 
+  initialDate = new Date();
+  finalDate = new Date();
+
   constructor(private location: Location) { }
 
   toGoBack() {

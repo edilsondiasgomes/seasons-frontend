@@ -15,6 +15,9 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { PrimengModule } from './primeng/primeng.module';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CustomersComponent } from './components/customers/customers.component';
+import { RegisterAccommodationComponent } from './components/register-accommodation/register-accommodation.component';
+import { RegisteredAccommodationsComponent } from './components/registered-accommodations/registered-accommodations.component';
+import { LoginComponent } from './components/login/login.component';
 
 registerLocaleData(localeBr, 'pt')
 
@@ -29,6 +32,9 @@ registerLocaleData(localeBr, 'pt')
     ReservationComponent,
     RegistrationComponent,
     CustomersComponent,
+    RegisterAccommodationComponent,
+    RegisteredAccommodationsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

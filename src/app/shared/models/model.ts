@@ -29,4 +29,9 @@ export interface Image {
   alt: string,
 }
 
+export interface Login {
+  username: string,
+  password: string
+}
+
 

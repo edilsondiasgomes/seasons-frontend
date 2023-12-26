@@ -10,9 +10,80 @@
 
     <div>
       <h2>Meus dados</h2>
-      <!-- <p style="color:#222121b8; ">{{property.title}} , {{property.stateUF}} -->
-      <!-- </p> -->
+      <p style="color:#222121b8; ">Cadastrar </p>
+    </div>
+  </div>
+
+  <div class="grid" style="width: 50%">
+    <div class="col-12 mt-3">
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+    </div>
+
+    <div class="mt-2 col-12 flex flex-column gap-1">
+      <label htmlFor="name">Nome</label>
+      <input pInputText id="name" aria-describedby="name" />
+    </div>
+
+    <div class="col-6 flex flex-column gap-1">
+      <label htmlFor="name">CPF</label>
+      <input pInputText id="name" aria-describedby="name" />
+    </div>
+
+    <div class="col-6 flex flex-column gap-1">
+      <label>Data nascimento</label>
+      <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="finalDate" dateFormat="dd/mm/yy"
+        [minDate]="initialDate"></p-calendar>
+    </div>
+
+    <div class="col-3 flex flex-column gap-1">
+      <label htmlFor="cep">CEP</label>
+      <input pInputText id="cep" aria-describedby="cep" />
+    </div>
+
+    <div class="col-9 flex flex-column gap-1">
+      <label htmlFor="name">Endereço</label>
+      <input pInputText id="name" aria-describedby="name" />
+    </div>
+
+    <div class="col-2 flex flex-column gap-1">
+      <label htmlFor="number">Número</label>
+      <input pInputText id="number" aria-describedby="number" />
+    </div>
+
+    <div class="col-5 flex flex-column gap-1">
+      <label htmlFor="name">Bairro</label>
+      <input pInputText id="name" aria-describedby="name" />
+    </div>
+
+    <div class="col-5 flex flex-column gap-1">
+      <label htmlFor="complemento">Complemento</label>
+      <input pInputText id="complemento" aria-describedby="complemento" />
+    </div>
+
+    <div class="col-10 flex flex-column gap-1">
+      <label htmlFor="city">Cidade</label>
+      <input pInputText id="city" aria-describedby="city" />
+    </div>
+
+    <div class="col-2 flex flex-column gap-1">
+      <label htmlFor="uf">UF</label>
+      <input pInputText id="uf" aria-describedby="uf" />
+    </div>
+
+    <div style="text-align: center; " class="col-12 mt-3 ">
+      <button styleClass="p-button-secondary" type="button"
+        style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;" pButton>Salvar</button>
+    </div>
+
+    <div style="text-align: center; " class="col-12 mt-2">
+      <button styleClass="p-button-outlined" pButton class="p-button-google"
+        style="border: solid 1px grey; color: gray; justify-content: center; font-size: 1.2rem; font-weight: lighter; width: 100%; background-color: white;">
+        <img alt="logo" src="https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png"
+          style="width: 1.5rem" />
+        <span class="ml-2 font-bold">Entrar com o Google</span>
+      </button>
     </div>
 
   </div>
+
 </div>

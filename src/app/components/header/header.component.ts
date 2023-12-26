@@ -20,16 +20,22 @@ export class HeaderComponent implements OnInit {
     this.minDate = new Date()
     this.items = [{
       // label: 'Options',
-      items: [{
-        label: 'Meus dados',
-        icon: 'fa-solid fa-user',
-        routerLink: '/registration'
-      },
-      {
-        label: 'Sair',
-        icon: 'fa-solid fa-right-from-bracket',
-        routerLink: '/'
-      }
+      items: [
+        {
+          label: 'Entrar',
+          icon: 'fa-solid fa-user',
+          routerLink: '/login'
+        },
+        {
+          label: 'Meus dados',
+          icon: 'fa-solid fa-user',
+          routerLink: '/registration'
+        },
+        {
+          label: 'Sair',
+          icon: 'fa-solid fa-right-from-bracket',
+          routerLink: '/'
+        }
       ]
     },
     {
@@ -37,12 +43,12 @@ export class HeaderComponent implements OnInit {
       items: [{
         label: 'Cadastrar acomodações',
         icon: 'fa-solid fa-plus',
-        // routerLink: '/registration'
+        routerLink: '/register-accomodation'
       },
       {
         label: 'Acomodações cadastradas',
         icon: 'fa-solid fa-house-chimney',
-        routerLink: '/fileupload'
+        routerLink: '/registered-accomodations'
       },
       {
         label: 'Clientes',

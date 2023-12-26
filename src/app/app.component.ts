@@ -7,7 +7,7 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'rentals-frontend';
+  title = 'seasons-frontend';
 
   constructor(private primengConfig: PrimeNGConfig) { }
 
