@@ -9,9 +9,9 @@
 
 <div class="ml-7 mr-7 grid grid-nogutter flex flex-direction-row">
 
-  <div class="col-3" *ngFor="let property of properties">
+  <div class="col-3" *ngFor="let accomodation of accomodations">
     <div class="m-2">
-      <p-galleria [value]="property.images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
+      <p-galleria [value]="accomodation.images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
         [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [circular]="true"
         [containerStyle]="{ 'max-width': '640px', 'margin-top':'1em' }">
         <ng-template pTemplate="item" let-item>
@@ -20,18 +20,18 @@
       </p-galleria>
     </div>
 
-    <div style="cursor: pointer;" (click)="sendDetails(property)">
+    <div style="cursor: pointer;" (click)="sendDetails(accomodation)">
       <div class=" m-2">
         <!-- <img style="width:19rem; height: 19rem; box-shadow: 10px 5px 11px grey; border-radius: 10px;" alt="'"
           [src]="information.src"> -->
 
         <div
           style="width: 21rem; height: 4.2rem; margin: .5rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <h3> {{property.stateUF}}</h3>
-          <p style="color:#222121b8">{{property.guestsAllowed}} Hóspedes - {{property.rooms}} quartos -
-            {{property.toilets}} banheiros
+          <h3> {{accomodation.title}} em {{accomodation.address.city}}, {{accomodation.address.uf}}</h3>
+          <p style="color:#222121b8">{{accomodation.guestsAllowed}} Hóspedes - {{accomodation.rooms}} quartos -
+            {{accomodation.toilets}} banheiros
           </p>
-          <p style="color:#222121b8"><b> {{property.dailyRate| currency:'BRL' }} </b>diária</p>
+          <p style="color:#222121b8"><b> {{accomodation.dailyRate| currency:'BRL' }} </b>diária</p>
         </div>
       </div>
     </div>

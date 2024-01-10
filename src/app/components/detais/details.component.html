@@ -9,9 +9,9 @@
     </div>
 
     <div>
-      <h2 class="sub-header">{{property.title}} em {{property.stateUF}}</h2>
-      <p style="color:#222121b8; ">{{property.guests}} Hóspedes -
-        {{property.rooms}} quartos - {{property.toilets}} banheiros
+      <h2 class="sub-header">{{accomodation.title}} em {{accomodation.address.city}}, {{accomodation.address.uf}}</h2>
+      <p style="color:#222121b8; ">{{accomodation.guests}} Hóspedes -
+        {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
       </p>
     </div>
   </div>
@@ -22,7 +22,7 @@
 
     <div class="col-6 mb-3">
 
-      <p-galleria [value]="property.images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
+      <p-galleria [value]="accomodation.images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
         [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true"
         [containerStyle]="{ 'max-width': '100%', 'margin-top':'1rem' }">
         <ng-template pTemplate="item" let-item>
@@ -41,38 +41,38 @@
     <!-- container-reserva -->
     <div class="col-6 p-fluid" style="padding-left: 5rem;">
       <div class="mb-3" style="text-align: end;">
-        <h1> {{property.dailyRate | currency: 'BRL'}} </h1>
+        <h1> {{accomodation.dailyRate | currency: 'BRL'}} </h1>
         <h3>diária</h3>
       </div>
 
       <div class="grid">
         <div class="col-6" style="margin-top: inherit;">
           <label>Check-in</label>
-          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="property.initialDate" dateFormat="dd/mm/yy"
-            [minDate]="property.finalDate"></p-calendar>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="accomodation.initialDate"
+            dateFormat="dd/mm/yy" [minDate]="accomodation.finalDate"></p-calendar>
         </div>
 
         <div class="col-6" style="margin-top: inherit;">
           <label>Check-out</label>
-          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="property.finalDate" dateFormat="dd/mm/yy"
-            [minDate]="property.initialDate"></p-calendar>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="accomodation.finalDate"
+            dateFormat="dd/mm/yy" [minDate]="accomodation.initialDate"></p-calendar>
         </div>
       </div>
 
-      <p-inputNumber class="flex-auto" style="margin-top: 1rem;"
-        [suffix]=" property.guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="property.guests" [showButtons]="true"
-        inputId="stacked"> </p-inputNumber>
+      <p-inputNumber [min]="0" [max]="accomodation.guestsAllowed" class="flex-auto" style="margin-top: 1rem;"
+        [suffix]=" accomodation.guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="accomodation.guests"
+        [showButtons]="true" inputId="guests"> </p-inputNumber>
 
       <div class="mt-3">
 
         <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
           <p>Valor da diária</p>
-          <p>{{ property.dailyRate | currency: 'BRL'}}</p>
+          <p>{{ accomodation.dailyRate | currency: 'BRL'}}</p>
         </div>
 
         <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
-          <p>{{verificarQuantasDiarias() }} {{property.quantityDaily < 2 ? 'Diária' : 'Diárias' }} </p>
-              <p>{{ property.totalDailyRate | currency: 'BRL'}}</p>
+          <p>{{verificarQuantasDiarias() }} {{accomodation.quantityDaily < 2 ? 'Diária' : 'Diárias' }} </p>
+              <p>{{ accomodation.totalDailyRate | currency: 'BRL'}}</p>
         </div>
 
         <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
@@ -98,7 +98,7 @@
     <div class="col-6">
 
       <!-- text-description-->
-      <p class="mt-2  " style="line-height: 1.5rem; color:#222121b8;">{{property.description}}</p>
+      <p class="mt-2  " style="line-height: 1.5rem; color:#222121b8;">{{accomodation.description}}</p>
       <!-- end-text-description-->
 
       <!-- pagamento -->
@@ -122,10 +122,10 @@
       <h3 class="sub-header" style="color: #4ecbd3;">Comodidades</h3>
       <hr style="height: 1px; background-color: #ebebeb;border: none;">
       <div class="flex flex-direction-row align-items-center flex-wrap">
-        <div *ngFor="let convenience of property.conveniences">
+        <div *ngFor="let convenience of accomodation.conveniences">
           <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
-            <i class={{findIcon(convenience)}}></i>
-            <p style="color:#222121b8;" class="ml-1">{{convenience}}</p>
+            <i class={{findIcon(convenience.name)}}></i>
+            <p style="color:#222121b8;" class="ml-1">{{convenience.name}}</p>
           </div>
         </div>
       </div>
@@ -139,17 +139,17 @@
       <div class="grid">
         <div class="col-3">
           <h4 class="sub-header mt-2">Check-in</h4>
-          <p style="color:#222121b8; "> às {{property.checkIn}} horas </p>
+          <p style="color:#222121b8; "> às {{accomodation.checkIn}} horas </p>
         </div>
 
         <div class="col-3">
           <h4 class="sub-header mt-2">Check-out</h4>
-          <p style="color:#222121b8; ">às {{property.checkOut}} horas </p>
+          <p style="color:#222121b8; ">às {{accomodation.checkOut}} horas </p>
         </div>
 
         <div class="col-6">
           <h4 class="sub-header mt-2">Animais de estimação</h4>
-          <ng-container *ngIf="property.petsAllowed; else notAllowed">
+          <ng-container *ngIf="accomodation.petsAllowed; else notAllowed">
             <p style="color:#222121b8;">Permitido</p>
           </ng-container>
           <ng-template #notAllowed>

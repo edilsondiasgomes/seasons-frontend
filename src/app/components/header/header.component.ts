@@ -22,6 +22,11 @@ export class HeaderComponent implements OnInit {
       // label: 'Options',
       items: [
         {
+          label: 'Home',
+          icon: 'fa-solid fa-home',
+          routerLink: '/'
+        },
+        {
           label: 'Entrar',
           icon: 'fa-solid fa-user',
           routerLink: '/login'

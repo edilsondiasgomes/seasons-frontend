@@ -1,0 +1,26 @@
+:host {
+  ::ng-deep {
+    .p-inputnumber {
+      width: -webkit-fill-available;
+    }
+
+    .p-inputnumber-input {
+      width: 7rem;
+    }
+
+    .p-checkbox .p-checkbox-box.p-highlight {
+      border-color: #4ecbd3;
+      background: #4ecbd3;
+    }
+
+    .pi-check:before {
+      background: #4ecbd3;
+    }
+
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+      background: #4ecbd3;
+      border-color: #4ecbd3;
+    }
+
+  }
+}

@@ -22,8 +22,8 @@
         [minDate]="minDate"></p-calendar>
     </div>
 
-    <p-inputNumber class="flex-auto mr-2" [suffix]=" hospedes < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="hospedes"
-      [showButtons]="true" inputId="stacked"> </p-inputNumber>
+    <p-inputNumber class="flex-auto mr-2" [min]="0" [suffix]=" hospedes < 2 ? ' hóspede': ' hóspedes'"
+      [(ngModel)]="hospedes" [showButtons]="true" inputId="guests"> </p-inputNumber>
 
     <p-button label="Buscar" icon="pi pi-search"></p-button>
   </div>

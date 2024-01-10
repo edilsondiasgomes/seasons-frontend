@@ -4,7 +4,9 @@
 
 
 * {
-  --primary-color: #4ecbd3;
+  --primary-color: #75ced4;
+  --secondary-color: #b1c7c9;
+  --success-color: #22C55E;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -25,13 +27,23 @@ body {
 }
 
 .p-button {
-  background: var(--primary-color)!important;
-  border: 1px solid var(--primary-color)!important;
+  background: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
 }
 
 .p-button-google {
-  background-color: rgb(255, 255, 255)!important;
-  border: 1px solid rgb(141, 141, 141)!important;
+  background-color: rgb(255, 255, 255) !important;
+  border: 1px solid rgb(141, 141, 141) !important;
+}
+
+.p-button-danger {
+  background-color: rgb(255, 0, 0) !important;
+  border: 1px solid rgb(255, 0, 0) !important;
+}
+
+.p-button-secondary {
+  background-color: var(--secondary-color) !important;
+  border: 1px solid var(--secondary-color) !important;
 }
 
 .p-galleria .p-galleria-indicators .p-galleria-indicator button {

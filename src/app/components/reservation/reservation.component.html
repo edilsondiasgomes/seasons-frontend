@@ -9,7 +9,7 @@
 
     <div>
       <h2>Pedir para reservar</h2>
-      <p style="color:#222121b8; ">{{property.title}} , {{property.stateUF}}
+      <p style="color:#222121b8; ">{{accomodation.title}} , {{accomodation.address.postalCode}}
       </p>
     </div>
 
@@ -22,38 +22,38 @@
 
       <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p>Período</p>
-        <p>{{property.initialDate | date :'d MMMM' }} à {{property.finalDate | date :'d MMMM'}} </p>
+        <p>{{accomodation.initialDate | date :'d MMMM' }} à {{accomodation.finalDate | date :'d MMMM'}} </p>
       </div>
 
       <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p>Check-in</p>
-        <p>às {{property.checkIn}} horas</p>
+        <p>às {{accomodation.checkIn}} horas</p>
       </div>
 
       <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p> Check-out</p>
-        <p>às {{property.checkOut}} horas</p>
+        <p>às {{accomodation.checkOut}} horas</p>
       </div>
 
       <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p>Hóspedes</p>
-        <p>{{property.guests}} hóspedes</p>
+        <p>{{accomodation.guests}} hóspedes</p>
       </div>
 
       <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p>Diárias</p>
-        <p>{{property.quantityDaily}} diárias</p>
+        <p>{{accomodation.quantityDaily}} diárias</p>
       </div>
 
       <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p>Taxa de limpeza</p>
-        <p>{{property.totalCleaningFee | currency: 'BRL'}}</p>
+        <p>{{accomodation.totalCleaningFee | currency: 'BRL'}}</p>
       </div>
 
       <div style="font-size: 1.2rem; color: grey;     font-weight: 600;"
         class="mt-3 flex flex-direction-row justify-content-between">
         <p>Valor Total </p>
-        <p> {{property.amount | currency: 'BRL'}}</p>
+        <p> {{accomodation.amount | currency: 'BRL'}}</p>
       </div>
 
       <div class="mt-3 flex">
@@ -81,12 +81,12 @@
 
         <div class="col-6">
           <h4 class="">acomodação</h4>
-          <p style="color:#222121b8; ">{{property.guests}} Hóspedes -
-            {{property.rooms}} quartos - {{property.toilets}} banheiros
+          <p style="color:#222121b8; ">{{accomodation.guests}} Hóspedes -
+            {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
           </p>
 
           <h4 class="mt-4">Animais de estimação</h4>
-          <ng-container *ngIf="property.petsAllowed; else notAllowed">
+          <ng-container *ngIf="accomodation.petsAllowed; else notAllowed">
             <p style="color:#222121b8;">Permitido</p>
           </ng-container>
           <ng-template #notAllowed>
@@ -94,7 +94,7 @@
           </ng-template>
 
           <h4 class="mt-4">Estacionamento</h4>
-          <ng-container *ngIf="property.parking; else not">
+          <ng-container *ngIf="accomodation.parking; else not">
             <p style="color:#222121b8;">Grátis no local</p>
           </ng-container>
           <ng-template #not>
@@ -106,7 +106,7 @@
           <!-- imagem-principal -->
           <div>
             <img style=" border-radius: 5px; width: 15rem;     aspect-ratio: 4/3;
-            object-fit: cover;" alt="'" [src]="property.images[0].itemImage">
+            object-fit: cover;" alt="'" [src]="accomodation.images[0].itemImage">
           </div>
         </div>
       </div>
@@ -116,10 +116,10 @@
         <h3 class="sub-header" style="color: #4ecbd3;">Comodidades</h3>
         <hr style="height: 1px; background-color: #ebebeb;border: none;">
         <div class="flex flex-direction-row align-items-center flex-wrap">
-          <div *ngFor="let convenience of property.conveniences">
+          <div *ngFor="let convenience of accomodation.conveniences">
             <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
-              <i class={{findIcon(convenience)}}></i>
-              <p style="color:#222121b8;" class="ml-1">{{convenience}}</p>
+              <i class={{findIcon(convenience.name)}}></i>
+              <p style="color:#222121b8;" class="ml-1">{{convenience.name}}</p>
             </div>
           </div>
         </div>

@@ -4,8 +4,11 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -15,10 +18,13 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
 
+
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    InputMaskModule,
+    FileUploadModule,
     InputTextareaModule,
     DropdownModule,
     GalleriaModule,
@@ -31,12 +37,14 @@ import { TooltipModule } from 'primeng/tooltip';
     AvatarModule,
     TooltipModule,
     InputNumberModule,
-    TableModule
-
+    TableModule,
+    CheckboxModule
 
   ],
   exports: [
     ButtonModule,
+    InputMaskModule,
+    FileUploadModule,
     InputTextareaModule,
     DropdownModule,
     GalleriaModule,
@@ -48,7 +56,8 @@ import { TooltipModule } from 'primeng/tooltip';
     AvatarModule,
     TableModule,
     TooltipModule,
-    InputNumberModule
+    InputNumberModule,
+    CheckboxModule
 
   ]
 })

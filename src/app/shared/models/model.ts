@@ -1,8 +1,8 @@
-export interface Property {
+export interface Accomodation {
   placeId: number;
   title: string,
   mainImage: string,
-  stateUF: string,
+  address: Address,
   guestsAllowed: number,
   checkIn: any,
   checkOut: any,
@@ -11,7 +11,7 @@ export interface Property {
   rooms: number,
   toilets: number,
   description: string,
-  conveniences: string[],
+  conveniences: Conveniences[],
   images: Image[]
   initialDate: Date;
   finalDate: Date;
@@ -32,6 +32,21 @@ export interface Image {
 export interface Login {
   username: string,
   password: string
+}
+
+export interface Address {
+  street: string,
+  number: number,
+  complement: string,
+  postalCode: string,
+  city: string,
+  uf: string,
+  country: string
+}
+
+export interface Conveniences {
+  id: number,
+  name: string
 }
 
 

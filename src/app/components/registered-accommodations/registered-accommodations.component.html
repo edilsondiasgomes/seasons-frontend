@@ -13,4 +13,46 @@
     </div>
 
   </div>
+  <div class="mt-3">
+    <p-table [value]="accomodations" [tableStyle]="{ 'max-width': '90vw' }" dataKey="placeId">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 5rem"></th>
+          <th>ID</th>
+          <th>Imagem</th>
+          <th>Name</th>
+          <th>Endereço</th>
+          <th>Descrição</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-accomodation let-expanded="expanded">
+        <tr>
+          <td class="vertical-align-middle">
+            <button type="button" pButton pRipple [pRowToggler]="accomodation"
+              class="p-button-text p-button-rounded p-button-plain"
+              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <td class="vertical-align-middle">{{ accomodation.placeId }}</td>
+          <td class="vertical-align-middle"><img [src]="accomodation.mainImage" [alt]="accomodation.name" width="100"
+              class="shadow-4" /></td>
+          <td class="vertical-align-middle">{{ accomodation.title }}</td>
+          <td class="vertical-align-middle">{{ accomodation.address.street +', '+ accomodation.address.number + ', '+
+            accomodation.address.city +', ' + accomodation.address.uf}}</td>
+          <td style="max-width: 35vw;" class="vertical-align-middle">{{ accomodation.description }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-accomodation>
+        <tr>
+          <td style="background: #f8f9fa;" colspan="6">
+            <div>
+              <button pButton icon="pi pi-times" class=" ml-5 p-button-rounded p-button-danger p-button-text"></button>
+              <button pButton icon="pi pi-pencil" class="ml-1 p-button-rounded p-button-warning p-button-text"
+                (click)="edit(accomodation)"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
 </div>

@@ -18,7 +18,7 @@ export class LoginComponent {
 
   doLogin() {
     this.loginService.login = this.login;
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/')
   }
 
 }
