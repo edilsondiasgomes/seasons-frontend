@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccomodationsService } from 'src/app/services/accomodations.service';
-import { Accomodation } from 'src/app/shared/models/model';
+import { AccommodationsService } from 'src/app/services/accomodations.service';
+import { Accommodation } from 'src/app/shared/models/model';
+import { AlertService } from './../../services/alert.service';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,7 @@ import { Accomodation } from 'src/app/shared/models/model';
 
 export class HomeComponent implements OnInit {
 
-  accomodations!: Accomodation[];
-  selectedAccomodation!: Accomodation
+  accommodations!: Accommodation[];
   date!: Date;
   minDate!: Date;
   maxDate!: Date;
@@ -31,20 +31,33 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router, private accomodationsService: AccomodationsService) { }
+  constructor(
+    private router: Router,
+    private accommodationsService: AccommodationsService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit() {
     this.minDate = new Date();
     this.setInformations();
   }
 
-  sendDetails(accomodation: Accomodation) {
-    this.accomodationsService.accomodation = accomodation
+  sendDetails(accomodation: Accommodation) {
+    this.accommodationsService.accomodation = accomodation
     this.router.navigate(['details'])
   }
 
   private setInformations() {
-    this.accomodations = this.accomodationsService.accomodations;
+    this.accommodationsService.getAccommodations()
+      .subscribe({
+        next: (success) => {
+          this.accommodations = success;
+          this.accommodationsService.accommodations = success;
+        },
+        error: (error) => {
+          this.alertService.error(error, 'Atenção!')
+        }
+      })
   }
 
 }

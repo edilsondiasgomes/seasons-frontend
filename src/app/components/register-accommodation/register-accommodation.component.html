@@ -22,7 +22,7 @@
       </div>
 
       <div class="col-10 flex flex-column gap-1">
-        <label htmlFor="title">Título da acmoodação</label>
+        <label htmlFor="title">Título da acomodação</label>
         <input pInputText id="title" [(ngModel)]="accomodation.title" />
       </div>
 
@@ -48,8 +48,8 @@
       </div>
 
       <div class="col-5 flex flex-column gap-1">
-        <label htmlFor="name">Bairro</label>
-        <input pInputText id="name" aria-describedby="name" />
+        <label htmlFor="district">Bairro</label>
+        <input pInputText id="district" [(ngModel)]="accomodation.address.district" />
       </div>
 
       <div class="col-5 flex flex-column gap-1">
@@ -128,11 +128,17 @@
         <div class="col-12">
           <label>Fotos </label>
         </div>
-        <p-fileUpload #fileUpload (onSelect)="onSelect($event)" (onUpload)="onUpload($event)" [multiple]="true"
+        <p-fileUpload #fileUpload [showUploadButton]="false" (onSelect)="onSelect($event)" [multiple]="true"
           accept="image/*" [maxFileSize]="1000000" chooseLabel="Escolher fotos" [previewWidth]="150">
           <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
-              <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+              <li *ngFor="let file of uploadedFiles">
+                <div class="flex align-items-center justify-content-between p-3	">
+                  <img style="width: 150px;" [src]="file" alt="Imagem">
+                  <button class="p-button-primary" type="button" icon="pi pi-times" pButton></button>
+                </div>
+              </li>
+
             </ul>
           </ng-template>
         </p-fileUpload>
@@ -155,7 +161,13 @@
       <!-- end-button-salvar -->
     </div>
 
-    <div *ngIf="preview" class="grid col-6 pl-8">
+    <div class="grid col-6 pl-8">
+      <div>
+        <!-- <div *ngIf="base64Result">
+          <p>Resultado Base64:</p>
+          <textarea [value]="base64Result" readonly></textarea>
+        </div> -->
+      </div>
 
     </div>
 

@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccomodationsService } from 'src/app/services/accomodations.service';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 // import { Property } from './../../shared/models/model';
-import { Accomodation } from './../../shared/models/model';
+import { AccommodationsService } from 'src/app/services/accomodations.service';
+import { Accommodation } from './../../shared/models/model';
 
 @Component({
   selector: 'app-details',
@@ -14,7 +14,7 @@ import { Accomodation } from './../../shared/models/model';
 
 export class DetailsComponent implements OnInit {
 
-  accomodation!: Accomodation;
+  accomodation!: Accommodation;
   date!: Date;
 
   responsiveOptions: any[] = [
@@ -32,10 +32,10 @@ export class DetailsComponent implements OnInit {
     }
   ];
 
-  constructor(private accomodationsService: AccomodationsService, private router: Router, private location: Location) { }
+  constructor(private accommodationsService: AccommodationsService, private router: Router, private location: Location) { }
 
   ngOnInit(): void {
-    this.accomodation = this.accomodationsService.accomodation
+    this.accomodation = this.accommodationsService.accomodation
     this.accomodation.initialDate = new Date();
     this.accomodation.finalDate = new Date();
     this.accomodation.guests = 1
@@ -46,7 +46,7 @@ export class DetailsComponent implements OnInit {
   }
 
   requestReservation() {
-    this.accomodationsService.accomodation = this.accomodation
+    this.accommodationsService.accomodation = this.accomodation
     this.router.navigateByUrl('/reservation')
   }
 

@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Acomodações cadastradas',
         icon: 'fa-solid fa-house-chimney',
-        routerLink: '/registered-accomodations'
+        routerLink: '/registered-accommodations'
       },
       {
         label: 'Clientes',

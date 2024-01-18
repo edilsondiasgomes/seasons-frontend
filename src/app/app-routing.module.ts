@@ -36,7 +36,7 @@ const routes: Routes = [
     path: 'register-accomodation/:id', component: RegisterAccommodationComponent
   },
   {
-    path: 'registered-accomodations', component: RegisteredAccommodationsComponent
+    path: 'registered-accommodations', component: RegisteredAccommodationsComponent
   }
 ];
 

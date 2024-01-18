@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AccomodationsService } from 'src/app/services/accomodations.service';
-import { Accomodation } from 'src/app/shared/models/model';
+import { AccommodationsService } from 'src/app/services/accomodations.service';
+import { Accommodation } from 'src/app/shared/models/model';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 
 interface City {
@@ -16,15 +16,15 @@ interface City {
 })
 export class ReservationComponent implements OnInit {
 
-  accomodation!: Accomodation;
+  accomodation!: Accommodation;
   cities!: City[];
   selectedCity!: City;
   text!: string
 
-  constructor(private accomodationsService: AccomodationsService, private location: Location) { }
+  constructor(private accommodationsService: AccommodationsService, private location: Location) { }
 
   ngOnInit(): void {
-    this.accomodation = this.accomodationsService.accomodation;
+    this.accomodation = this.accommodationsService.accomodation;
     this.cities = [
       { name: 'PIX', code: 'NY' },
       { name: 'Cartão de crédito', code: 'RM' },

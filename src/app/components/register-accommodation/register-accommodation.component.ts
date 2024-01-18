@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileUpload } from 'primeng/fileupload';
-import { AccomodationsService } from 'src/app/services/accomodations.service';
-import { Accomodation, Address, Conveniences } from 'src/app/shared/models/model';
+import { AccommodationsService } from 'src/app/services/accomodations.service';
+import { Accommodation, Address, Conveniences } from 'src/app/shared/models/model';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 import { AlertService } from './../../services/alert.service';
 import { ConveniencesService } from './../../services/conveniences.service';
@@ -17,15 +17,20 @@ import { ConveniencesService } from './../../services/conveniences.service';
 
 export class RegisterAccommodationComponent implements OnInit {
 
-  accomodation!: Accomodation;
-  conveniences: Conveniences[] = []
+  accomodation!: Accommodation;
   editId!: string | null;
   preview = false;
   initialDate = new Date();
   finalDate = new Date();
+  conveniences: Conveniences[] = []
   selectedConvenience: Conveniences[] = [];
   uploadedFiles: any[] = [];
-  uploadedFilesImage: any[] = [];
+  base64Images: any[] = [];
+
+  base64Result!: string;
+  imgSrc!: any;
+
+
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -47,69 +52,139 @@ export class RegisterAccommodationComponent implements OnInit {
     private location: Location,
     private conveniencesService: ConveniencesService,
     private sanitizer: DomSanitizer,
-    private accomodationsService: AccomodationsService,
+    private accommodationsService: AccommodationsService,
     private activatedRoute: ActivatedRoute,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.accomodation = {} as Accomodation;
+    this.accomodation = {} as Accommodation;
     this.accomodation.address = {} as Address;
-    this.accomodation.conveniences = [];
-    this.conveniences = this.conveniencesService.conveniences
-    this.editAcomodation()
+    this.getConveniences();
+    this.editAcomodation();
   }
 
-  editAcomodation() {
+  private getConveniences() {
+    this.conveniencesService.getConveniences()
+      .subscribe({
+        next: (success) => {
+          this.accomodation.conveniences = [];
+          this.conveniences = success
+        },
+        error: () => { }
+      })
+  }
+
+  private editAcomodation() {
     if (this.activatedRoute) {
       this.activatedRoute.paramMap.subscribe((params) => {
         this.editId = params.get('id')
         if (this.editId) {
-          this.accomodation = this.accomodationsService.accomodation;
-          this.selectedConvenience = this.accomodationsService.accomodation.conveniences
+          this.accomodation = this.accommodationsService.accomodation;
+          this.selectedConvenience = this.accommodationsService.accomodation.conveniences
+          this.accomodation.files.forEach(file =>
+            this.convertBase64ToFile(file)
+          )
         }
+        console.log('uploadedFiles:', this.uploadedFiles);
+
       })
     }
   }
 
-  toGoBack() {
+  public convertBase64ToFile(base64: string): void {
+    const blob = this.base64ToBlob(base64);
+    const file = new File([blob], 'nome_do_arquivo.jpg', { type: 'image/jpeg' });
+    this.imgSrc = URL.createObjectURL(file)
+    this.uploadedFiles.push(this.imgSrc);
+  }
+
+  private base64ToBlob(base64: string): Blob {
+    const binaryString = atob(base64);
+    const length = binaryString.length;
+    const buffer = new ArrayBuffer(length);
+    const view = new Uint8Array(buffer);
+
+    for (let i = 0; i < length; i++) {
+      view[i] = binaryString.charCodeAt(i);
+    }
+
+    return new Blob([buffer], { type: 'image/jpeg' });
+  }
+
+  convertBlobToBase64(blob: Blob): void {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const dataURL = reader.result as string;
+      const base64 = dataURL.split(',')[1];
+      this.base64Images.push(base64);
+    };
+
+    reader.readAsDataURL(blob);
+  }
+
+  public toGoBack() {
     this.location.back();
   }
 
-  findIcon(convenience: string) {
+  public findIcon(convenience: string) {
     return ConvenienceUtils.findIcon(convenience)
   }
 
-  onSelect(event: any) {
-    console.log(this.fileUpload._files);
-    const file2 = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(this.fileUpload._files[0]))
-    // (<any>file2).objectURL = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(this.fileUpload._files[0]))
-    this.uploadedFilesImage.push((<any>file2).changingThisBreaksApplicationSecurity)
-    console.log(this.uploadedFilesImage);
+  public onSelect(event: any) {
+    console.log('onSelect', this.fileUpload._files);
+    const blob = this.fileUpload._files[0];
+    this.convertBlobToBase64(blob)
+    console.log('uploadedFiles:', this.uploadedFiles);
   }
 
-  onUpload(event: any) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-      console.log('caiu aqui');
-    }
+  public onPreview() {
+    // this.alertService.success('itemm salvo com sucesso!')
   }
 
-  onPreview() {
-    this.alertService.save('itemm salvo com sucesso!')
+  // melhorar essa variavel constate
+  private setPetsAllowed(): any {
+    this.accomodation.petsAllowed = this.selectedConvenience.some(item => item.name === 'Pets')
   }
 
-  onSave() {
+  private setConveniences() {
+    this.accomodation.conveniences = [];
     this.selectedConvenience.forEach(item => this.accomodation.conveniences.push(item));
-    console.log('Comodidades do cadastro', this.accomodation.conveniences);
+  }
 
-    this.alertService.confirm('Deseja realmente salver esse item?', 'Atenção!', 'Item salvo com sucesso!', () => {
-      console.log('entrou no confirmed');
+  private setFiles() {
+    if (!this.accomodation.id) {
+      this.accomodation.files = [];
+    }
+    this.fileUpload._files.forEach(file => this.convertBlobToBase64(file))
+    this.base64Images.forEach(file => this.accomodation.files.push(file))
+  }
+
+  public onSave() {
+    this.setConveniences();
+    this.setPetsAllowed();
+    this.setFiles();
+    this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
+
+      if (this.accomodation.id) {
+        this.accommodationsService.putAccommodation(this.accomodation)
+          .subscribe({
+            next: () => {
+              this.alertService.success('item alterado com sucesso!')
+              this.router.navigateByUrl('/registered-accommodations')
+            },
+            error: (error) => { this.alertService.error(error) }
+          })
+      } else {
+        this.accommodationsService.postAccommodation(this.accomodation)
+          .subscribe({
+            next: () => { this.alertService.success('item salvo com sucesso!') },
+            error: (error) => { this.alertService.error(error) }
+          })
+      }
     })
-
-
-
-    this.accomodationsService.accomodations.push(this.accomodation)
 
   }
 }

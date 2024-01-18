@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccomodationsService } from 'src/app/services/accomodations.service';
-import { Accomodation } from './../../shared/models/model';
+import { AccommodationsService } from 'src/app/services/accomodations.service';
+import { AlertService } from './../../services/alert.service';
+import { Accommodation } from './../../shared/models/model';
 
 @Component({
   selector: 'app-registered-accommodations',
@@ -11,26 +12,52 @@ import { Accomodation } from './../../shared/models/model';
 })
 export class RegisteredAccommodationsComponent implements OnInit {
 
-  accomodations!: Accomodation[];
+  accommodations!: Accommodation[];
 
-  constructor(private location: Location, private accomodationsService: AccomodationsService, private router: Router) { }
+  constructor(private location: Location,
+    private accommodationsService: AccommodationsService,
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.getAccomodations();
+    this.getaccommodations();
   }
-
 
   toGoBack() {
     this.location.back();
   }
 
-  getAccomodations() {
-    this.accomodations = this.accomodationsService.accomodations;
+  private getaccommodations() {
+    this.accommodationsService.getAccommodations()
+      .subscribe({
+        next: (success) => {
+          this.accommodations = success;
+        },
+        error: (error) => {
+          this.alertService.error(error, 'Atenção!')
+        }
+      })
   }
 
-  edit(accomodation: Accomodation) {
-    this.accomodationsService.accomodation = accomodation
-    this.router.navigateByUrl('/register-accomodation/' + accomodation.placeId)
+
+  onEdit(accommodation: Accommodation) {
+    this.accommodationsService.accomodation = accommodation
+    this.router.navigateByUrl('/register-accomodation/' + accommodation.id)
   }
 
+  onDelete(id: number) {
+    this.alertService.confirm('Tem certeza que deseja excluir essa acomodação?', 'Atenção!',
+      () => {
+        this.accommodationsService.deleteAccommodation(id)
+          .subscribe({
+            next: () => {
+              this.alertService.success('acomodação excluída com sucesso!')
+              this.getaccommodations();
+            },
+            error: (error) => {
+              this.alertService.error(error)
+            }
+          })
+      })
+  }
 }

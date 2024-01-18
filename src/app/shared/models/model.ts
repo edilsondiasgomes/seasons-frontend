@@ -1,5 +1,5 @@
-export interface Accomodation {
-  placeId: number;
+export interface Accommodation {
+  id: number;
   title: string,
   mainImage: string,
   address: Address,
@@ -12,7 +12,8 @@ export interface Accomodation {
   toilets: number,
   description: string,
   conveniences: Conveniences[],
-  images: Image[]
+  images: Image[],
+  files: any[],
   initialDate: Date;
   finalDate: Date;
   guests: number;
@@ -38,6 +39,7 @@ export interface Address {
   street: string,
   number: number,
   complement: string,
+  district: string,
   postalCode: string,
   city: string,
   uf: string,
