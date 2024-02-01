@@ -106,7 +106,7 @@
           <!-- imagem-principal -->
           <div>
             <img style=" border-radius: 5px; width: 15rem;     aspect-ratio: 4/3;
-            object-fit: cover;" alt="'" [src]="accomodation.images[0].itemImage">
+            object-fit: cover;" alt="'" [src]="accomodation.mainImage">
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
         <h3 class="sub-header" style="color: #4ecbd3;">Comodidades</h3>
         <hr style="height: 1px; background-color: #ebebeb;border: none;">
         <div class="flex flex-direction-row align-items-center flex-wrap">
-          <div *ngFor="let convenience of accomodation.conveniences">
+          <div *ngFor="let convenience of accomodation.conveniencesPlace">
             <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
               <i class={{findIcon(convenience.name)}}></i>
               <p style="color:#222121b8;" class="ml-1">{{convenience.name}}</p>

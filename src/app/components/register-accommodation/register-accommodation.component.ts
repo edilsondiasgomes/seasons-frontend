@@ -1,13 +1,14 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUpload } from 'primeng/fileupload';
 import { AccommodationsService } from 'src/app/services/accomodations.service';
-import { Accommodation, Address, Conveniences } from 'src/app/shared/models/model';
+import { Accommodation, Address } from 'src/app/shared/models/model';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 import { AlertService } from './../../services/alert.service';
 import { ConveniencesService } from './../../services/conveniences.service';
+
 
 @Component({
   selector: 'app-register-accommodation',
@@ -22,14 +23,11 @@ export class RegisterAccommodationComponent implements OnInit {
   preview = false;
   initialDate = new Date();
   finalDate = new Date();
-  conveniences: Conveniences[] = []
-  selectedConvenience: Conveniences[] = [];
-  uploadedFiles: any[] = [];
-  base64Images: any[] = [];
-
-  base64Result!: string;
-  imgSrc!: any;
-
+  conveniences!: FormArray;
+  selectedConvenience!: FormArray
+  images: any[] = [];
+  base64Files: any[] = [];
+  accomodationForm!: FormGroup;
 
   responsiveOptions: any[] = [
     {
@@ -51,29 +49,82 @@ export class RegisterAccommodationComponent implements OnInit {
   constructor(
     private location: Location,
     private conveniencesService: ConveniencesService,
-    private sanitizer: DomSanitizer,
     private accommodationsService: AccommodationsService,
     private activatedRoute: ActivatedRoute,
     private alertService: AlertService,
     private router: Router,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.accomodation = {} as Accommodation;
     this.accomodation.address = {} as Address;
+    this.accomodation.files = [];
+    this.createForm();
     this.getConveniences();
     this.editAcomodation();
+  }
+
+  public createForm() {
+
+    this.conveniences = this.formBuilder.array([])
+
+    this.selectedConvenience = this.formBuilder.array([])
+
+    this.accomodationForm = this.formBuilder.group({
+      id: [''],
+      title: [''],
+      mainImage: [''],
+      address: this.formBuilder.group({
+        street: [''],
+        number: [''],
+        complement: [''],
+        district: [''],
+        postalCode: [''],
+        city: [''],
+        uf: [''],
+        country: ['']
+      }),
+      guestsAllowed: [''],
+      checkIn: [''],
+      checkOut: [''],
+      petsAllowed: [false],
+      parking: [false],
+      rooms: [''],
+      toilets: [''],
+      description: [''],
+      conveniencesPlace: this.conveniences,
+      files: this.formBuilder.array([]),
+      initialDate: [new Date()],
+      finalDate: [new Date()],
+      guests: [''],
+      cleaningFee: [''],
+      totalCleaningFee: [''],
+      dailyRate: [''],
+      totalDailyRate: [''],
+      quantityDaily: [''],
+      amount: [''],
+
+    })
+
   }
 
   private getConveniences() {
     this.conveniencesService.getConveniences()
       .subscribe({
         next: (success) => {
-          this.accomodation.conveniences = [];
-          this.conveniences = success
+          this.accomodation.conveniencesPlace = [];
+          this.conveniences
+          console.log(this.conveniences.value);
+
+          // this.conveniences = success
         },
         error: () => { }
       })
+  }
+
+  public findIcon(convenience: string) {
+    return ConvenienceUtils.findIcon(convenience)
   }
 
   private editAcomodation() {
@@ -82,109 +133,95 @@ export class RegisterAccommodationComponent implements OnInit {
         this.editId = params.get('id')
         if (this.editId) {
           this.accomodation = this.accommodationsService.accomodation;
-          this.selectedConvenience = this.accommodationsService.accomodation.conveniences
-          this.accomodation.files.forEach(file =>
-            this.convertBase64ToFile(file)
+          // this.selectedConvenience = this.accommodationsService.accomodation.conveniences
+          this.accomodation.files.forEach(file => {
+            this.images.push(file)
+          }
           )
         }
-        console.log('uploadedFiles:', this.uploadedFiles);
-
       })
     }
   }
 
-  public convertBase64ToFile(base64: string): void {
-    const blob = this.base64ToBlob(base64);
-    const file = new File([blob], 'nome_do_arquivo.jpg', { type: 'image/jpeg' });
-    this.imgSrc = URL.createObjectURL(file)
-    this.uploadedFiles.push(this.imgSrc);
-  }
+  public onSelectImage(event: any) {
+    const file = event.files?.[0] as Blob;
 
-  private base64ToBlob(base64: string): Blob {
-    const binaryString = atob(base64);
-    const length = binaryString.length;
-    const buffer = new ArrayBuffer(length);
-    const view = new Uint8Array(buffer);
-
-    for (let i = 0; i < length; i++) {
-      view[i] = binaryString.charCodeAt(i);
-    }
-
-    return new Blob([buffer], { type: 'image/jpeg' });
-  }
-
-  convertBlobToBase64(blob: Blob): void {
     const reader = new FileReader();
+    reader.onload = (e) => {
+      this.images.push(e.target?.result as string)
+      this.fileUpload.clear()
+    }
+    reader.readAsDataURL(file)
+  }
 
-    reader.onload = () => {
-      const dataURL = reader.result as string;
-      const base64 = dataURL.split(',')[1];
-      this.base64Images.push(base64);
-    };
+  public deleteImage(file: any) {
 
-    reader.readAsDataURL(blob);
+    const i = this.images?.indexOf(file)
+    this.images.splice(i, 1)
+
+    const i2 = this.accomodation.files?.indexOf(file)
+    this.accomodation.files.splice(i2, 1)
+  }
+
+  private setImages() {
+
+    this.images.forEach(file => {
+      if (this.accomodation?.files?.length === 0) {
+        this.accomodation.files = [];
+        this.accomodation.files.push(file)
+      } else {
+        const isExistingFile = this.accomodation?.files?.some(existingFile => existingFile === file)
+        if (!isExistingFile) {
+          this.accomodation.files.push(file)
+        }
+      }
+    }
+    )
+  }
+
+  // melhorar essa variavel constante
+  private setPetsAllowed(): any {
+    // this.accomodation.petsAllowed = this.selectedConvenience.some(item => item.name === 'Pets')
+  }
+
+  private setConveniences() {
+    this.accomodation.conveniencesPlace = [];
+    // this.selectedConvenience.forEach(item => this.accomodation.conveniences.push(item));
+  }
+
+  // public onPreview() {
+  //   this.alertService.success('itemm salvo com sucesso!')
+  // }
+
+  public onSave() {
+    console.log(this.accomodationForm);
+
+    // this.setImages();
+    // this.setConveniences();
+    // this.setPetsAllowed();
+    // this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
+
+    //   if (this.accomodation.id) {
+    //     this.accommodationsService.putAccommodation(this.accomodation)
+    //       .subscribe({
+    //         next: () => {
+    //           this.alertService.success('item alterado com sucesso!')
+    //           this.router.navigateByUrl('/registered-accommodations')
+    //         },
+    //         error: (error) => { this.alertService.error(error) }
+    //       })
+    //   } else {
+    //     this.accommodationsService.postAccommodation(this.accomodation)
+    //       .subscribe({
+    //         next: () => { this.alertService.success('item salvo com sucesso!') },
+    //         error: (error) => { this.alertService.error(error) }
+    //       })
+    //   }
+    // })
+
   }
 
   public toGoBack() {
     this.location.back();
-  }
-
-  public findIcon(convenience: string) {
-    return ConvenienceUtils.findIcon(convenience)
-  }
-
-  public onSelect(event: any) {
-    console.log('onSelect', this.fileUpload._files);
-    const blob = this.fileUpload._files[0];
-    this.convertBlobToBase64(blob)
-    console.log('uploadedFiles:', this.uploadedFiles);
-  }
-
-  public onPreview() {
-    // this.alertService.success('itemm salvo com sucesso!')
-  }
-
-  // melhorar essa variavel constate
-  private setPetsAllowed(): any {
-    this.accomodation.petsAllowed = this.selectedConvenience.some(item => item.name === 'Pets')
-  }
-
-  private setConveniences() {
-    this.accomodation.conveniences = [];
-    this.selectedConvenience.forEach(item => this.accomodation.conveniences.push(item));
-  }
-
-  private setFiles() {
-    if (!this.accomodation.id) {
-      this.accomodation.files = [];
-    }
-    this.fileUpload._files.forEach(file => this.convertBlobToBase64(file))
-    this.base64Images.forEach(file => this.accomodation.files.push(file))
-  }
-
-  public onSave() {
-    this.setConveniences();
-    this.setPetsAllowed();
-    this.setFiles();
-    this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
-
-      if (this.accomodation.id) {
-        this.accommodationsService.putAccommodation(this.accomodation)
-          .subscribe({
-            next: () => {
-              this.alertService.success('item alterado com sucesso!')
-              this.router.navigateByUrl('/registered-accommodations')
-            },
-            error: (error) => { this.alertService.error(error) }
-          })
-      } else {
-        this.accommodationsService.postAccommodation(this.accomodation)
-          .subscribe({
-            next: () => { this.alertService.success('item salvo com sucesso!') },
-            error: (error) => { this.alertService.error(error) }
-          })
-      }
-    })
-
   }
 }

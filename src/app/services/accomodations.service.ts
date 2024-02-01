@@ -33,5 +33,31 @@ export class AccommodationsService {
     return this.httpClient.delete<Accommodation>(`${this.URL}/accommodations/${id}`)
   }
 
+  public getDownloadPIX(): Observable<any> {
+
+    const headers = new HttpHeaders();
+    headers.append('Authorization', 'Basic ');
+    headers.append('Content-Type', 'application/json');
+
+    const bodi = {
+      document: '39120653816',
+      value: 15.54,
+      personType: 'PF',
+      name: 'Edilson Dias',
+      bankId: 237,
+      agency: 3183,
+      agencyDigit: '',
+      account: 1014254,
+      accountDigit: '7',
+      accountType: 'não',
+      integrationId: '98af5da4-0324-4c31-a736-6be2b6ec1473',
+      status: 'FINALIZADO',
+      transactionCode: 'HGHDHDGHGHJFGHJFFJFJGKJGJHGJKGYHJHG',
+      transferDate: '2023-11-23T15:36:42.411',
+      scheduledReturn: 'retorno'
+    }
+    return this.httpClient.post<any>('http://35.247.249.223:9099/v1/reports/cashouts/pdf', bodi, { headers })
+  }
+
 
 }

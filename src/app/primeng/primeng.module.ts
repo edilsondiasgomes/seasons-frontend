@@ -13,16 +13,17 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    RadioButtonModule,
     InputMaskModule,
     FileUploadModule,
     InputTextareaModule,
@@ -43,6 +44,7 @@ import { TooltipModule } from 'primeng/tooltip';
   ],
   exports: [
     ButtonModule,
+    RadioButtonModule,
     InputMaskModule,
     FileUploadModule,
     InputTextareaModule,

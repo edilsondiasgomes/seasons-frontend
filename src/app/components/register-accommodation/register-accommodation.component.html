@@ -16,97 +16,98 @@
 
   <div class="grid">
 
-    <div class="grid col-6">
+    <div [formGroup]="accomodationForm" class="grid col-6">
       <div class="col-12 mt-3">
         <hr style="height: 1px; background-color: #ebebeb;border: none;">
       </div>
 
       <div class="col-10 flex flex-column gap-1">
         <label htmlFor="title">Título da acomodação</label>
-        <input pInputText id="title" [(ngModel)]="accomodation.title" />
+        <input pInputText id="title" formControlName="title" />
       </div>
 
       <div class="col-2 flex flex-column gap-1">
         <label for="dailyRate">Valor diária</label>
-        <p-inputNumber [(ngModel)]="accomodation.dailyRate" inputId="dailyRate" mode="decimal" locale="pt-BR"
+        <p-inputNumber formControlName="dailyRate" inputId="dailyRate" mode="decimal" locale="pt-BR"
           [minFractionDigits]="2"> </p-inputNumber>
       </div>
 
-      <div class="col-3 flex flex-column gap-1">
-        <label htmlFor="cep">CEP</label>
-        <input pInputText id="cep" [(ngModel)]="accomodation.address.postalCode" />
-      </div>
+      <div class="grid" formGroupName="address">
 
-      <div class="col-9 flex flex-column gap-1">
-        <label htmlFor="endereço">Endereço</label>
-        <input pInputText id="endereço" [(ngModel)]="accomodation.address.street" />
-      </div>
 
-      <div class="col-2 flex flex-column gap-1">
-        <label htmlFor="number">Número</label>
-        <input pInputText id="number" [(ngModel)]="accomodation.address.number" />
-      </div>
+        <div class="col-3 flex flex-column gap-1">
+          <label htmlFor="cep">CEP</label>
+          <input pInputText id="cep" formControlName="postalCode" />
+        </div>
 
-      <div class="col-5 flex flex-column gap-1">
-        <label htmlFor="district">Bairro</label>
-        <input pInputText id="district" [(ngModel)]="accomodation.address.district" />
-      </div>
+        <div class="col-9 flex flex-column gap-1">
+          <label htmlFor="endereço">Endereço</label>
+          <input pInputText id="endereço" formControlName="street" />
+        </div>
 
-      <div class="col-5 flex flex-column gap-1">
-        <label htmlFor="complemento">Complemento</label>
-        <input pInputText id="complemento" [(ngModel)]="accomodation.address.complement" />
-      </div>
+        <div class="col-2 flex flex-column gap-1">
+          <label htmlFor="number">Número</label>
+          <input pInputText id="number" formControlName="number" />
+        </div>
 
-      <div class="col-10 flex flex-column gap-1">
-        <label htmlFor="city">Cidade</label>
-        <input pInputText id="city" aria-describedby="city" [(ngModel)]="accomodation.address.city" />
-      </div>
+        <div class="col-5 flex flex-column gap-1">
+          <label htmlFor="district">Bairro</label>
+          <input pInputText id="district" formControlName="district" />
+        </div>
 
-      <div class="col-2 flex flex-column gap-1">
-        <label htmlFor="uf">UF</label>
-        <input pInputText id="uf" aria-describedby="uf" [(ngModel)]="accomodation.address.uf" />
+        <div class="col-5 flex flex-column gap-1">
+          <label htmlFor="complemento">Complemento</label>
+          <input pInputText id="complemento" formControlName="complement" />
+        </div>
+
+        <div class="col-10 flex flex-column gap-1">
+          <label htmlFor="city">Cidade</label>
+          <input pInputText id="city" aria-describedby="city" formControlName="city" />
+        </div>
+
+        <div class="col-2 flex flex-column gap-1">
+          <label htmlFor="uf">UF</label>
+          <input pInputText id="uf" aria-describedby="uf" formControlName="uf" />
+        </div>
       </div>
 
       <div class="col-4 flex flex-column gap-1">
         <label htmlFor="guestsAllowed">Hóspedes</label>
-        <p-inputNumber suffix=" Hóspedes" [min]="0" [(ngModel)]="accomodation.guestsAllowed" [showButtons]="true"
+        <p-inputNumber suffix=" Hóspedes" [min]="0" formControlName="guestsAllowed" [showButtons]="true"
           inputId="guestsAllowed"> </p-inputNumber>
       </div>
 
       <div class="col-4 flex flex-column gap-1">
         <label htmlFor="rooms">Quartos</label>
-        <p-inputNumber suffix=" Quartos" [min]="0" [(ngModel)]="accomodation.rooms" [showButtons]="true"
-          inputId="rooms">
+        <p-inputNumber suffix=" Quartos" [min]="0" formControlName="rooms" [showButtons]="true" inputId="rooms">
         </p-inputNumber>
       </div>
 
       <div class="col-4 flex flex-column gap-1">
         <label htmlFor="toilets">Banheiros</label>
-        <p-inputNumber suffix=" Banheiros" [min]="0" [(ngModel)]="accomodation.toilets" [showButtons]="true"
-          inputId="toilets">
+        <p-inputNumber suffix=" Banheiros" [min]="0" formControlName="toilets" [showButtons]="true" inputId="toilets">
         </p-inputNumber>
       </div>
 
       <div class="col-5 flex flex-column gap-1">
         <label htmlFor="check-in">Check-in</label>
-        <p-inputMask [(ngModel)]="accomodation.checkIn" mask="99:99" slotChar="_" placeholder="HH:MM"></p-inputMask>
+        <p-inputMask formControlName="checkIn" mask="99:99" slotChar="_" placeholder="HH:MM"></p-inputMask>
       </div>
 
       <div class="col-5 flex flex-column gap-1">
         <label htmlFor="check-in">Check-out</label>
-        <p-inputMask [(ngModel)]="accomodation.checkOut" mask="99:99" slotChar="_" placeholder="HH:MM"></p-inputMask>
+        <p-inputMask formControlName="checkOut" mask="99:99" slotChar="_" placeholder="HH:MM"></p-inputMask>
       </div>
 
       <div class="col-2 flex flex-column gap-1">
         <label for="cleaningFee">Taxa limpeza</label>
-        <p-inputNumber [(ngModel)]="accomodation.cleaningFee" inputId="cleaningFee" mode="decimal" locale="pt-BR"
+        <p-inputNumber formControlName="cleaningFee" inputId="cleaningFee" mode="decimal" locale="pt-BR"
           [minFractionDigits]="2"> </p-inputNumber>
       </div>
 
       <div class="col-12 flex flex-column gap-1">
         <label>Descrição </label>
-        <textarea rows="5" cols="73" pInputTextarea [autoResize]="true"
-          [(ngModel)]="accomodation.description"></textarea>
+        <textarea rows="5" cols="73" pInputTextarea [autoResize]="true" formControlName="description"></textarea>
       </div>
 
       <!-- check-box comodidades -->
@@ -115,63 +116,66 @@
           <label>Comodidades </label>
         </div>
 
-        <div *ngFor="let convenience of conveniences" class="field-checkbox">
-          <p-checkbox name="group" [value]="convenience" [(ngModel)]="selectedConvenience"
-            [inputId]="convenience.name"></p-checkbox>
-          <label class="mr-3" [for]="convenience.name">{{ convenience.name }}</label>
+
+        <div formArrayName="conveniences" *ngFor="let convenience of conveniences.controls" class="field-checkbox">
+          <p-checkbox name="group" [value]="convenience" formControlName="selectedConvenience"
+            [inputId]="convenience.value.name"></p-checkbox>
+          <label class="mr-3" [for]="convenience.value.name">{{ convenience.value.name }}</label>
         </div>
       </div>
       <!-- end-check-box-comodidades -->
 
       <!-- upload-fotos -->
       <div class="col-12">
-        <div class="col-12">
-          <label>Fotos </label>
-        </div>
-        <p-fileUpload #fileUpload [showUploadButton]="false" (onSelect)="onSelect($event)" [multiple]="true"
-          accept="image/*" [maxFileSize]="1000000" chooseLabel="Escolher fotos" [previewWidth]="150">
-          <ng-template pTemplate="content">
-            <ul *ngIf="uploadedFiles.length">
-              <li *ngFor="let file of uploadedFiles">
-                <div class="flex align-items-center justify-content-between p-3	">
-                  <img style="width: 150px;" [src]="file" alt="Imagem">
-                  <button class="p-button-primary" type="button" icon="pi pi-times" pButton></button>
+
+        <p-card header="Fotos">
+
+          <div class="flex flex-column">
+            <p-fileUpload #fileUpload mode="basic" chooseLabel="Escolher foto" (onSelect)="onSelectImage($event)"
+              accept="image/*"></p-fileUpload>
+
+            <div class="mt-3 flex flex-row align-items-center	" *ngFor="let image of images; let i = index">
+              <img style="width: 150px;" [src]="image" alt="Imagem">
+
+              <div class="flex flex-column justify-content-between	">
+                <div class="mb-5">
+                  <p-radioButton class="ml-3" name="mainImage" [value]="image" formControlName="mainImage"
+                    inputId="mainImage"></p-radioButton>
+                  <label for="mainImage" class="ml-2">Imagem principal</label>
                 </div>
-              </li>
 
-            </ul>
-          </ng-template>
-        </p-fileUpload>
-      </div>
-      <!-- end-upload-fotos -->
+                <button class="p-button-primary ml-3" type="button" icon="pi pi-times" (click)="deleteImage(image)"
+                  pButton></button>
+              </div>
+            </div>
+          </div>
+        </p-card>
+        <!-- end-upload-fotos -->
 
-      <!-- button-visualizar -->
-      <div style="text-align: center; " class="col-12 mt-3 ">
+        <!-- button-visualizar -->
+        <!-- <div style="text-align: center; " class="col-12 mt-3 ">
         <button class="p-button-secondary" type="button"
           style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;" (click)="onPreview()"
           pButton>Visualizar</button>
-      </div>
-      <!-- end-button-visualizar -->
+      </div> -->
+        <!-- end-button-visualizar -->
 
-      <!-- button-salvar -->
-      <div style="text-align: center; " class="col-12 mt-3 ">
-        <button type="button" style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;" pButton
-          (click)="onSave()">Salvar</button>
+        <!-- button-salvar -->
+        <div style="text-align: center; " class="col-12 mt-3 ">
+          <button type="button" style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;"
+            pButton (click)="onSave()">Salvar</button>
+        </div>
+        <!-- end-button-salvar -->
       </div>
-      <!-- end-button-salvar -->
+
+      <div class="grid col-6 pl-8">
+        <div>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="grid col-6 pl-8">
-      <div>
-        <!-- <div *ngIf="base64Result">
-          <p>Resultado Base64:</p>
-          <textarea [value]="base64Result" readonly></textarea>
-        </div> -->
-      </div>
-
-    </div>
 
   </div>
-
-
-</div>

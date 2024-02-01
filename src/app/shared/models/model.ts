@@ -1,7 +1,7 @@
 export interface Accommodation {
   id: number;
   title: string,
-  mainImage: string,
+  mainImage: any,
   address: Address,
   guestsAllowed: number,
   checkIn: any,
@@ -11,8 +11,7 @@ export interface Accommodation {
   rooms: number,
   toilets: number,
   description: string,
-  conveniences: Conveniences[],
-  images: Image[],
+  conveniencesPlace: Conveniences[],
   files: any[],
   initialDate: Date;
   finalDate: Date;
@@ -23,11 +22,6 @@ export interface Accommodation {
   totalDailyRate: number,
   quantityDaily: number;
   amount: number;
-}
-
-export interface Image {
-  itemImage: string,
-  alt: string,
 }
 
 export interface Login {

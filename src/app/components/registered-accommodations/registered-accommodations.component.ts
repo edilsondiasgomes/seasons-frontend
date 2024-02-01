@@ -10,11 +10,13 @@ import { Accommodation } from './../../shared/models/model';
   templateUrl: './registered-accommodations.component.html',
   styleUrls: ['./registered-accommodations.component.scss']
 })
+
 export class RegisteredAccommodationsComponent implements OnInit {
 
   accommodations!: Accommodation[];
 
-  constructor(private location: Location,
+  constructor(
+    private location: Location,
     private accommodationsService: AccommodationsService,
     private router: Router,
     private alertService: AlertService) { }

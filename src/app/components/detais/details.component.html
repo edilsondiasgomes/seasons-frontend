@@ -22,17 +22,17 @@
 
     <div class="col-6 mb-3">
 
-      <p-galleria [value]="accomodation.images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
+      <p-galleria [value]="accomodation.files" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
         [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true"
         [containerStyle]="{ 'max-width': '100%', 'margin-top':'1rem' }">
         <ng-template pTemplate="item" let-item>
-          <img [src]="item.itemImage"
+          <img [src]="item"
             style="height: 27rem; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; display: block; border-radius: 5px"
             alt="imagem" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
           <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.thumbnailImageSrc" style="display: block;" alt="imagem" />
+            <img [src]="item" style="display: block;" alt="imagem" />
           </div>
         </ng-template>
       </p-galleria>
@@ -122,7 +122,7 @@
       <h3 class="sub-header" style="color: #4ecbd3;">Comodidades</h3>
       <hr style="height: 1px; background-color: #ebebeb;border: none;">
       <div class="flex flex-direction-row align-items-center flex-wrap">
-        <div *ngFor="let convenience of accomodation.conveniences">
+        <div *ngFor="let convenience of accomodation.conveniencesPlace">
           <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
             <i class={{findIcon(convenience.name)}}></i>
             <p style="color:#222121b8;" class="ml-1">{{convenience.name}}</p>
