@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUpload } from 'primeng/fileupload';
 import { AccommodationsService } from 'src/app/services/accomodations.service';
@@ -23,10 +23,7 @@ export class RegisterAccommodationComponent implements OnInit {
   preview = false;
   initialDate = new Date();
   finalDate = new Date();
-  conveniences!: FormArray;
-  selectedConvenience!: FormArray
-  images: any[] = [];
-  base64Files: any[] = [];
+  allConveniences: any[] = [];
   accomodationForm!: FormGroup;
 
   responsiveOptions: any[] = [
@@ -60,66 +57,56 @@ export class RegisterAccommodationComponent implements OnInit {
     this.accomodation = {} as Accommodation;
     this.accomodation.address = {} as Address;
     this.accomodation.files = [];
-    this.createForm();
     this.getConveniences();
     this.editAcomodation();
+    this.createForm();
   }
 
   public createForm() {
-
-    this.conveniences = this.formBuilder.array([])
-
-    this.selectedConvenience = this.formBuilder.array([])
-
     this.accomodationForm = this.formBuilder.group({
-      id: [''],
-      title: [''],
-      mainImage: [''],
+      id: [this.accomodation ? this.accomodation.id : ''],
+      title: [this.accomodation ? this.accomodation.title : '', Validators.required],
+      mainImage: [this.accomodation ? this.accomodation.mainImage : ''],
       address: this.formBuilder.group({
-        street: [''],
-        number: [''],
-        complement: [''],
-        district: [''],
-        postalCode: [''],
-        city: [''],
-        uf: [''],
-        country: ['']
+        street: [this.accomodation ? this.accomodation.address.street : ''],
+        number: [this.accomodation ? this.accomodation.address.number : ''],
+        complement: [this.accomodation ? this.accomodation.address.complement : ''],
+        district: [this.accomodation ? this.accomodation.address.district : ''],
+        postalCode: [this.accomodation ? this.accomodation.address.postalCode : ''],
+        city: [this.accomodation ? this.accomodation.address.city : ''],
+        uf: [this.accomodation ? this.accomodation.address.uf : ''],
+        country: [this.accomodation ? this.accomodation.address.country : '']
       }),
-      guestsAllowed: [''],
-      checkIn: [''],
-      checkOut: [''],
-      petsAllowed: [false],
-      parking: [false],
-      rooms: [''],
-      toilets: [''],
-      description: [''],
-      conveniencesPlace: this.conveniences,
+      guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : ''],
+      checkIn: [this.accomodation ? this.accomodation.checkIn : ''],
+      checkOut: [this.accomodation ? this.accomodation.checkOut : ''],
+      petsAllowed: [this.accomodation ? this.accomodation.petsAllowed : false],
+      parking: [this.accomodation ? this.accomodation.parking : false],
+      rooms: [this.accomodation ? this.accomodation.rooms : ''],
+      toilets: [this.accomodation ? this.accomodation.toilets : ''],
+      description: [this.accomodation ? this.accomodation.description : ''],
+      conveniencesPlace: this.formBuilder.array([]),
       files: this.formBuilder.array([]),
       initialDate: [new Date()],
       finalDate: [new Date()],
-      guests: [''],
-      cleaningFee: [''],
-      totalCleaningFee: [''],
-      dailyRate: [''],
-      totalDailyRate: [''],
-      quantityDaily: [''],
-      amount: [''],
-
+      guests: [this.accomodation ? this.accomodation.guests : ''],
+      cleaningFee: [this.accomodation ? this.accomodation.cleaningFee : ''],
+      totalCleaningFee: [this.accomodation ? this.accomodation.totalCleaningFee : ''],
+      dailyRate: [this.accomodation ? this.accomodation.dailyRate : ''],
+      totalDailyRate: [this.accomodation ? this.accomodation.totalDailyRate : ''],
+      quantityDaily: [this.accomodation ? this.accomodation.quantityDaily : ''],
+      amount: [this.accomodation ? this.accomodation.amount : ''],
     })
-
+    this.setFilesIntoFormArray()
   }
 
   private getConveniences() {
     this.conveniencesService.getConveniences()
       .subscribe({
         next: (success) => {
-          this.accomodation.conveniencesPlace = [];
-          this.conveniences
-          console.log(this.conveniences.value);
-
-          // this.conveniences = success
+          this.allConveniences = success
         },
-        error: () => { }
+        error: (error) => { }
       })
   }
 
@@ -133,11 +120,12 @@ export class RegisterAccommodationComponent implements OnInit {
         this.editId = params.get('id')
         if (this.editId) {
           this.accomodation = this.accommodationsService.accomodation;
-          // this.selectedConvenience = this.accommodationsService.accomodation.conveniences
-          this.accomodation.files.forEach(file => {
-            this.images.push(file)
-          }
-          )
+
+          // this.accomodation.conveniences
+          //   .forEach(item => { this.selectedconveniences.push(item) })
+
+          // this.accomodation.files
+          //   .forEach(file => { this.images.push(file) })
         }
       })
     }
@@ -148,45 +136,56 @@ export class RegisterAccommodationComponent implements OnInit {
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      this.images.push(e.target?.result as string)
+      this.getFilesFormArray().push(this.formBuilder.control(e.target?.result as string))
       this.fileUpload.clear()
     }
     reader.readAsDataURL(file)
   }
 
   public deleteImage(file: any) {
+    const i = this.getFilesFormArray().controls?.indexOf(file)
+    this.getFilesFormArray().removeAt(i)
 
-    const i = this.images?.indexOf(file)
-    this.images.splice(i, 1)
-
-    const i2 = this.accomodation.files?.indexOf(file)
-    this.accomodation.files.splice(i2, 1)
+    // const i2 = this.accomodation.files?.indexOf(file)
+    // this.accomodation.files.splice(i2, 1)
   }
 
-  private setImages() {
-
-    this.images.forEach(file => {
-      if (this.accomodation?.files?.length === 0) {
-        this.accomodation.files = [];
-        this.accomodation.files.push(file)
-      } else {
-        const isExistingFile = this.accomodation?.files?.some(existingFile => existingFile === file)
-        if (!isExistingFile) {
-          this.accomodation.files.push(file)
-        }
-      }
-    }
-    )
-  }
+  // private setImages() {
+  //   this.images.forEach(file => {
+  //     if (this.accomodation?.files?.length === 0) {
+  //       this.accomodation.files = [];
+  //       this.accomodation.files.push(file)
+  //     } else {
+  //       const isExistingFile = this.accomodation?.files?.some(existingFile => existingFile === file)
+  //       if (!isExistingFile) {
+  //         this.accomodation.files.push(file)
+  //       }
+  //     }
+  //   }
+  //   )
+  // }
 
   // melhorar essa variavel constante
   private setPetsAllowed(): any {
     // this.accomodation.petsAllowed = this.selectedConvenience.some(item => item.name === 'Pets')
   }
 
+  // public getConveniencesFormArray(): FormArray {
+  //   return this.accomodationForm.get('conveniencesPlace') as FormArray
+  // }
+
   private setConveniences() {
-    this.accomodation.conveniencesPlace = [];
-    // this.selectedConvenience.forEach(item => this.accomodation.conveniences.push(item));
+    const conveniencesPlaceArray = this.accomodationForm.get('conveniencesPlace') as FormArray
+    conveniencesPlaceArray.clear();
+    this.accomodation.conveniencesPlace.forEach(item => conveniencesPlaceArray.push(this.formBuilder.control(item)));
+  }
+
+  public getFilesFormArray(): FormArray {
+    return this.accomodationForm.get('files') as FormArray
+  }
+
+  private setFilesIntoFormArray() {
+    this.accomodation.files.forEach(item => this.getFilesFormArray().push(this.formBuilder.control(item)));
   }
 
   // public onPreview() {
@@ -194,10 +193,11 @@ export class RegisterAccommodationComponent implements OnInit {
   // }
 
   public onSave() {
-    console.log(this.accomodationForm);
 
     // this.setImages();
-    // this.setConveniences();
+    this.setConveniences();
+    console.log(this.accomodationForm.value);
+
     // this.setPetsAllowed();
     // this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
 

@@ -11,7 +11,7 @@ export interface Accommodation {
   rooms: number,
   toilets: number,
   description: string,
-  conveniencesPlace: Conveniences[],
+  conveniencesPlace: Convenience[],
   files: any[],
   initialDate: Date;
   finalDate: Date;
@@ -40,7 +40,7 @@ export interface Address {
   country: string
 }
 
-export interface Conveniences {
+export interface Convenience {
   id: number,
   name: string
 }

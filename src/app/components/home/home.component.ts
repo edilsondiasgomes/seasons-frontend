@@ -42,10 +42,6 @@ export class HomeComponent implements OnInit {
     this.setInformations();
   }
 
-  getDownloadPix() {
-    this.accommodationsService.getDownloadPIX().subscribe(() => { }, () => { })
-  }
-
   sendDetails(accomodation: Accommodation) {
     this.accommodationsService.accomodation = accomodation
     this.router.navigate(['details'])
