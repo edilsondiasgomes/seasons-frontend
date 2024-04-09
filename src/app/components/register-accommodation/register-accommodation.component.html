@@ -24,19 +24,25 @@
       <div class="col-10 flex flex-column gap-1">
         <label htmlFor="title">Título da acomodação</label>
         <input pInputText id="title" formControlName="title" />
+        <span class="message-form-invalid" *ngIf="isInvalidField('title')">
+          Escreva um título de no mínimo 10 caracteres
+        </span>
       </div>
 
       <div class="col-2 flex flex-column gap-1">
         <label for="dailyRate">Valor diária</label>
         <p-inputNumber formControlName="dailyRate" inputId="dailyRate" mode="decimal" locale="pt-BR"
           [minFractionDigits]="2"> </p-inputNumber>
+        <!-- <span class="message-form-invalid" *ngIf="isInvalidField('dailyRate')">
+          Campo obrigatório
+        </span> -->
       </div>
 
       <div class="grid ml-1" formGroupName="address">
 
         <div class="col-3 flex flex-column gap-1">
-          <label htmlFor="cep">CEP</label>
-          <input pInputText id="cep" formControlName="postalCode" />
+          <label htmlFor="postalCode">CEP</label>
+          <input pInputText id="postalCode" formControlName="postalCode" />
         </div>
 
         <div class="col-9 flex flex-column gap-1">
@@ -66,7 +72,7 @@
 
         <div class="col-2 flex flex-column gap-1">
           <label htmlFor="uf">UF</label>
-          <input pInputText id="uf" aria-describedby="uf" formControlName="uf" />
+          <input class="uppercase" pInputText id="uf" aria-describedby="uf" formControlName="uf" />
         </div>
       </div>
 
@@ -107,6 +113,9 @@
       <div class="col-12 flex flex-column gap-1">
         <label>Descrição </label>
         <textarea rows="5" cols="73" pInputTextarea [autoResize]="true" formControlName="description"></textarea>
+        <span class="message-form-invalid" *ngIf="isInvalidField('description')">
+          Escreva uma descrição de no mínimo 200 caracteres
+        </span>
       </div>
 
       <!-- check-box comodidades -->
@@ -121,6 +130,10 @@
               [ngModelOptions]="{standalone: true}" [(ngModel)]="accomodation.conveniencesPlace"></p-checkbox>
             <label class="mr-3" [for]="convenience.name">{{ convenience.name }}</label>
           </div>
+          <span class="col-12 p-0 message-form-invalid"
+            *ngIf="accomodationForm.get('conveniencesPlace')?.touched && accomodationForm.get('conveniencesPlace')?.invalid">
+            Selecione uma comodidade.
+          </span>
         </div>
 
       </div>
@@ -165,6 +178,9 @@
             </div>
           </div>
         </p-card>
+        <span class="message-form-invalid" *ngIf="isInvalidField('files')">
+          Escolha uma foto
+        </span>
         <!-- end-upload-fotos -->
 
         <!-- button-visualizar -->

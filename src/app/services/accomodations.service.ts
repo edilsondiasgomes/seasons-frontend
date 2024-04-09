@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Accommodation } from '../shared/models/model';
+import { Accommodation, Reservation } from '../shared/models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class AccommodationsService {
   private readonly URL = "http://localhost:3000"
   public accommodations!: Accommodation[];
   public accomodation!: Accommodation;
+  public reservation!: Reservation;
 
   constructor(private httpClient: HttpClient) { }
 

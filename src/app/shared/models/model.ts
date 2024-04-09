@@ -6,8 +6,6 @@ export interface Accommodation {
   guestsAllowed: number,
   checkIn: any,
   checkOut: any,
-  petsAllowed: boolean,
-  parking: boolean,
   rooms: number,
   toilets: number,
   description: string,
@@ -15,13 +13,19 @@ export interface Accommodation {
   files: any[],
   initialDate: Date;
   finalDate: Date;
-  guests: number;
   cleaningFee: number,
-  totalCleaningFee: number,
   dailyRate: number,
+}
+
+export interface Reservation {
+  accommodationId: number,
+  initialDate: Date,
+  finalDate: Date,
+  guests: number,
+  quantityDaily: number,
   totalDailyRate: number,
-  quantityDaily: number;
-  amount: number;
+  totalCleaningFee: number
+  amount: number
 }
 
 export interface Login {

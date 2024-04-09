@@ -65,37 +65,30 @@ export class RegisterAccommodationComponent implements OnInit {
   public createForm() {
     this.accomodationForm = this.formBuilder.group({
       id: [this.accomodation ? this.accomodation.id : ''],
-      title: [this.accomodation ? this.accomodation.title : '', Validators.required],
+      title: [this.accomodation ? this.accomodation.title : '', [Validators.required, Validators.minLength(10)]],
       mainImage: [this.accomodation ? this.accomodation.mainImage : ''],
       address: this.formBuilder.group({
-        street: [this.accomodation ? this.accomodation.address.street : ''],
-        number: [this.accomodation ? this.accomodation.address.number : ''],
+        street: [this.accomodation ? this.accomodation.address.street : '', Validators.required],
+        number: [this.accomodation ? this.accomodation.address.number : '', Validators.required],
         complement: [this.accomodation ? this.accomodation.address.complement : ''],
-        district: [this.accomodation ? this.accomodation.address.district : ''],
-        postalCode: [this.accomodation ? this.accomodation.address.postalCode : ''],
-        city: [this.accomodation ? this.accomodation.address.city : ''],
-        uf: [this.accomodation ? this.accomodation.address.uf : ''],
-        country: [this.accomodation ? this.accomodation.address.country : '']
+        district: [this.accomodation ? this.accomodation.address.district : '', Validators.required],
+        postalCode: [this.accomodation ? this.accomodation.address.postalCode : '', Validators.required],
+        city: [this.accomodation ? this.accomodation.address.city : '', Validators.required],
+        uf: [this.accomodation ? this.accomodation.address.uf.toUpperCase() : ''.toUpperCase(), Validators.required],
+        country: [this.accomodation ? this.accomodation.address.country : 'Brasil']
       }),
-      guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : ''],
-      checkIn: [this.accomodation ? this.accomodation.checkIn : ''],
-      checkOut: [this.accomodation ? this.accomodation.checkOut : ''],
-      petsAllowed: [this.accomodation ? this.accomodation.petsAllowed : false],
-      parking: [this.accomodation ? this.accomodation.parking : false],
-      rooms: [this.accomodation ? this.accomodation.rooms : ''],
-      toilets: [this.accomodation ? this.accomodation.toilets : ''],
-      description: [this.accomodation ? this.accomodation.description : ''],
-      conveniencesPlace: this.formBuilder.array([]),
-      files: this.formBuilder.array([]),
+      guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : '', Validators.required],
+      checkIn: [this.accomodation ? this.accomodation.checkIn : '', Validators.required],
+      checkOut: [this.accomodation ? this.accomodation.checkOut : '', Validators.required],
+      rooms: [this.accomodation ? this.accomodation.rooms : '', Validators.required],
+      toilets: [this.accomodation ? this.accomodation.toilets : '', Validators.required],
+      description: [this.accomodation ? this.accomodation.description : '', [Validators.required, Validators.minLength(200)]],
+      conveniencesPlace: this.formBuilder.array([], Validators.required),
+      files: this.formBuilder.array([], Validators.required),
       initialDate: [new Date()],
       finalDate: [new Date()],
-      guests: [this.accomodation ? this.accomodation.guests : ''],
-      cleaningFee: [this.accomodation ? this.accomodation.cleaningFee : ''],
-      totalCleaningFee: [this.accomodation ? this.accomodation.totalCleaningFee : ''],
-      dailyRate: [this.accomodation ? this.accomodation.dailyRate : ''],
-      totalDailyRate: [this.accomodation ? this.accomodation.totalDailyRate : ''],
-      quantityDaily: [this.accomodation ? this.accomodation.quantityDaily : ''],
-      amount: [this.accomodation ? this.accomodation.amount : ''],
+      cleaningFee: [this.accomodation ? this.accomodation.cleaningFee : '', Validators.required],
+      dailyRate: [this.accomodation ? this.accomodation.dailyRate : '', Validators.required],
     })
     this.setFilesIntoFormArray()
   }
@@ -120,12 +113,6 @@ export class RegisterAccommodationComponent implements OnInit {
         this.editId = params.get('id')
         if (this.editId) {
           this.accomodation = this.accommodationsService.accomodation;
-
-          // this.accomodation.conveniences
-          //   .forEach(item => { this.selectedconveniences.push(item) })
-
-          // this.accomodation.files
-          //   .forEach(file => { this.images.push(file) })
         }
       })
     }
@@ -146,38 +133,13 @@ export class RegisterAccommodationComponent implements OnInit {
     const i = this.getFilesFormArray().controls?.indexOf(file)
     this.getFilesFormArray().removeAt(i)
 
-    // const i2 = this.accomodation.files?.indexOf(file)
-    // this.accomodation.files.splice(i2, 1)
   }
-
-  // private setImages() {
-  //   this.images.forEach(file => {
-  //     if (this.accomodation?.files?.length === 0) {
-  //       this.accomodation.files = [];
-  //       this.accomodation.files.push(file)
-  //     } else {
-  //       const isExistingFile = this.accomodation?.files?.some(existingFile => existingFile === file)
-  //       if (!isExistingFile) {
-  //         this.accomodation.files.push(file)
-  //       }
-  //     }
-  //   }
-  //   )
-  // }
-
-  // melhorar essa variavel constante
-  private setPetsAllowed(): any {
-    // this.accomodation.petsAllowed = this.selectedConvenience.some(item => item.name === 'Pets')
-  }
-
-  // public getConveniencesFormArray(): FormArray {
-  //   return this.accomodationForm.get('conveniencesPlace') as FormArray
-  // }
 
   private setConveniences() {
     const conveniencesPlaceArray = this.accomodationForm.get('conveniencesPlace') as FormArray
     conveniencesPlaceArray.clear();
-    this.accomodation.conveniencesPlace.forEach(item => conveniencesPlaceArray.push(this.formBuilder.control(item)));
+    if (this.accomodation.conveniencesPlace)
+      this.accomodation.conveniencesPlace.forEach(item => conveniencesPlaceArray.push(this.formBuilder.control(item)));
   }
 
   public getFilesFormArray(): FormArray {
@@ -188,36 +150,62 @@ export class RegisterAccommodationComponent implements OnInit {
     this.accomodation.files.forEach(item => this.getFilesFormArray().push(this.formBuilder.control(item)));
   }
 
+  private validateForm() {
+    Object.keys(this.accomodationForm.controls).forEach(field => {
+      const control = this.accomodationForm.get(field)
+      control?.markAsDirty()
+      control?.markAsTouched();
+    })
+
+    const address = this.accomodationForm.get('address') as FormGroup
+    Object.keys(address.controls).forEach(field => {
+      const control = address.get(field)
+      control?.markAsDirty()
+      control?.markAsTouched();
+    })
+
+  }
+
+  public isInvalidField(field: string): boolean {
+    if (this.accomodationForm.get(field)?.touched && this.accomodationForm.get(field)?.invalid) {
+      return true
+    }
+    return false
+  }
+
   // public onPreview() {
   //   this.alertService.success('itemm salvo com sucesso!')
   // }
 
   public onSave() {
-
-    // this.setImages();
     this.setConveniences();
-    console.log(this.accomodationForm.value);
+    this.validateForm();
+    if (!this.accomodationForm.valid) {
+      return this.alertService.error('Preencha os campos obrigatórios')
+    }
 
-    // this.setPetsAllowed();
-    // this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
+    console.log(this.accomodationForm.value.address.uf);
 
-    //   if (this.accomodation.id) {
-    //     this.accommodationsService.putAccommodation(this.accomodation)
-    //       .subscribe({
-    //         next: () => {
-    //           this.alertService.success('item alterado com sucesso!')
-    //           this.router.navigateByUrl('/registered-accommodations')
-    //         },
-    //         error: (error) => { this.alertService.error(error) }
-    //       })
-    //   } else {
-    //     this.accommodationsService.postAccommodation(this.accomodation)
-    //       .subscribe({
-    //         next: () => { this.alertService.success('item salvo com sucesso!') },
-    //         error: (error) => { this.alertService.error(error) }
-    //       })
-    //   }
-    // })
+
+    this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
+
+      if (this.accomodation.id) {
+        this.accommodationsService.putAccommodation(this.accomodationForm.value)
+          .subscribe({
+            next: () => {
+              this.alertService.success('item alterado com sucesso!')
+              this.router.navigateByUrl('/registered-accommodations')
+            },
+            error: (error) => { this.alertService.error(error) }
+          })
+      } else {
+        this.accommodationsService.postAccommodation(this.accomodationForm.value)
+          .subscribe({
+            next: () => { this.alertService.success('item salvo com sucesso!') },
+            error: (error) => { this.alertService.error(error) }
+          })
+      }
+    })
 
   }
 

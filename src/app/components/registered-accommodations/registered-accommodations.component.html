@@ -26,13 +26,13 @@
           <th>Descrição</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-accomodation let-expanded="expanded">
+      <ng-template pTemplate="body" let-accomodation>
         <tr>
-          <td class="vertical-align-middle">
+          <!-- <td class="vertical-align-middle">
             <button type="button" pButton pRipple [pRowToggler]="accomodation"
               class="p-button-text p-button-rounded p-button-plain"
               [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-          </td>
+          </td> -->
           <td class="vertical-align-middle">{{ accomodation.id }}</td>
           <td class="vertical-align-middle"><img [src]="accomodation.mainImage" [alt]="accomodation.name" width="100"
               class="shadow-4" /></td>
@@ -41,10 +41,19 @@
             accomodation.address.city +', ' + accomodation.address.uf}}</td>
           <td class="vertical-align-middle">{{ accomodation.dailyRate | currency: 'BRL' }}
           </td>
-          <td style="max-width: 35vw;" class="vertical-align-middle">{{ accomodation.description }}</td>
+          <td style="max-width: 35vw;     word-wrap: break-word;" class="vertical-align-middle">{{
+            accomodation.description }}</td>
+          <td class="vertical-align-middle">
+            <div class="flex flex-direction-row">
+              <button pButton icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text"
+                (click)="onDelete(accomodation.id)"></button>
+              <button pButton icon="pi pi-pencil" class="ml-1 p-button-rounded p-button-warning p-button-text"
+                (click)="onEdit(accomodation)"></button>
+            </div>
+          </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="rowexpansion" let-accomodation>
+      <!-- <ng-template pTemplate="rowexpansion" let-accomodation>
         <tr>
           <td style="background: #f8f9fa;" colspan="7">
             <div>
@@ -55,7 +64,7 @@
             </div>
           </td>
         </tr>
-      </ng-template>
+      </ng-template> -->
     </p-table>
   </div>
 

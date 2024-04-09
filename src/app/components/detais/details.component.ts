@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 // import { Property } from './../../shared/models/model';
 import { AccommodationsService } from 'src/app/services/accomodations.service';
-import { Accommodation } from './../../shared/models/model';
+import { Accommodation, Reservation } from './../../shared/models/model';
 
 @Component({
   selector: 'app-details',
@@ -15,7 +15,10 @@ import { Accommodation } from './../../shared/models/model';
 export class DetailsComponent implements OnInit {
 
   accomodation!: Accommodation;
+  reservation!: Reservation;
   date!: Date;
+  private readonly MINIMUM_GUESTS = 1;
+
 
   responsiveOptions: any[] = [
     {
@@ -35,10 +38,14 @@ export class DetailsComponent implements OnInit {
   constructor(private accommodationsService: AccommodationsService, private router: Router, private location: Location) { }
 
   ngOnInit(): void {
+
     this.accomodation = this.accommodationsService.accomodation
-    this.accomodation.initialDate = new Date();
-    this.accomodation.finalDate = new Date();
-    this.accomodation.guests = 1
+
+    this.reservation = {} as Reservation;
+    this.reservation.accommodationId = this.accommodationsService.accomodation.id
+    this.reservation.initialDate = new Date();
+    this.reservation.finalDate = new Date();
+    this.reservation.guests = this.MINIMUM_GUESTS;
   }
 
   findIcon(convenience: string) {
@@ -46,7 +53,7 @@ export class DetailsComponent implements OnInit {
   }
 
   requestReservation() {
-    this.accommodationsService.accomodation = this.accomodation
+    this.accommodationsService.reservation = this.reservation
     this.router.navigateByUrl('/reservation')
   }
 
@@ -54,28 +61,32 @@ export class DetailsComponent implements OnInit {
     this.location.back();
   }
 
+  verifyPetsAllowed(): boolean {
+    return this.accomodation.conveniencesPlace.some(item => item.name === 'Pets')
+  }
+
   verificarQuantasDiarias() {
-    let diferenca = this.accomodation.finalDate.getTime() - this.accomodation.initialDate.getTime();
+    let diferenca = this.reservation.finalDate.getTime() - this.reservation.initialDate.getTime();
     // console.log('Final Date', this.accomodation.finalDate.getTime(), 'Initial Date', this.accomodation.initialDate.getTime());
 
     // this.accomodation.quantityDaily = Math.floor(diferenca / (1000 * 60 * 60 * 24))
-    this.accomodation.quantityDaily = Math.floor(diferenca / (1000 * 60 * 60 * 24) + 1);
+    this.reservation.quantityDaily = Math.floor(diferenca / (1000 * 60 * 60 * 24) + 1);
     this.calcularValorDiarias()
-    return this.accomodation.quantityDaily;
+    return this.reservation.quantityDaily;
   }
 
   calcularValorDiarias() {
-    this.accomodation.totalDailyRate = this.accomodation.dailyRate * this.accomodation.quantityDaily
+    this.reservation.totalDailyRate = this.accomodation.dailyRate * this.reservation.quantityDaily
   }
 
   calcularTaxaLimpeza() {
-    this.accomodation.totalCleaningFee = this.accomodation.cleaningFee * this.accomodation.quantityDaily;
-    return this.accomodation.totalCleaningFee;
+    this.reservation.totalCleaningFee = this.accomodation.cleaningFee * this.reservation.quantityDaily;
+    return this.reservation.totalCleaningFee;
   }
 
   calcularValorTotal() {
-    this.accomodation.amount = this.accomodation.totalCleaningFee + this.accomodation.totalDailyRate;
-    return this.accomodation.amount;
+    this.reservation.amount = this.reservation.totalCleaningFee + this.reservation.totalDailyRate;
+    return this.reservation.amount;
   }
 
 }

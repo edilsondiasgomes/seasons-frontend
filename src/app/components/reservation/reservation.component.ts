@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AccommodationsService } from 'src/app/services/accomodations.service';
-import { Accommodation } from 'src/app/shared/models/model';
+import { Accommodation, Reservation } from 'src/app/shared/models/model';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 
 interface City {
@@ -16,7 +16,10 @@ interface City {
 })
 export class ReservationComponent implements OnInit {
 
+  private readonly CONVENIENCE_PETS = 'Pets'
+  private readonly CONVENIENCE_PARKING = 'Estacionamento'
   accomodation!: Accommodation;
+  reservation!: Reservation;
   cities!: City[];
   selectedCity!: City;
   text!: string
@@ -25,6 +28,7 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit(): void {
     this.accomodation = this.accommodationsService.accomodation;
+    this.reservation = this.accommodationsService.reservation;
     this.cities = [
       { name: 'PIX', code: 'NY' },
       { name: 'Cartão de crédito', code: 'RM' },
@@ -33,6 +37,14 @@ export class ReservationComponent implements OnInit {
 
   backDetais() {
     this.location.back();
+  }
+
+  verifyPetsAllowed(): boolean {
+    return this.accomodation.conveniencesPlace.some(item => item.name === this.CONVENIENCE_PETS)
+  }
+
+  verifyParking(): boolean {
+    return this.accomodation.conveniencesPlace.some(item => item.name === this.CONVENIENCE_PARKING)
   }
 
   findIcon(convenience: string) {

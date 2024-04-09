@@ -26,11 +26,19 @@
       border: 1px solid #eeeeee;
     }
 
-
     .p-radiobutton .p-radiobutton-box.p-highlight {
       border-color: #75ced4 !important;
       background: #75ced4 !important;
     }
 
+  }
+
+  .message-form-invalid {
+    color: red;
+    font-size: smaller;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
   }
 }
