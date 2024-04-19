@@ -167,8 +167,8 @@
 
               <div [formGroup]="accomodationForm" class="flex flex-column justify-content-between	">
                 <div class="mb-5">
-                  <p-radioButton class="ml-3" name="mainImage" [value]="file.value" formControlName="mainImage"
-                    inputId="mainImage"></p-radioButton>
+                  <p-radioButton class="ml-3" name="mainImage" (onClick)="setMainImageFirstPosition(file.value, i)"
+                    [value]="file.value" formControlName="mainImage" inputId="mainImage"></p-radioButton>
                   <label for="mainImage" class="ml-2">Imagem principal</label>
                 </div>
 

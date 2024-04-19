@@ -19,6 +19,7 @@ import { ConveniencesService } from './../../services/conveniences.service';
 export class RegisterAccommodationComponent implements OnInit {
 
   accomodation!: Accommodation;
+  currentMainImage!: string;
   editId!: string | null;
   preview = false;
   initialDate = new Date();
@@ -91,6 +92,7 @@ export class RegisterAccommodationComponent implements OnInit {
       dailyRate: [this.accomodation ? this.accomodation.dailyRate : '', Validators.required],
     })
     this.setFilesIntoFormArray()
+    this.currentMainImage = this.accomodation.mainImage;
   }
 
   private getConveniences() {
@@ -132,7 +134,6 @@ export class RegisterAccommodationComponent implements OnInit {
   public deleteImage(file: any) {
     const i = this.getFilesFormArray().controls?.indexOf(file)
     this.getFilesFormArray().removeAt(i)
-
   }
 
   private setConveniences() {
@@ -144,6 +145,13 @@ export class RegisterAccommodationComponent implements OnInit {
 
   public getFilesFormArray(): FormArray {
     return this.accomodationForm.get('files') as FormArray
+  }
+
+  public setMainImageFirstPosition(newMainImage: any, i: number) {
+    if (newMainImage !== this.currentMainImage) {
+      this.getFilesFormArray().removeAt(i)
+      this.getFilesFormArray().insert(0, this.formBuilder.control(newMainImage))
+    }
   }
 
   private setFilesIntoFormArray() {
@@ -183,9 +191,6 @@ export class RegisterAccommodationComponent implements OnInit {
     if (!this.accomodationForm.valid) {
       return this.alertService.error('Preencha os campos obrigatórios')
     }
-
-    console.log(this.accomodationForm.value.address.uf);
-
 
     this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
 
