@@ -49,4 +49,11 @@ export interface Convenience {
   name: string
 }
 
+export interface Registration {
+  name: string,
+  cpf: string,
+  birthday: Date,
+  address: Address
+}
+
 

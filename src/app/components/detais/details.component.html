@@ -48,14 +48,14 @@
       <div class="grid">
         <div class="col-6" style="margin-top: inherit;">
           <label>Check-in</label>
-          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="accomodation.initialDate"
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="reservation.initialDate"
             dateFormat="dd/mm/yy" [minDate]="reservation.finalDate"></p-calendar>
         </div>
 
         <div class="col-6" style="margin-top: inherit;">
           <label>Check-out</label>
-          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="accomodation.finalDate"
-            dateFormat="dd/mm/yy" [minDate]="reservation.initialDate"></p-calendar>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="reservation.finalDate" dateFormat="dd/mm/yy"
+            [minDate]="reservation.initialDate"></p-calendar>
         </div>
       </div>
 

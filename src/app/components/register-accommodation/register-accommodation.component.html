@@ -33,9 +33,7 @@
         <label for="dailyRate">Valor diária</label>
         <p-inputNumber formControlName="dailyRate" inputId="dailyRate" mode="decimal" locale="pt-BR"
           [minFractionDigits]="2"> </p-inputNumber>
-        <!-- <span class="message-form-invalid" *ngIf="isInvalidField('dailyRate')">
-          Campo obrigatório
-        </span> -->
+
       </div>
 
       <div class="grid ml-1" formGroupName="address">
@@ -148,19 +146,6 @@
             <p-fileUpload #fileUpload mode="basic" chooseLabel="Escolher foto" (onSelect)="onSelectImage($event)"
               accept="image/*"></p-fileUpload>
 
-            <!-- <div class="mt-3 flex flex-row align-items-center	" *ngFor="let image of images; let i = index">
-              <img style="width: 150px;" [src]="image" alt="Imagem">
-
-              <div class="flex flex-column justify-content-between	">
-                <div class="mb-5">
-                  <p-radioButton class="ml-3" name="mainImage" [value]="image" formControlName="mainImage"
-                    inputId="mainImage"></p-radioButton>
-                  <label for="mainImage" class="ml-2">Imagem principal</label>
-                </div>
-
-                <button class="p-button-primary ml-3" type="button" icon="pi pi-times" (click)="deleteImage(image)"
-                  pButton></button>
-              </div> -->
             <div formArrayName="files" class="mt-3 flex flex-row align-items-center	"
               *ngFor="let file of getFilesFormArray().controls; let i = index">
               <img style="width: 150px;" [src]="file.value" alt="Imagem">
@@ -184,6 +169,7 @@
         <!-- end-upload-fotos -->
 
         <!-- button-visualizar -->
+
         <!-- <div style="text-align: center; " class="col-12 mt-3 ">
         <button class="p-button-secondary" type="button"
           style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;" (click)="onPreview()"

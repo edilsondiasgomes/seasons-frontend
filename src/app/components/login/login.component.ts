@@ -21,4 +21,8 @@ export class LoginComponent {
     this.router.navigateByUrl('/')
   }
 
+  goToRegistration() {
+    this.router.navigateByUrl('/registration')
+  }
+
 }

@@ -14,17 +14,29 @@
 
   </div>
   <div class="mt-3">
-    <p-table [value]="accommodations" [tableStyle]="{ 'max-width': '90vw' }" dataKey="id">
+    <p-table #dt [value]="accommodations" [tableStyle]="{ 'max-width': '90vw' }" dataKey="id"
+      [globalFilterFields]="['title',]">
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 5rem"></th>
+          <th></th>
           <th>ID</th>
-          <th>Imagem</th>
-          <th>Name</th>
+          <th>Title</th>
           <th>Endereço</th>
           <th>Diária</th>
           <th>Descrição</th>
+          <th>Ações</th>
         </tr>
+      </ng-template>
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <button pButton label="Limpar filtro" class="p-button-outlined" icon="pi pi-filter-slash"
+            (click)="clear(dt)"></button>
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input #inputDt pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Digitar palavra" />
+          </span>
+        </div>
       </ng-template>
       <ng-template pTemplate="body" let-accomodation>
         <tr>
@@ -33,9 +45,9 @@
               class="p-button-text p-button-rounded p-button-plain"
               [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
           </td> -->
-          <td class="vertical-align-middle">{{ accomodation.id }}</td>
-          <td class="vertical-align-middle"><img [src]="accomodation.mainImage" [alt]="accomodation.name" width="100"
+          <td class="vertical-align-middle"><img [src]="accomodation.files[0]" [alt]="accomodation.name" width="100"
               class="shadow-4" /></td>
+          <td class="vertical-align-middle">{{ accomodation.id }}</td>
           <td class="vertical-align-middle">{{ accomodation.title }}</td>
           <td class="vertical-align-middle">{{ accomodation.address.street +', '+ accomodation.address.number + ', '+
             accomodation.address.city +', ' + accomodation.address.uf}}</td>

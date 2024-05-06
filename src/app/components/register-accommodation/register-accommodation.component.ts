@@ -75,7 +75,7 @@ export class RegisterAccommodationComponent implements OnInit {
         district: [this.accomodation ? this.accomodation.address.district : '', Validators.required],
         postalCode: [this.accomodation ? this.accomodation.address.postalCode : '', Validators.required],
         city: [this.accomodation ? this.accomodation.address.city : '', Validators.required],
-        uf: [this.accomodation ? this.accomodation.address.uf.toUpperCase() : ''.toUpperCase(), Validators.required],
+        uf: [this.accomodation ? this.accomodation.address.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
         country: [this.accomodation ? this.accomodation.address.country : 'Brasil']
       }),
       guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : '', Validators.required],
@@ -92,7 +92,7 @@ export class RegisterAccommodationComponent implements OnInit {
       dailyRate: [this.accomodation ? this.accomodation.dailyRate : '', Validators.required],
     })
     this.setFilesIntoFormArray()
-    this.currentMainImage = this.accomodation.mainImage;
+    this.currentMainImage = this.setCurrenMainImage()
   }
 
   private getConveniences() {
@@ -107,6 +107,11 @@ export class RegisterAccommodationComponent implements OnInit {
 
   public findIcon(convenience: string) {
     return ConvenienceUtils.findIcon(convenience)
+  }
+
+  private setCurrenMainImage() {
+    return this.currentMainImage = this.getFilesFormArray().value[0]
+
   }
 
   private editAcomodation() {
@@ -192,6 +197,10 @@ export class RegisterAccommodationComponent implements OnInit {
       return this.alertService.error('Preencha os campos obrigatórios')
     }
 
+    if (this.setCurrenMainImage() === 0) {
+      return this.alertService.error('Selecione uma imagem principal')
+    }
+
     this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
 
       if (this.accomodation.id) {
@@ -206,7 +215,10 @@ export class RegisterAccommodationComponent implements OnInit {
       } else {
         this.accommodationsService.postAccommodation(this.accomodationForm.value)
           .subscribe({
-            next: () => { this.alertService.success('item salvo com sucesso!') },
+            next: () => {
+              this.alertService.success('item salvo com sucesso!')
+              this.router.navigateByUrl('/registered-accommodations')
+            },
             error: (error) => { this.alertService.error(error) }
           })
       }

@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Table } from 'primeng/table';
 import { AccommodationsService } from 'src/app/services/accomodations.service';
 import { AlertService } from './../../services/alert.service';
 import { Accommodation } from './../../shared/models/model';
@@ -14,6 +15,7 @@ import { Accommodation } from './../../shared/models/model';
 export class RegisteredAccommodationsComponent implements OnInit {
 
   accommodations!: Accommodation[];
+  @ViewChild('inputDt') inputDt!: any
 
   constructor(
     private location: Location,
@@ -27,6 +29,11 @@ export class RegisteredAccommodationsComponent implements OnInit {
 
   toGoBack() {
     this.location.back();
+  }
+
+  clear(table: Table) {
+    table.clear();
+    this.inputDt.nativeElement.value = ''
   }
 
   private getaccommodations() {
