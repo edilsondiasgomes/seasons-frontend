@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Accommodation, Reservation } from '../shared/models/model';
 
 @Injectable({
@@ -13,8 +13,30 @@ export class AccommodationsService {
   public accommodations!: Accommodation[];
   public accomodation!: Accommodation;
   public reservation!: Reservation;
+  public subject = new Subject<any>();
 
   constructor(private httpClient: HttpClient) { }
+
+  searchFromHeader() {
+    this.subject.next('');
+  }
+
+  receiveSearchFromHeader() {
+    return this.subject.asObservable();
+  }
+
+  public getFilteredAccommodations(city?: string, initialDate?: Date, finalDate?: Date, guests?: number): Observable<Accommodation[]> {
+    // const queryParams = '?city=' + city + '&initialDate=' + initialDate + '&finalDate=' + finalDate + '&guests=' + guests;
+
+    let queryParams = '';
+    queryParams += city ? `city=${city}&` : '';
+    queryParams += initialDate ? `initialDate=${initialDate.toISOString()}&` : '';
+    queryParams += finalDate ? `finalDate=${finalDate.toISOString()}&` : '';
+    queryParams += guests ? `guests=${guests.toString()}` : '';
+    queryParams.endsWith('&') ? queryParams.slice(0, -1) : queryParams;
+
+    return this.httpClient.get<Accommodation[]>(`${this.URL}/accommodations${queryParams ? '?' + queryParams : ''}`)
+  }
 
   public getAccommodations(): Observable<Accommodation[]> {
     return this.httpClient.get<Accommodation[]>(`${this.URL}/accommodations`)

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CustomersComponent } from './components/customers/customers.component';
+import { AccommodationRegistrationComponent } from './components/accommodation-registration/accommodation-registration.component';
+import { AccommodationsListComponent } from './components/accommodations-list/accommodations-list.component';
 import { DetailsComponent } from './components/detais/details.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterAccommodationComponent } from './components/register-accommodation/register-accommodation.component';
-import { RegisteredAccommodationsComponent } from './components/registered-accommodations/registered-accommodations.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 const routes: Routes = [
 
@@ -24,19 +24,22 @@ const routes: Routes = [
     path: 'reservation', component: ReservationComponent
   },
   {
-    path: 'registration', component: RegistrationComponent
+    path: 'registration', component: UserRegistrationComponent
   },
   {
-    path: 'customers', component: CustomersComponent
+    path: 'users-list', component: UsersListComponent
   },
   {
-    path: 'register-accomodation', component: RegisterAccommodationComponent
+    path: 'users-list/:id', component: UserRegistrationComponent
   },
   {
-    path: 'register-accomodation/:id', component: RegisterAccommodationComponent
+    path: 'register-accomodation', component: AccommodationRegistrationComponent
   },
   {
-    path: 'registered-accommodations', component: RegisteredAccommodationsComponent
+    path: 'register-accomodation/:id', component: AccommodationRegistrationComponent
+  },
+  {
+    path: 'registered-accommodations', component: AccommodationsListComponent
   }
 ];
 

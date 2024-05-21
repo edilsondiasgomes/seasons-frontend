@@ -15,20 +15,17 @@
     <div class="m-2">
       <p-galleria [value]="accomodation.files" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
         [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [circular]="true"
-        [containerStyle]="{ 'max-width': '640px', 'margin-top':'1em' }">
+        [containerStyle]="{ 'max-width': '640px', 'margin-top':'1rem' }">
         <ng-template pTemplate="item" let-item>
           <img [src]="item"
             style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 5px"
-            alt="imagem" />
+            alt="principal" />
         </ng-template>
       </p-galleria>
     </div>
 
     <div style="cursor: pointer;" (click)="sendDetails(accomodation)">
       <div class=" m-2">
-        <!-- <img style="width:19rem; height: 19rem; box-shadow: 10px 5px 11px grey; border-radius: 10px;" alt="'"
-          [src]="information.src"> -->
-
         <div
           style="width: 21rem; height: 4.2rem; margin: .5rem; display: flex; flex-direction: column; justify-content: space-between;">
           <h3> {{accomodation.title}} em {{accomodation.address.city}}, {{accomodation.address.uf}}</h3>

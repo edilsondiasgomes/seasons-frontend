@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AccommodationsService } from 'src/app/services/accomodations.service';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +9,22 @@ import { MenuItem } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
 
-  informations: any;
-  date!: Date;
-  minDate = new Date();
-  maxDate = new Date();
-  hospedes = 1
+  private readonly MINIMUM_GUESTS = 1;
+  public inputSearch!: string;
+  public minDate!: Date;
+  public maxDate!: Date;
+  public guests!: number;
   public items!: MenuItem[];
+  private accommodationsService = inject(AccommodationsService)
 
   ngOnInit() {
-    this.date = new Date();
+    this.guests = this.MINIMUM_GUESTS
     this.minDate = new Date()
+    this.maxDate = new Date()
+    this.setItems();
+  }
+
+  private setItems() {
     this.items = [{
       // label: 'Options',
       items: [
@@ -58,13 +65,15 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Clientes',
         icon: 'fa-solid fa-users',
-        routerLink: '/customers'
+        routerLink: '/users-list'
       }
       ]
     }
     ];
   }
 
-
+  buscarImoveis() {
+    this.accommodationsService.searchFromHeader();
+  }
 
 }

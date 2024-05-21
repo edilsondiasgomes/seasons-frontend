@@ -13,9 +13,6 @@ import { AlertService } from './../../services/alert.service';
 export class HomeComponent implements OnInit {
 
   accommodations!: Accommodation[];
-  date!: Date;
-  minDate!: Date;
-  maxDate!: Date;
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -38,8 +35,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.minDate = new Date();
-    this.setInformations();
+    this.searchAccommodations();
+    this.accommodationsService.receiveSearchFromHeader().subscribe(() => { this.searchAccommodations() })
   }
 
   sendDetails(accomodation: Accommodation) {
@@ -47,7 +44,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['details'])
   }
 
-  private setInformations() {
+  private searchAccommodations() {
+    this.accommodations = [];
     this.accommodationsService.getAccommodations()
       .subscribe({
         next: (success) => {

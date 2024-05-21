@@ -50,6 +50,7 @@ export interface Convenience {
 }
 
 export interface Registration {
+  id: number,
   name: string,
   cpf: string,
   birthday: Date,

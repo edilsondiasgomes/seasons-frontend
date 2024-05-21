@@ -8,16 +8,16 @@ import localeBr from '@angular/common/locales/pt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CustomersComponent } from './components/customers/customers.component';
+import { AccommodationRegistrationComponent } from './components/accommodation-registration/accommodation-registration.component';
+import { AccommodationsListComponent } from './components/accommodations-list/accommodations-list.component';
 import { DetailsComponent } from './components/detais/details.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterAccommodationComponent } from './components/register-accommodation/register-accommodation.component';
-import { RegisteredAccommodationsComponent } from './components/registered-accommodations/registered-accommodations.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 import { PrimengModule } from './primeng/primeng.module';
 
 registerLocaleData(localeBr, 'pt')
@@ -31,10 +31,10 @@ registerLocaleData(localeBr, 'pt')
     DetailsComponent,
     FooterComponent,
     ReservationComponent,
-    RegistrationComponent,
-    CustomersComponent,
-    RegisterAccommodationComponent,
-    RegisteredAccommodationsComponent,
+    UserRegistrationComponent,
+    UsersListComponent,
+    AccommodationRegistrationComponent,
+    AccommodationsListComponent,
     LoginComponent,
   ],
   imports: [

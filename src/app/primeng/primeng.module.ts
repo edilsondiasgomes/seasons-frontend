@@ -23,6 +23,7 @@ import { TooltipModule } from 'primeng/tooltip';
   declarations: [],
   imports: [
     CommonModule,
+    AvatarModule,
     RadioButtonModule,
     InputMaskModule,
     FileUploadModule,
@@ -44,6 +45,7 @@ import { TooltipModule } from 'primeng/tooltip';
   ],
   exports: [
     ButtonModule,
+    AvatarModule,
     RadioButtonModule,
     InputMaskModule,
     FileUploadModule,
