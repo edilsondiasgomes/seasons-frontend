@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 // import { Property } from './../../shared/models/model';
-import { AccommodationsService } from 'src/app/services/accomodations.service';
+import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { Accommodation, Reservation } from './../../shared/models/model';
 
 @Component({
@@ -16,7 +16,8 @@ export class DetailsComponent implements OnInit {
 
   accomodation!: Accommodation;
   reservation!: Reservation;
-  date!: Date;
+  minDate!: Date;
+
   private readonly MINIMUM_GUESTS = 1;
 
 
@@ -43,13 +44,19 @@ export class DetailsComponent implements OnInit {
 
     this.reservation = {} as Reservation;
     this.reservation.accommodationId = this.accommodationsService.accomodation.id
-    this.reservation.initialDate = new Date();
-    this.reservation.finalDate = new Date();
     this.reservation.guests = this.MINIMUM_GUESTS;
+    this.setMinDate();
+    this.reservation.initialDate = new Date();
+    this.reservation.finalDate = this.minDate;
   }
 
   findIcon(convenience: string) {
     return ConvenienceUtils.findIcon(convenience)
+  }
+
+  setMinDate() {
+    const oneDayFromTodayTimeStamp = new Date().getTime() + (1000 * 60 * 60 * 24);
+    this.minDate = new Date(oneDayFromTodayTimeStamp)
   }
 
   requestReservation() {
@@ -66,11 +73,11 @@ export class DetailsComponent implements OnInit {
   }
 
   verificarQuantasDiarias() {
-    let diferenca = this.reservation.finalDate.getTime() - this.reservation.initialDate.getTime();
-    // console.log('Final Date', this.accomodation.finalDate.getTime(), 'Initial Date', this.accomodation.initialDate.getTime());
+    let diferenca = this.reservation.finalDate.getDate() - this.reservation.initialDate.getDate();
 
-    // this.accomodation.quantityDaily = Math.floor(diferenca / (1000 * 60 * 60 * 24))
-    this.reservation.quantityDaily = Math.floor(diferenca / (1000 * 60 * 60 * 24) + 1);
+    this.reservation.quantityDaily = diferenca
+    console.log(this.reservation.quantityDaily);
+
     this.calcularValorDiarias()
     return this.reservation.quantityDaily;
   }

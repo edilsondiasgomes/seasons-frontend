@@ -2,8 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
-import { AlertService } from 'src/app/services/alert.service';
-import { RegistrationService } from 'src/app/services/registration.service';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { RegistrationService } from 'src/app/core/services/registration.service';
 import { Registration } from 'src/app/shared/models/model';
 
 @Component({

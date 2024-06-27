@@ -1,8 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from 'src/app/services/alert.service';
-import { RegistrationService } from 'src/app/services/registration.service';
+import { finalize, first } from 'rxjs';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { RegistrationService } from 'src/app/core/services/registration.service';
+import { ViacepService } from 'src/app/core/services/viacep.service';
 import { Registration } from 'src/app/shared/models/model';
 
 @Component({
@@ -18,22 +20,19 @@ export class UserRegistrationComponent implements OnInit {
   finalDate = new Date(this.dataMinima.getFullYear() - this.IDADE_MINIMA, this.dataMinima.getMonth(), this.dataMinima.getDate());
   registrationForm!: FormGroup
   register!: Registration
+  blockedPage!: boolean;
 
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
+    private viaCepService: ViacepService
   ) { }
 
   ngOnInit(): void {
     this.register = this.registrationService.register
-
     this.createForm();
-  }
-
-  toGoBack() {
-    this.location.back();
   }
 
   private createForm() {
@@ -51,9 +50,39 @@ export class UserRegistrationComponent implements OnInit {
         uf: [this.register?.address?.uf.toUpperCase() ?? ''?.toUpperCase(), Validators.required],
         country: [this.COUNTRY]
       }),
-
     })
+  }
 
+  public findCEP() {
+    const cep = this.registrationForm.get('address.postalCode')?.value
+    if (cep && cep.length >= 8) {
+      this.blockedPage = true;
+      this.viaCepService.getCEP(cep)
+        .pipe(
+          first(),
+          finalize(() => {
+            this.blockedPage = false
+          }))
+        .subscribe({
+          next: (success) => {
+            this.updateAddress(success)
+            if (success.erro) {
+              this.alertService.info('O CEP digitado não existe!')
+            }
+          },
+          error: (error) => { this.alertService.error(error, 'Atenção!') }
+        })
+    }
+  }
+
+  private updateAddress(endereco: any) {
+    this.registrationForm.get('address')?.patchValue({
+      street: endereco.logradouro,
+      district: endereco.bairro,
+      postalCode: endereco.cep,
+      city: endereco.localidade,
+      uf: endereco.uf?.toUpperCase(),
+    });
   }
 
   private validateForm() {
@@ -71,7 +100,7 @@ export class UserRegistrationComponent implements OnInit {
     })
 
   }
-  save() {
+  public save() {
     this.validateForm();
     if (!this.registrationForm.valid) {
       return this.alertService.info('Prencha os campos obrigatórios')
@@ -87,8 +116,10 @@ export class UserRegistrationComponent implements OnInit {
           }
         })
     }
+  }
 
-
+  public toGoBack() {
+    this.location.back();
   }
 }
 

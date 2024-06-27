@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
+import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
@@ -13,16 +14,18 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
-
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    BlockUIModule,
+    ProgressSpinnerModule,
     AvatarModule,
     RadioButtonModule,
     InputMaskModule,
@@ -45,6 +48,8 @@ import { TooltipModule } from 'primeng/tooltip';
   ],
   exports: [
     ButtonModule,
+    BlockUIModule,
+    ProgressSpinnerModule,
     AvatarModule,
     RadioButtonModule,
     InputMaskModule,

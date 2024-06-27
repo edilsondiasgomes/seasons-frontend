@@ -1,6 +1,7 @@
 export interface Accommodation {
   id: number;
   title: string,
+  typeSelected: TypeAccomodation;
   mainImage: any,
   address: Address,
   guestsAllowed: number,
@@ -55,6 +56,18 @@ export interface Registration {
   cpf: string,
   birthday: Date,
   address: Address
+}
+
+export interface SearchFilter {
+  inputSearch: string;
+  minDate: Date;
+  maxDate: Date;
+  guests: number;
+}
+
+export interface TypeAccomodation {
+  name: string;
+  id: string;
 }
 
 

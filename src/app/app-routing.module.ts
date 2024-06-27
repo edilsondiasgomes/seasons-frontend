@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
 
@@ -21,10 +22,11 @@ const routes: Routes = [
     path: 'details', component: DetailsComponent
   },
   {
-    path: 'reservation', component: ReservationComponent
+    path: 'reservation', component: ReservationComponent,
+    canActivate: [authGuard]
   },
   {
-    path: 'registration', component: UserRegistrationComponent
+    path: 'registration', component: UserRegistrationComponent,
   },
   {
     path: 'users-list', component: UsersListComponent

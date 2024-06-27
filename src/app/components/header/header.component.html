@@ -1,7 +1,7 @@
 <div class="flex" style=" justify-content: space-between; align-items: center; width: 100%; height: 5rem;">
   <div class="ml-7">
     <p style="color: #4ecbd3; font-size: 1.4rem; padding: 1rem; font-weight: 900;
-    "> <a [routerLink]="'/'" style="text-decoration: none;">
+    "> <a style="text-decoration: none;    cursor:pointer;" (click)="goToHome()">
         Seasons
       </a>
     </p>
@@ -15,18 +15,19 @@
     </span>
 
     <div class="card mr-2">
-      <p-calendar [readonlyInput]="true" size="small" [showIcon]="true" [(ngModel)]="minDate" dateFormat="dd/mm/yy"
-        [minDate]="minDate"></p-calendar>
+      <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data inicial" [(ngModel)]="initialDate"
+        dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
     </div>
     <div class="card mr-2">
-      <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="maxDate" dateFormat="dd/mm/yy"
-        [minDate]="minDate"></p-calendar>
+      <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data final" [(ngModel)]="finalDate"
+        dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
     </div>
 
-    <p-inputNumber class="flex-auto mr-2" [min]="0" [suffix]=" guests < 2 ? ' hóspede': ' hóspedes'"
-      [(ngModel)]="guests" [showButtons]="true" inputId="guests"> </p-inputNumber>
+    <p-inputNumber class="flex-auto mr-2" [min]="1" placeholder="Hóspedes"
+      [suffix]=" guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="guests" [showButtons]="true" inputId="guests">
+    </p-inputNumber>
 
-    <p-button label="Buscar" icon="pi pi-search" (click)="buscarImoveis()"></p-button>
+    <p-button label="Buscar" icon="pi pi-search" (click)="searchAccommodations()"></p-button>
   </div>
   <div class="mr-7" style="display: flex; justify-content: space-between; align-items: center">
     <button type="button" class="p-button-rounded p-button-text" pButton icon="pi pi-bars"

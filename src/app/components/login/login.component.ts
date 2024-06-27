@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/core/services/login.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { Login } from 'src/app/shared/models/model';
 
 @Component({
@@ -12,13 +13,14 @@ import { Login } from 'src/app/shared/models/model';
 export class LoginComponent {
   login!: Login
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private userService: UserService) {
     this.login = {} as Login;
   }
 
   doLogin() {
-    this.loginService.login = this.login;
+    this.loginService.doLogin();
     this.router.navigateByUrl('/')
+    this.userService.getUser().subscribe(user => console.log(user))
   }
 
   goToRegistration() {

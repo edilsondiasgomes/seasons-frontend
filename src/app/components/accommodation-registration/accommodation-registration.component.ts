@@ -3,12 +3,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUpload } from 'primeng/fileupload';
-import { AccommodationsService } from 'src/app/services/accomodations.service';
-import { Accommodation, Address } from 'src/app/shared/models/model';
+import { finalize, first } from 'rxjs';
+import { AccommodationsService } from 'src/app/core/services/accomodations.service';
+import { TypesService } from 'src/app/core/services/types.service';
+import { ViacepService } from 'src/app/core/services/viacep.service';
+import { Accommodation, Address, TypeAccomodation } from 'src/app/shared/models/model';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
-import { AlertService } from '../../services/alert.service';
-import { ConveniencesService } from '../../services/conveniences.service';
-
+import { AlertService } from '../../core/services/alert.service';
+import { ConveniencesService } from '../../core/services/conveniences.service';
 
 @Component({
   selector: 'app-accommodation-registration',
@@ -26,6 +28,8 @@ export class AccommodationRegistrationComponent implements OnInit {
   finalDate = new Date();
   allConveniences: any[] = [];
   accomodationForm!: FormGroup;
+  blockedPage!: boolean;
+  typeAccomodation!: TypeAccomodation[];
 
   responsiveOptions: any[] = [
     {
@@ -51,21 +55,26 @@ export class AccommodationRegistrationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private alertService: AlertService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private viaCepService: ViacepService,
+    private typesService: TypesService
   ) { }
 
   ngOnInit(): void {
     this.accomodation = {} as Accommodation;
     this.accomodation.address = {} as Address;
     this.accomodation.files = [];
+    this.typeAccomodation = [];
     this.getConveniences();
     this.editAcomodation();
+    this.getTypes();
     this.createForm();
   }
 
   public createForm() {
     this.accomodationForm = this.formBuilder.group({
       id: [this.accomodation ? this.accomodation.id : ''],
+      typeSelected: [this.accomodation ? this.accomodation.typeSelected : '', [Validators.required]],
       title: [this.accomodation ? this.accomodation.title : '', [Validators.required, Validators.minLength(10)]],
       mainImage: [this.accomodation ? this.accomodation.mainImage : ''],
       address: this.formBuilder.group({
@@ -104,6 +113,49 @@ export class AccommodationRegistrationComponent implements OnInit {
         error: (error) => { }
       })
   }
+
+  private getTypes() {
+    this.typesService.getTypes()
+      .subscribe({
+        next: (success) => {
+          this.typeAccomodation = success
+        },
+        error: () => { }
+      })
+  }
+
+  public findCEP() {
+    const cep = this.accomodationForm.get('address.postalCode')?.value
+    if (cep && cep.length >= 8) {
+      this.blockedPage = true;
+      this.viaCepService.getCEP(cep)
+        .pipe(
+          first(),
+          finalize(() => {
+            this.blockedPage = false
+          }))
+        .subscribe({
+          next: (success) => {
+            this.updateAddress(success)
+            if (success.erro) {
+              this.alertService.info('O CEP digitado não existe!')
+            }
+          },
+          error: (error) => { this.alertService.error(error, 'Atenção!') }
+        })
+    }
+  }
+
+  private updateAddress(endereco: any) {
+    this.accomodationForm.get('address')?.patchValue({
+      street: endereco.logradouro,
+      district: endereco.bairro,
+      postalCode: endereco.cep,
+      city: endereco.localidade,
+      uf: endereco.uf?.toUpperCase(),
+    });
+  }
+
 
   public findIcon(convenience: string) {
     return ConvenienceUtils.findIcon(convenience)
@@ -176,7 +228,6 @@ export class AccommodationRegistrationComponent implements OnInit {
       control?.markAsDirty()
       control?.markAsTouched();
     })
-
   }
 
   public isInvalidField(field: string): boolean {
@@ -223,7 +274,6 @@ export class AccommodationRegistrationComponent implements OnInit {
           })
       }
     })
-
   }
 
   public toGoBack() {

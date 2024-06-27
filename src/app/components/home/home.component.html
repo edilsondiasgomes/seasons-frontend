@@ -1,7 +1,7 @@
-<div>
-  <!-- <img style="width:100%;" src="../../../assets/images/background-home"> -->
+<!-- <div>
+  <img style="width:100%;" src="../../../assets/images/background-home">
 
-</div>
+</div> -->
 
 
 <div class="mt-3 ml-7">
@@ -9,7 +9,15 @@
   <p class="sub-header" style="color:#222121b8; ">em Santa Catarina</p>
 </div>
 
-<div class="ml-7 mr-7 grid grid-nogutter flex flex-direction-row">
+<div *ngIf="spinnerOn" class="card flex justify-content-center">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<div *ngIf="!accommodations.length && !spinnerOn" class="flex justify-content-center">
+  <p class="text-2xl	">Não existem resultados para essa busca!</p>
+</div>
+
+<div *ngIf="!spinnerOn" class="ml-7 mr-7 grid grid-nogutter flex flex-direction-row">
 
   <div class="col-3" *ngFor="let accomodation of accommodations">
     <div class="m-2">
@@ -28,7 +36,9 @@
       <div class=" m-2">
         <div
           style="width: 21rem; height: 4.2rem; margin: .5rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <h3> {{accomodation.title}} em {{accomodation.address.city}}, {{accomodation.address.uf}}</h3>
+          <h3> {{accomodation.typeSelected ? accomodation.typeSelected.name : 'Acomodação'}} em
+            {{accomodation.address.city}},
+            {{accomodation.address.uf}}</h3>
           <p style="color:#222121b8">{{accomodation.guestsAllowed}} Hóspedes - {{accomodation.rooms}} quartos -
             {{accomodation.toilets}} banheiros
           </p>

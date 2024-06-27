@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AccommodationsService } from 'src/app/services/accomodations.service';
+import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { Accommodation, Reservation } from 'src/app/shared/models/model';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 
