@@ -1,0 +1,12 @@
+:host::ng-deep {
+  .p-button {
+    background-color: #5A7B7E !important;
+    // background-color: var(--primary-color) !important;
+    color: white !important;
+    border: 1px solid var(--primary-color) !important;
+  }
+}
+
+.box-login {
+  background-color: var(--primary-color);
+}

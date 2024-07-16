@@ -96,6 +96,7 @@ export class HeaderComponent implements OnInit {
 
   searchAccommodations() {
     this.setFilterAccommodations();
+    this.router.navigateByUrl('/')
     this.accommodationsService.findAccommodations(this.searchFilter);
   }
 

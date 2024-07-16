@@ -1,36 +1,32 @@
 <div class="flex flex-column align-items-center justify-content-center" style="height: 80vh;">
 
-  <div style="border: 1px solid #ebebeb; border-radius: 7px;" class="pt-5  p-7">
-    <h2 style="text-align: center; color: gray;">Entrar</h2>
+  <div class="box-login flex flex-column pt-4 pb-6 pl-7 pr-7 justify-content-center align-items-center"
+    style="border: 1px solid #ebebeb; border-radius: 7px;">
+    <h2 style="text-align: center; color: white;">Login</h2>
 
 
-    <div class="mt-2 flex flex-column gap-1" style="width: 30rem;">
+    <div class="mt-2 flex flex-column gap-1" style="width: 20rem;">
       <label htmlFor="username">Login</label>
       <input [(ngModel)]="login.username" pInputText id="username" aria-describedby="username" />
     </div>
 
-    <div class="mt-2  flex flex-column gap-1" style="width: 30rem;">
+    <div class="mt-2  flex flex-column gap-1" style="width: 20rem;">
       <label htmlFor="password">Senha</label>
       <input [(ngModel)]="login.password" pInputText type="password" id="password" aria-describedby="password" />
     </div>
 
-    <div style="text-align: center; " class="mt-4" style="width: 30rem;">
-      <button styleClass="p-button-secondary" type="button"
+    <div class="flex mt-4 justify-content-center" style="width: 20rem;">
+      <button style="color: white" type="button"
         style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;" (click)="doLogin()"
         pButton>Entrar</button>
     </div>
 
-    <div style="text-align: center; width: 30rem;" class=" mt-4">
-      <button styleClass="p-button-outlined" pButton class="p-button-google"
-        style="border: solid 1px grey; color: gray; justify-content: center; font-size: 1.2rem; font-weight: lighter; width: 100%; background-color: white;">
-        <img alt="logo" src="https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png"
-          style="width: 1.5rem" />
-        <span class="ml-2 font-bold">Entrar com o Google</span>
-      </button>
-    </div>
-    <div style="text-align: center; width: 30rem; color: rgb(126, 126, 126);" class="mt-4">
-      <span style="cursor: pointer;" (click)="goToRegistration()" class="ml-2 font-medium">Não sou cadastrado</span>
-    </div>
+    <div id="google-btn" class="flex mt-4 justify-content-center"></div>
+
+  </div>
+  <div style="text-align: center; width: 30rem;" class="mt-2">
+    <span style="cursor: pointer;" (click)="goToRegistration()" class="text-primary ml-2 font-medium">Não sou
+      cadastrado</span>
   </div>
 
 </div>
