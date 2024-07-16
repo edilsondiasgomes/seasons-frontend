@@ -1,7 +1,9 @@
 <div class="flex" style=" justify-content: space-between; align-items: center; width: 100%; height: 5rem;">
   <div class="ml-7">
-    <p style="color: #4ecbd3; font-size: 1.4rem; padding: 1rem; font-weight: 900;
-    "> <a style="text-decoration: none;    cursor:pointer;" (click)="goToHome()">
+    <p class="text-primary" style="font-size: 1.4rem; padding: 1rem; font-weight: 900;
+    ">
+      <i class="fa-solid fa-seedling"></i>
+      <a style="text-decoration: none;    cursor:pointer;" (click)="goToHome()">
         Seasons
       </a>
     </p>
@@ -10,8 +12,7 @@
   <div class="flex">
     <span class="p-input-icon-left mr-2">
       <i class="pi pi-search"></i>
-      <input size="small" type="text" [(ngModel)]="inputSearch" pInputText placeholder="Digite um lugar"
-        styleClass="p-button-sm" />
+      <input size="small" type="text" [(ngModel)]="inputSearch" pInputText placeholder="Digite um lugar" />
     </span>
 
     <div class="card mr-2">

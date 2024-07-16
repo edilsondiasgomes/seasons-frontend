@@ -7,39 +7,44 @@
     .p-inputnumber-input {
       width: 8rem;
     }
+
     .p-avatar {
-      background-color: #4ecbd3;
+      background-color: var(--primary-color)
     }
 
     .p-calendar {
       width: 12rem;
 
-      .p-button {
-        background-color: #4ecbd3;
-        border: #4ecbd3;
-      }
+      // .p-button {
+      //   background-color: #4ecbd3;
+      //   border: #4ecbd3;
+      // }
     }
-    .p-button {
-      background: #4ecbd3 !important;
-      border: 1px solid #4ecbd3 !important;
-    }
+
+    // .p-button {
+    //   background: #4ecbd3 !important;
+    //   border: 1px solid #4ecbd3 !important;
+    // }
 
     .p-button.p-button-icon-only.p-button-rounded {
       background: none !important;
       border: none !important;
-      color: #4ecbd3 !important;
+      color: var(--primary-color) !important;
     }
 
     .p-avatar {
       // color: white!important;
       width: 2.5rem;
       height: 2.5rem;
+
+      .p-avatar-icon {
+        color: white !important;
+        font-size: 1.5rem;
+      }
     }
-    .p-avatar .p-avatar-icon {
-      color: white !important;
-      font-size: 1.5rem;
-    }
+
   }
+
   a {
     color: inherit;
   }

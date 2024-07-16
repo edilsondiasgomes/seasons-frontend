@@ -4,9 +4,9 @@
 
 
 * {
-  --primary-color: #75ced4;
-  --secondary-color: #b1c7c9;
-  --success-color: #22C55E;
+  --primary-color: #5DA4A9;
+  // --secondary-color: #b1c7c9;
+  // --success-color: #22C55E;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -53,4 +53,12 @@ body {
 
 .p-galleria .p-galleria-indicators {
   padding: 0.5rem !important;
+}
+
+.text-primary {
+  color: var(--primary-color)
+}
+
+.background-primary {
+  background-color: var(--primary-color)
 }

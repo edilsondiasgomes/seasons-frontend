@@ -9,7 +9,8 @@ import { Accommodation, Reservation, SearchFilter } from '../../shared/models/mo
 
 export class AccommodationsService {
 
-  private readonly URL = "http://localhost:3000"
+  // private readonly URL = "http://localhost:3000"
+  private readonly URL = "https://json-server-nine-zeta.vercel.app/api"
   public accommodations!: Accommodation[];
   public accomodation!: Accommodation;
   public reservation!: Reservation;
