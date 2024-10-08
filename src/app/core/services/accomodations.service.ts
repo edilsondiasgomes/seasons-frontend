@@ -9,7 +9,7 @@ import { Accommodation, Reservation, SearchFilter } from '../../shared/models/mo
 
 export class AccommodationsService {
 
-  private readonly URL = "http://localhost:3000"
+  private readonly URL = "http://localhost:3001"
   // private readonly URL = "https://json-server-nine-zeta.vercel.app/api"
   public accommodations!: Accommodation[];
   public accomodation!: Accommodation;
@@ -49,8 +49,8 @@ export class AccommodationsService {
     return this.httpClient.put<Accommodation>(`${this.URL}/accommodations/${accomodation.id}`, accomodation)
   }
 
-  public deleteAccommodation(id: number): Observable<Accommodation> {
-    return this.httpClient.delete<Accommodation>(`${this.URL}/accommodations/${id}`)
+  public deleteAccommodation(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.URL}/accommodations/${id}`)
   }
 
 }

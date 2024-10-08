@@ -25,8 +25,8 @@
 
         <div class="col-3 flex flex-column gap-1">
           <label htmlFor="type">Tipo</label>
-          <p-dropdown id="type" formControlName="typeSelected" [options]="typeAccomodation"
-            optionLabel="name"></p-dropdown>
+          <p-dropdown id="type" formControlName="typeSelected" [options]="typeAccomodation" optionLabel="name"
+            optionValue="name"></p-dropdown>
         </div>
 
         <div class="col-7 flex flex-column gap-1">
@@ -43,7 +43,7 @@
             [minFractionDigits]="2"> </p-inputNumber>
         </div>
 
-        <div class="grid ml-1" formGroupName="address">
+        <div class="grid ml-1">
 
           <div class="col-3 flex flex-column gap-1">
             <label htmlFor="postalCode">CEP</label>
@@ -56,8 +56,8 @@
           </div>
 
           <div class="col-2 flex flex-column gap-1">
-            <label htmlFor="number">Número</label>
-            <input pInputText id="number" formControlName="number" />
+            <label htmlFor="houseNumber">Número</label>
+            <input pInputText id="houseNumber" formControlName="houseNumber" />
           </div>
 
           <div class="col-5 flex flex-column gap-1">
@@ -153,14 +153,17 @@
               <p-fileUpload #fileUpload mode="basic" chooseLabel="Escolher foto" (onSelect)="onSelectImage($event)"
                 accept="image/*"></p-fileUpload>
 
-              <div formArrayName="files" class="mt-3 flex flex-row align-items-center	"
+              <div  class="mt-3 flex flex-row align-items-center	"
+                *ngFor="let file of files; let i = index">
+                <img style="width: 150px;" [src]="file" alt="Imagem">
+              <!-- <div formArrayName="files" class="mt-3 flex flex-row align-items-center	"
                 *ngFor="let file of getFilesFormArray().controls; let i = index">
-                <img style="width: 150px;" [src]="file.value" alt="Imagem">
+                <img style="width: 150px;" [src]="file.value" alt="Imagem"> -->
 
                 <div [formGroup]="accomodationForm" class="flex flex-column justify-content-between	">
                   <div class="mb-5">
-                    <p-radioButton class="ml-3" name="mainImage" (onClick)="setMainImageFirstPosition(file.value, i)"
-                      [value]="file.value" formControlName="mainImage" inputId="mainImage"></p-radioButton>
+                    <p-radioButton class="ml-3" name="mainImage" (onClick)="setMainImageFirstPosition(file, i)"
+                      [value]="file" formControlName="mainImage" inputId="mainImage"></p-radioButton>
                     <label for="mainImage" class="ml-2">Imagem principal</label>
                   </div>
 

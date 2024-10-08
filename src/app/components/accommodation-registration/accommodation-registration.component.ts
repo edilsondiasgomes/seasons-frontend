@@ -7,7 +7,7 @@ import { finalize, first } from 'rxjs';
 import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { TypesService } from 'src/app/core/services/types.service';
 import { ViacepService } from 'src/app/core/services/viacep.service';
-import { Accommodation, Address, TypeAccomodation } from 'src/app/shared/models/model';
+import { Accommodation, TypeAccomodation } from 'src/app/shared/models/model';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 import { AlertService } from '../../core/services/alert.service';
 import { ConveniencesService } from '../../core/services/conveniences.service';
@@ -30,6 +30,7 @@ export class AccommodationRegistrationComponent implements OnInit {
   accomodationForm!: FormGroup;
   blockedPage!: boolean;
   typeAccomodation!: TypeAccomodation[];
+  files: string[] = [];
 
   responsiveOptions: any[] = [
     {
@@ -62,7 +63,6 @@ export class AccommodationRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.accomodation = {} as Accommodation;
-    this.accomodation.address = {} as Address;
     this.accomodation.files = [];
     this.typeAccomodation = [];
     this.getConveniences();
@@ -77,16 +77,14 @@ export class AccommodationRegistrationComponent implements OnInit {
       typeSelected: [this.accomodation ? this.accomodation.typeSelected : '', [Validators.required]],
       title: [this.accomodation ? this.accomodation.title : '', [Validators.required, Validators.minLength(10)]],
       mainImage: [this.accomodation ? this.accomodation.mainImage : ''],
-      address: this.formBuilder.group({
-        street: [this.accomodation ? this.accomodation.address.street : '', Validators.required],
-        number: [this.accomodation ? this.accomodation.address.number : '', Validators.required],
-        complement: [this.accomodation ? this.accomodation.address.complement : ''],
-        district: [this.accomodation ? this.accomodation.address.district : '', Validators.required],
-        postalCode: [this.accomodation ? this.accomodation.address.postalCode : '', Validators.required],
-        city: [this.accomodation ? this.accomodation.address.city : '', Validators.required],
-        uf: [this.accomodation ? this.accomodation.address.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
-        country: [this.accomodation ? this.accomodation.address.country : 'Brasil']
-      }),
+      street: [this.accomodation ? this.accomodation.street : '', Validators.required],
+      houseNumber: [this.accomodation ? this.accomodation.houseNumber : '', Validators.required],
+      complement: [this.accomodation ? this.accomodation.complement : ''],
+      district: [this.accomodation ? this.accomodation.district : '', Validators.required],
+      postalCode: [this.accomodation ? this.accomodation.postalCode : '', Validators.required],
+      city: [this.accomodation ? this.accomodation.city : '', Validators.required],
+      uf: [this.accomodation ? this.accomodation.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
+      country: ['Brasil'],
       guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : '', Validators.required],
       checkIn: [this.accomodation ? this.accomodation.checkIn : '', Validators.required],
       checkOut: [this.accomodation ? this.accomodation.checkOut : '', Validators.required],
@@ -118,14 +116,14 @@ export class AccommodationRegistrationComponent implements OnInit {
     this.typesService.getTypes()
       .subscribe({
         next: (success) => {
-          this.typeAccomodation = success
+          this.typeAccomodation = success;
         },
         error: () => { }
       })
   }
 
   public findCEP() {
-    const cep = this.accomodationForm.get('address.postalCode')?.value
+    const cep = this.accomodationForm.get('postalCode')?.value
     if (cep && cep.length >= 8) {
       this.blockedPage = true;
       this.viaCepService.getCEP(cep)
@@ -147,7 +145,7 @@ export class AccommodationRegistrationComponent implements OnInit {
   }
 
   private updateAddress(endereco: any) {
-    this.accomodationForm.get('address')?.patchValue({
+    this.accomodationForm.patchValue({
       street: endereco.logradouro,
       district: endereco.bairro,
       postalCode: endereco.cep,
@@ -156,14 +154,12 @@ export class AccommodationRegistrationComponent implements OnInit {
     });
   }
 
-
   public findIcon(convenience: string) {
     return ConvenienceUtils.findIcon(convenience)
   }
 
   private setCurrenMainImage() {
     return this.currentMainImage = this.getFilesFormArray().value[0]
-
   }
 
   private editAcomodation() {
@@ -179,10 +175,17 @@ export class AccommodationRegistrationComponent implements OnInit {
 
   public onSelectImage(event: any) {
     const file = event.files?.[0] as Blob;
+    // this.accomodationForm.get('mainImage')?.patchValue(file);
+    // const formData = new FormData()
+    // formData.append('file', file)
+    // this.accomodationForm.get('mainImage')?.patchValue(formData);
+    // console.log('formdata', formData);
+
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      this.getFilesFormArray().push(this.formBuilder.control(e.target?.result as string))
+      this.files.push(e.target?.result as string)
+      this.getFilesFormArray().push(this.formBuilder.control(file))
       this.fileUpload.clear()
     }
     reader.readAsDataURL(file)
@@ -222,12 +225,12 @@ export class AccommodationRegistrationComponent implements OnInit {
       control?.markAsTouched();
     })
 
-    const address = this.accomodationForm.get('address') as FormGroup
-    Object.keys(address.controls).forEach(field => {
-      const control = address.get(field)
-      control?.markAsDirty()
-      control?.markAsTouched();
-    })
+    // const address = this.accomodationForm.get('address') as FormGroup
+    // Object.keys(address.controls).forEach(field => {
+    //   const control = address.get(field)
+    //   control?.markAsDirty()
+    //   control?.markAsTouched();
+    // })
   }
 
   public isInvalidField(field: string): boolean {
@@ -243,6 +246,11 @@ export class AccommodationRegistrationComponent implements OnInit {
 
   public onSave() {
     this.setConveniences();
+    console.log(this.accomodationForm.value);
+  }
+
+  public onSave1() {
+    this.setConveniences();
     this.validateForm();
     if (!this.accomodationForm.valid) {
       return this.alertService.error('Preencha os campos obrigatórios')
@@ -252,6 +260,7 @@ export class AccommodationRegistrationComponent implements OnInit {
       return this.alertService.error('Selecione uma imagem principal')
     }
 
+    console.log(this.accomodationForm.value);
     this.alertService.confirm('Deseja realmente salvar esse item?', 'Atenção!', () => {
 
       if (this.accomodation.id) {
@@ -268,7 +277,7 @@ export class AccommodationRegistrationComponent implements OnInit {
           .subscribe({
             next: () => {
               this.alertService.success('item salvo com sucesso!')
-              this.router.navigateByUrl('/registered-accommodations')
+              // this.router.navigateByUrl('/registered-accommodations')
             },
             error: (error) => { this.alertService.error(error) }
           })

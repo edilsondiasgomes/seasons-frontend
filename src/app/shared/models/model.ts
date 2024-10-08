@@ -1,12 +1,19 @@
 export interface Accommodation {
   id: number;
   title: string,
-  typeSelected: TypeAccomodation;
+  typeSelected: string;
   mainImage: any,
-  address: Address,
+  street: string,
+  houseNumber: string,
+  complement: string,
+  district: string,
+  postalCode: string,
+  city: string,
+  uf: string,
+  country: string
   guestsAllowed: number,
-  checkIn: any,
-  checkOut: any,
+  checkIn: string,
+  checkOut: string,
   rooms: number,
   toilets: number,
   description: string,
@@ -16,6 +23,17 @@ export interface Accommodation {
   finalDate: Date;
   cleaningFee: number,
   dailyRate: number,
+}
+
+export interface TypeAccomodation {
+  name: string;
+  id: string;
+}
+
+
+export interface Convenience {
+  id: number,
+  name: string
 }
 
 export interface Reservation {
@@ -34,7 +52,11 @@ export interface Login {
   password: string
 }
 
-export interface Address {
+export interface Registration {
+  id: number,
+  name: string,
+  cpf: string,
+  birthday: Date,
   street: string,
   number: number,
   complement: string,
@@ -42,20 +64,6 @@ export interface Address {
   postalCode: string,
   city: string,
   uf: string,
-  country: string
-}
-
-export interface Convenience {
-  id: number,
-  name: string
-}
-
-export interface Registration {
-  id: number,
-  name: string,
-  cpf: string,
-  birthday: Date,
-  address: Address
 }
 
 export interface SearchFilter {
@@ -64,10 +72,3 @@ export interface SearchFilter {
   maxDate: Date;
   guests: number;
 }
-
-export interface TypeAccomodation {
-  name: string;
-  id: string;
-}
-
-

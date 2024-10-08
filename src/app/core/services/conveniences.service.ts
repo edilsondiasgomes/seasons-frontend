@@ -9,7 +9,7 @@ import { Convenience } from '../../shared/models/model';
 
 export class ConveniencesService {
 
-  private readonly URL = "http://localhost:3000"
+  private readonly URL = "http://localhost:3001"
   conveniences: Convenience[] = [];
 
   constructor(private httpClient: HttpClient) { }

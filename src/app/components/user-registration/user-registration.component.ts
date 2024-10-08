@@ -40,16 +40,14 @@ export class UserRegistrationComponent implements OnInit {
       name: [this.register?.name ?? '', Validators.required],
       cpf: [this.register?.cpf ?? '', Validators.required],
       birthday: [this.register?.birthday ?? '', Validators.required],
-      address: this.formBuilder.group({
-        street: [this.register?.address?.street ?? '', Validators.required],
-        number: [this.register?.address?.number ?? '', Validators.required],
-        complement: [this.register?.address?.complement ?? ''],
-        district: [this.register?.address?.district ?? '', Validators.required],
-        postalCode: [this.register?.address?.postalCode ?? '', Validators.required],
-        city: [this.register?.address?.city ?? '', Validators.required],
-        uf: [this.register?.address?.uf.toUpperCase() ?? ''?.toUpperCase(), Validators.required],
-        country: [this.COUNTRY]
-      }),
+      street: [this.register?.street ?? '', Validators.required],
+      number: [this.register?.number ?? '', Validators.required],
+      complement: [this.register?.complement ?? ''],
+      district: [this.register?.district ?? '', Validators.required],
+      postalCode: [this.register?.postalCode ?? '', Validators.required],
+      city: [this.register?.city ?? '', Validators.required],
+      uf: [this.register?.uf.toUpperCase() ?? ''?.toUpperCase(), Validators.required],
+      country: [this.COUNTRY]
     })
   }
 

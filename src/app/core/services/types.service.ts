@@ -9,12 +9,12 @@ import { TypeAccomodation } from '../../shared/models/model';
 
 export class TypesService {
 
-  private readonly URL = "http://localhost:3000"
+  private readonly URL = "http://localhost:3001"
 
   constructor(private httpClient: HttpClient) { }
 
-  getTypes(): Observable<TypeAccomodation[]> {
-    return this.httpClient.get<TypeAccomodation[]>(`${this.URL}/types`)
+  getTypes(): Observable<any> {
+    return this.httpClient.get<any>(`${this.URL}/types`)
   }
 
 }

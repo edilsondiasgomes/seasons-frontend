@@ -69,7 +69,7 @@ export class DetailsComponent implements OnInit {
   }
 
   verifyPetsAllowed(): boolean {
-    return this.accomodation.conveniencesPlace.some(item => item.name === 'Pets')
+    return this.accomodation?.conveniencesPlace?.some(item => item.name === 'Pets')
   }
 
   verificarQuantasDiarias() {

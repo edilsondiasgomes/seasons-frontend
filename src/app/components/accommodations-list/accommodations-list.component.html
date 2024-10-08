@@ -18,7 +18,7 @@
       [globalFilterFields]="['title', 'id', 'address.street', 'address.uf','dailyRate' ]">
       <ng-template pTemplate="header">
         <tr>
-          <th></th>
+          <!-- <th></th> -->
           <th>ID</th>
           <th>Title</th>
           <th>Endereço</th>
@@ -40,12 +40,12 @@
       </ng-template>
       <ng-template pTemplate="body" let-accomodation>
         <tr>
-          <td class="vertical-align-middle"><img [src]="accomodation.files[0]" [alt]="accomodation.name" width="100"
-              class="shadow-4" /></td>
+          <!-- <td class="vertical-align-middle"><img [src]="accomodation.files[0]" [alt]="accomodation.name" width="100"
+              class="shadow-4" /></td> -->
           <td class="vertical-align-middle">{{ accomodation.id }}</td>
           <td class="vertical-align-middle">{{ accomodation.title }}</td>
-          <td class="vertical-align-middle">{{ accomodation.address.street +', '+ accomodation.address.number + ', '+
-            accomodation.address.city +', ' + accomodation.address.uf}}</td>
+          <td class="vertical-align-middle">{{ accomodation.street +', '+ accomodation.number + ', '+
+            accomodation.city +', ' + accomodation.uf}}</td>
           <td class="vertical-align-middle">{{ accomodation.dailyRate | currency: 'BRL' }}
           </td>
           <td style="max-width: 35vw; word-wrap: break-word;" class="vertical-align-middle">{{

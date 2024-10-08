@@ -62,11 +62,12 @@ export class AccommodationsListComponent implements OnInit {
       () => {
         this.accommodationsService.deleteAccommodation(id)
           .subscribe({
-            next: () => {
+            next: (success) => {
               this.alertService.success('acomodação excluída com sucesso!')
               this.getaccommodations();
             },
             error: (error) => {
+              console.log(error);
               this.alertService.error(error)
             }
           })
