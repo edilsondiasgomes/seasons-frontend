@@ -42,15 +42,64 @@ export class AccommodationsService {
   }
 
   public postAccommodation(accomodation: Accommodation): Observable<Accommodation> {
-    return this.httpClient.post<Accommodation>(`${this.URL}/accommodations`, accomodation)
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(accomodation)) {
+
+      if (key === 'conveniencesPlace') {
+        formData.append(key, JSON.stringify(value))
+
+      }
+
+      else if (key === 'files') {
+        value.forEach((item: any, index: number) => {
+          formData.append(key, item)
+        })
+
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString())
+
+      } else {
+        formData.append(key, value as string)
+      }
+    }
+
+    return this.httpClient.post<Accommodation>(`${this.URL}/accommodations`, formData)
   }
 
   public putAccommodation(accomodation: Accommodation): Observable<Accommodation> {
-    return this.httpClient.put<Accommodation>(`${this.URL}/accommodations/${accomodation.id}`, accomodation)
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(accomodation)) {
+
+      if (key === 'conveniencesPlace') {
+        formData.append(key, JSON.stringify(value))
+      }
+
+      else if (key === 'files') {
+        value.forEach((item: any, index: number) => {
+          
+          if (item.id) {
+            formData.append(key, JSON.stringify(item))
+          } else {
+            formData.append(key, item)
+          }
+        })
+
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString())
+
+      } else {
+        formData.append(key, value as string)
+      }
+      
+
+    }
+    return this.httpClient.put<Accommodation>(`${this.URL}/accommodations/${accomodation.id}`, formData)
   }
 
-  public deleteAccommodation(id: number): Observable<any> {
-    return this.httpClient.delete<any>(`${this.URL}/accommodations/${id}`)
+  public deleteAccommodation(accomodation: Accommodation): Observable<any> {
+    return this.httpClient.put<any>(`${this.URL}/accommodations/delete/${accomodation.id}`, accomodation)
   }
 
 }

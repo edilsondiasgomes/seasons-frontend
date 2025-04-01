@@ -20,7 +20,6 @@ export class DetailsComponent implements OnInit {
 
   private readonly MINIMUM_GUESTS = 1;
 
-
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -41,6 +40,8 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.accomodation = this.accommodationsService.accomodation
+    console.log(this.accomodation);
+    
 
     this.reservation = {} as Reservation;
     this.reservation.accommodationId = this.accommodationsService.accomodation.id
@@ -76,7 +77,6 @@ export class DetailsComponent implements OnInit {
     let diferenca = this.reservation.finalDate.getDate() - this.reservation.initialDate.getDate();
 
     this.reservation.quantityDaily = diferenca
-    console.log(this.reservation.quantityDaily);
 
     this.calcularValorDiarias()
     return this.reservation.quantityDaily;

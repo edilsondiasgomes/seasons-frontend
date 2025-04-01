@@ -25,13 +25,13 @@
         [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true"
         [containerStyle]="{ 'max-width': '100%', 'margin-top':'1rem' }">
         <ng-template pTemplate="item" let-item>
-          <img [src]="item"
+          <img [src]="item.url"
             style="height: 27rem; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; display: block; border-radius: 5px"
             alt="img" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
           <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item" style="display: block;" alt="principal" />
+            <img [src]="item.url" style="display: block;" alt="principal" />
           </div>
         </ng-template>
       </p-galleria>

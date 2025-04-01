@@ -35,13 +35,13 @@ const routes: Routes = [
     path: 'users-list/:id', component: UserRegistrationComponent
   },
   {
-    path: 'register-accomodation', component: AccommodationRegistrationComponent
+    path: 'accomodation-registration', component: AccommodationRegistrationComponent
   },
   {
-    path: 'register-accomodation/:id', component: AccommodationRegistrationComponent
+    path: 'accomodation-registration/:id', component: AccommodationRegistrationComponent
   },
   {
-    path: 'registered-accommodations', component: AccommodationsListComponent
+    path: 'accommodations-list', component: AccommodationsListComponent
   }
 ];
 

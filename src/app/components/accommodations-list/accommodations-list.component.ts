@@ -54,13 +54,13 @@ export class AccommodationsListComponent implements OnInit {
 
   onEdit(accommodation: Accommodation) {
     this.accommodationsService.accomodation = accommodation
-    this.router.navigateByUrl('/register-accomodation/' + accommodation.id)
+    this.router.navigateByUrl('/accomodation-registration/' + accommodation.id)
   }
 
-  onDelete(id: number) {
+  onDelete(accommodation: Accommodation) {
     this.alertService.confirm('Tem certeza que deseja excluir essa acomodação?', 'Atenção!',
       () => {
-        this.accommodationsService.deleteAccommodation(id)
+        this.accommodationsService.deleteAccommodation(accommodation)
           .subscribe({
             next: (success) => {
               this.alertService.success('acomodação excluída com sucesso!')

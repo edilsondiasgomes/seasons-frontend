@@ -25,7 +25,7 @@
         [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [circular]="true"
         [containerStyle]="{ 'max-width': '640px', 'margin-top':'1rem' }">
         <ng-template pTemplate="item" let-item>
-          <img [src]="item"
+          <img [src]="item.url"
             style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 5px"
             alt="principal" />
         </ng-template>
@@ -36,7 +36,8 @@
       <div class=" m-2">
         <div
           style="width: 21rem; height: 4.2rem; margin: .5rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <h3> {{accomodation.typeSelected ? accomodation.typeSelected : 'Acomodação'}} em
+          <h3> {{ accomodation.typeSelected ? accomodation.id + ' - ' + accomodation.typeSelected : accomodation.id + '
+            - ' +'Acomodação'}} em
             {{accomodation.city}},
             {{accomodation.uf}}</h3>
           <p style="color:#222121b8">{{accomodation.guestsAllowed}} Hóspedes - {{accomodation.rooms}} quartos -

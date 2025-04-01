@@ -54,15 +54,18 @@ export class HomeComponent implements OnInit {
   }
 
   private searchAccommodations(item?: SearchFilter) {
+    this.spinnerOn = true;
     this.accommodations = [];
     this.spinnerOn = true
     this.accommodationsService.getFilteredAccommodations(item)
       .subscribe({
         next: (success) => {
+          this.spinnerOn = false;
           this.accommodations = success;
           this.accommodationsService.accommodations = success;
         },
         error: (error) => {
+          this.spinnerOn = false;
           this.alertService.error(error, 'Atenção!')
         },
         complete: () => { this.spinnerOn = false }

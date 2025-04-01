@@ -2,7 +2,7 @@ export interface Accommodation {
   id: number;
   title: string,
   typeSelected: string;
-  mainImage: any,
+  // mainImage: any,
   street: string,
   houseNumber: string,
   complement: string,

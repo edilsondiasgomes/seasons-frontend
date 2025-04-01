@@ -18,7 +18,7 @@
       [globalFilterFields]="['title', 'id', 'address.street', 'address.uf','dailyRate' ]">
       <ng-template pTemplate="header">
         <tr>
-          <!-- <th></th> -->
+          <th></th>
           <th>ID</th>
           <th>Title</th>
           <th>Endereço</th>
@@ -40,8 +40,9 @@
       </ng-template>
       <ng-template pTemplate="body" let-accomodation>
         <tr>
-          <!-- <td class="vertical-align-middle"><img [src]="accomodation.files[0]" [alt]="accomodation.name" width="100"
-              class="shadow-4" /></td> -->
+          <td class="vertical-align-middle"><img [src]="accomodation.files[0].url"
+              style="height: 5rem; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; display: block; border-radius: 5px"
+              [alt]="accomodation.name" width="100" class="shadow-4" /></td>
           <td class="vertical-align-middle">{{ accomodation.id }}</td>
           <td class="vertical-align-middle">{{ accomodation.title }}</td>
           <td class="vertical-align-middle">{{ accomodation.street +', '+ accomodation.number + ', '+
@@ -55,7 +56,7 @@
               <button pButton icon="pi pi-pause" class="p-button-rounded   p-button-text"
                 (click)="onPause(accomodation.id)"></button>
               <button pButton icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text"
-                (click)="onDelete(accomodation.id)"></button>
+                (click)="onDelete(accomodation)"></button>
               <button pButton icon="pi pi-pencil" class="ml-1 p-button-rounded p-button-warning p-button-text"
                 (click)="onEdit(accomodation)"></button>
             </div>
