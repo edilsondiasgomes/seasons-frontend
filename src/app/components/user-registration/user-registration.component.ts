@@ -38,38 +38,42 @@ export class UserRegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.register = this.registrationService.register
-    this.getRegistration();
-  }
-  
-  private getRegistration() {
-    const user = this.userService.user.userId
-    if (user) {
-
-      this.registrationService.getRegistrationByID(this.userService.user.userId).subscribe({
-        next: (data) => {
-          this.register = data;
-        },
-        error: (error) => {
-          this.alertService.error('Erro ao buscar registro!')
-        },
-      })
-    }
+    this.register = {} as Registration,
+      this.getRegistration();
     this.createForm();
   }
-  
+
+  private getRegistration() {
+    const user = this.userService.user?.userId
+    if (user) {
+
+      this.registrationService.getRegistrationByID(this.userService.user.userId)
+        .subscribe({
+          next: (data) => {
+            if (data) {
+              this.register = data;
+              this.createForm();
+            }
+          },
+          error: (error) => {
+            this.alertService.error('Erro ao buscar registro!')
+          },
+        })
+    }
+  }
+
   private createForm() {
     this.registrationForm = this.formBuilder.group({
-      name: [this.register?.name ?? '', Validators.required],
-      cpf: [this.register?.cpf ?? '', [Validators.required, Validators.minLength(11)]],
-      birthday: [this.register?.birthday ?? '', Validators.required],
-      street: [this.register?.street ?? '', Validators.required],
-      number: [this.register?.number ?? '', Validators.required],
-      complement: [this.register?.complement ?? ''],
-      district: [this.register?.district ?? '', Validators.required],
-      postalCode: [this.register?.postalCode ?? '', Validators.required],
-      city: [this.register?.city ?? '', Validators.required],
-      uf: [this.register?.uf.toUpperCase() ?? ''?.toUpperCase(), Validators.required],
+      name: [this.register?.name ? this.register?.name : '', Validators.required],
+      cpf: [this.register?.cpf ? this.register?.cpf : '', [Validators.required, Validators.minLength(11)]],
+      birthday: [this.register?.birthday ? this.register?.birthday : '', Validators.required],
+      street: [this.register?.street ?this.register?.street: '', Validators.required],
+      number: [this.register?.number ?this.register?.number: '', Validators.required],
+      complement: [this.register?.complement ?this.register?.complement: ''],
+      district: [this.register?.district ?this.register?.district: '', Validators.required],
+      postalCode: [this.register?.postalCode ?this.register?.postalCode: '', Validators.required],
+      city: [this.register?.city ?this.register?.city: '', Validators.required],
+      uf: [this.register?.uf ? this.register?.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
       country: [this.COUNTRY],
       email: ['', Validators.required],
       password: ['', Validators.required],

@@ -4,6 +4,7 @@ import { AccommodationsService } from 'src/app/core/services/accomodations.servi
 import { ViacepService } from 'src/app/core/services/viacep.service';
 import { Accommodation, SearchFilter } from 'src/app/shared/models/model';
 import { AlertService } from '../../core/services/alert.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -57,11 +58,10 @@ export class HomeComponent implements OnInit {
     this.spinnerOn = true;
     this.accommodations = [];
     this.spinnerOn = true
-    this.accommodationsService.getFilteredAccommodations(item)
+    this.accommodationsService.getFilteredAccommodations(item).pipe(first())
       .subscribe({
         next: (success) => {
           this.spinnerOn = false;
-          // this.accommodations = success;
           this.accommodations = success.map(a => ({
             ...a,
             files: Array.isArray(a.files) ? a.files.filter(f => f?.url) : []
