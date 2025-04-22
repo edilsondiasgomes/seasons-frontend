@@ -48,7 +48,7 @@ export interface Reservation {
 }
 
 export interface Login {
-  username: string,
+  email: string,
   password: string
 }
 
@@ -64,6 +64,8 @@ export interface Registration {
   postalCode: string,
   city: string,
   uf: string,
+  email: string,
+  password: string
 }
 
 export interface SearchFilter {

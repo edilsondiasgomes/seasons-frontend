@@ -21,14 +21,14 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private accommodationsService: AccommodationsService,
     private alertService: AlertService,
-    private viacepService: ViacepService
 
   ) { }
 
   ngOnInit() {
-    this.setResponsiveOptions();
+    this.accommodations = [];
     this.searchAccommodations();
     this.accommodationsService.receiveFindAccommodations().subscribe((item: SearchFilter) => { this.searchAccommodations(item) })
+    this.setResponsiveOptions();
   }
 
   setResponsiveOptions() {
@@ -61,7 +61,11 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: (success) => {
           this.spinnerOn = false;
-          this.accommodations = success;
+          // this.accommodations = success;
+          this.accommodations = success.map(a => ({
+            ...a,
+            files: Array.isArray(a.files) ? a.files.filter(f => f?.url) : []
+          }));
           this.accommodationsService.accommodations = success;
         },
         error: (error) => {

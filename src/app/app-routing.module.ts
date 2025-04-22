@@ -29,16 +29,19 @@ const routes: Routes = [
     path: 'registration', component: UserRegistrationComponent,
   },
   {
-    path: 'users-list', component: UsersListComponent
+    path: 'users-list', component: UsersListComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'users-list/:id', component: UserRegistrationComponent
   },
   {
-    path: 'accomodation-registration', component: AccommodationRegistrationComponent
+    path: 'accomodation-registration', component: AccommodationRegistrationComponent,
+    canActivate: [authGuard]
   },
   {
-    path: 'accomodation-registration/:id', component: AccommodationRegistrationComponent
+    path: 'accomodation-registration/:id', component: AccommodationRegistrationComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'accommodations-list', component: AccommodationsListComponent

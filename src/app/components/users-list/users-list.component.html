@@ -48,9 +48,9 @@
             {{ register.name }}
           </td>
           <td class="vertical-align-middle">{{ register.cpf }}</td>
-          <td class="vertical-align-middle">{{ register.birthday | date:'dd/MM/yyyy'}}</td>
-          <td class="vertical-align-middle">{{ register.address.street +', '+ register.address.number + ', '+
-            register.address.city +', ' + register.address.uf}}</td>
+          <td class="vertical-align-middle">{{ register.birthday}}</td>
+          <td class="vertical-align-middle">{{ register.street +', '+ register.number + ', '+
+            register.city +', ' + register.uf}}</td>
 
 
           <td class="vertical-align-middle">

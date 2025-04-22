@@ -26,17 +26,18 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRegistrations()
+    
   }
-
+  
   toGoBack() {
     this.location.back();
   }
-
+  
   getRegistrations() {
     this.registrationService.getRegistrations()
-      .subscribe({
-        next: (data) => {
-          this.registrations = data
+    .subscribe({
+      next: (data) => {
+        this.registrations = data
         },
         error: () => {
 
@@ -48,9 +49,9 @@ export class UsersListComponent implements OnInit {
     this.alertService.confirm('Deseja excluir o item selecionado?', '', () => {
       this.registrationService.deleteRegistration(id)
         .subscribe({
-          next: () => {
+          next: (success) => {
             this.alertService.success('Registro excluído com sucesso!')
-            this.getRegistrations()
+            this.getRegistrations();
           },
           error: () => {
             this.alertService.error('Erro ao excluir registro!')

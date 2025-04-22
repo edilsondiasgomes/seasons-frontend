@@ -62,3 +62,9 @@ body {
 .background-primary {
   background-color: var(--primary-color)
 }
+
+.message-form-invalid {
+  padding: 0px!important;
+  color: red;
+  font-size: smaller;
+}

@@ -1,11 +1,15 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { finalize, first } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { RegistrationService } from 'src/app/core/services/registration.service';
 import { ViacepService } from 'src/app/core/services/viacep.service';
 import { Registration } from 'src/app/shared/models/model';
+import { formatDate } from '@angular/common';
+import { AccommodationsService } from 'src/app/core/services/accomodations.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-registration',
@@ -27,18 +31,37 @@ export class UserRegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alertService: AlertService,
     private registrationService: RegistrationService,
-    private viaCepService: ViacepService
+    private viaCepService: ViacepService,
+    private router: Router,
+    private accommodationsService: AccommodationsService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
-    this.register = this.registrationService.register
+    // this.register = this.registrationService.register
+    this.getRegistration();
+  }
+  
+  private getRegistration() {
+    const user = this.userService.user.userId
+    if (user) {
+
+      this.registrationService.getRegistrationByID(this.userService.user.userId).subscribe({
+        next: (data) => {
+          this.register = data;
+        },
+        error: (error) => {
+          this.alertService.error('Erro ao buscar registro!')
+        },
+      })
+    }
     this.createForm();
   }
-
+  
   private createForm() {
     this.registrationForm = this.formBuilder.group({
       name: [this.register?.name ?? '', Validators.required],
-      cpf: [this.register?.cpf ?? '', Validators.required],
+      cpf: [this.register?.cpf ?? '', [Validators.required, Validators.minLength(11)]],
       birthday: [this.register?.birthday ?? '', Validators.required],
       street: [this.register?.street ?? '', Validators.required],
       number: [this.register?.number ?? '', Validators.required],
@@ -47,12 +70,15 @@ export class UserRegistrationComponent implements OnInit {
       postalCode: [this.register?.postalCode ?? '', Validators.required],
       city: [this.register?.city ?? '', Validators.required],
       uf: [this.register?.uf.toUpperCase() ?? ''?.toUpperCase(), Validators.required],
-      country: [this.COUNTRY]
+      country: [this.COUNTRY],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      passwordRepeat: ['', Validators.required],
     })
   }
 
   public findCEP() {
-    const cep = this.registrationForm.get('address.postalCode')?.value
+    const cep = this.registrationForm.get('postalCode')?.value
     if (cep && cep.length >= 8) {
       this.blockedPage = true;
       this.viaCepService.getCEP(cep)
@@ -74,7 +100,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   private updateAddress(endereco: any) {
-    this.registrationForm.get('address')?.patchValue({
+    this.registrationForm.patchValue({
       street: endereco.logradouro,
       district: endereco.bairro,
       postalCode: endereco.cep,
@@ -89,31 +115,45 @@ export class UserRegistrationComponent implements OnInit {
       control?.markAsDirty()
       control?.markAsTouched();
     })
-
-    const address = this.registrationForm.get('address') as FormGroup
-    Object.keys(address.controls).forEach(field => {
-      const control = address.get(field)
-      control?.markAsDirty()
-      control?.markAsTouched();
-    })
-
   }
+
+  public isPasswordSame() {
+    const password = this.registrationForm.get('password')?.value;
+    const passwordRepeat = this.registrationForm.get('passwordRepeat')?.value;
+    return password === passwordRepeat
+  }
+
+  public configureBirthdayAndCPF() {
+    const birthday = this.registrationForm.get('birthday')?.value
+    const cpf = this.registrationForm.get('cpf')?.value
+    this.registrationForm.patchValue({
+      cpf: cpf.replace(/[^0-9]/g, ''),
+      birthday: formatDate(birthday, 'dd/MM/yyyy', 'pt-BR')
+    })
+  }
+
   public save() {
     this.validateForm();
     if (!this.registrationForm.valid) {
       return this.alertService.info('Prencha os campos obrigatórios')
-    } else {
-      this.registrationService.setRegistrations(this.registrationForm.value)
+    }
+    this.configureBirthdayAndCPF();
+    if (!this.isPasswordSame()) {
+      return this.alertService.error('As senhas precisam ser iguais!')
+    }
+    this.alertService.confirm('Deseja salvar o registro', '', () => {
+      this.registrationService.createRegistration(this.registrationForm.value)
         .subscribe({
           next: () => {
-            this.createForm();
             this.alertService.success('Registro salvo com sucesso!')
+            this.router.navigateByUrl('/')
+            this.accommodationsService.findAccommodations();
           },
           error: () => {
             this.alertService.error('Erro ao salvar o registro!')
           }
         })
-    }
+    })
   }
 
   public toGoBack() {

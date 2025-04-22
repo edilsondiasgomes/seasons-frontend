@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '../../shared/models/model';
 import { UserService } from './user.service';
+import { Observable, tap } from 'rxjs';
 
 interface AuthResponse {
   access_token: string
@@ -13,28 +14,20 @@ interface AuthResponse {
 
 export class LoginService {
 
-  login!: Login;
+  private readonly URL = "http://localhost:3001"
+  private login!: Login;
 
   constructor(private httpClient: HttpClient, private userService: UserService) { }
 
-  // dologin(email: string, password: string): Observable<HttpResponse<AuthResponse>> {
-  //   return this.httpClient.post<AuthResponse>('apirUrl/', { email, password }, { observe: 'response' })
-  //     .pipe(
-  //       tap(response => {
-  //         const authToken = response.body?.access_token || ''
-  //         this.userService.saveToken(authToken)
-  //       }))
-  // }
-
-
-  doLogin() {
-    this.userService.saveToken(this.setToken())
+  doLogin(login: Login): Observable<any> {
+    
+    return this.httpClient.post<any>(this.URL+'/registrations/login', login, { observe: 'response' })
+      .pipe(
+        tap(response => {
+          const authToken = response.body?.access_token || ''
+          this.userService.saveToken(authToken)
+          
+        }))
   }
 
-  setToken() {
-    let token: {}
-    return token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-
-  }
 }

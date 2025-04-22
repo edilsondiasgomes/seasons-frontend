@@ -21,11 +21,11 @@
 
   <div class="col-3" *ngFor="let accomodation of accommodations">
     <div class="m-2">
-      <p-galleria [value]="accomodation.files" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
+      <p-galleria *ngIf="accomodation.files?.length" [value]="accomodation.files" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
         [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [circular]="true"
         [containerStyle]="{ 'max-width': '640px', 'margin-top':'1rem' }">
         <ng-template pTemplate="item" let-item>
-          <img [src]="item.url"
+          <img [src]="item?.url"
             style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 5px"
             alt="principal" />
         </ng-template>

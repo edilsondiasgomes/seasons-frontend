@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div [formGroup]="registrationForm" class="grid" style="width: 50%">
+    <div [formGroup]="registrationForm" class="grid col-12 sm:col-12 md:col-12 lg:col-5">
       <div class="col-12 mt-3">
         <hr style="height: 1px; background-color: #ebebeb;border: none;">
       </div>
@@ -24,54 +24,120 @@
       <div class="mt-2 col-12 flex flex-column gap-1">
         <label htmlFor="name">Nome</label>
         <input formControlName="name" pInputText id="name" aria-describedby="name" />
+        <span class="message-form-invalid"
+          *ngIf="registrationForm.get('name')?.touched && registrationForm.get('name')?.invalid">
+          Campo obrigatório.
+        </span>
       </div>
 
-      <div class="col-8 flex flex-column gap-1">
+      <div class="col-12 lg:col-8 flex flex-column gap-1">
         <label htmlFor="cpf">CPF</label>
         <input formControlName="cpf" pInputText id="cpf" aria-describedby="cpf" />
+        <span class="message-form-invalid"
+          *ngIf="registrationForm.get('cpf')?.touched && registrationForm.get('cpf')?.errors">
+          <ng-container class="message-form-invalid" *ngIf="registrationForm.get('cpf')?.errors?.['required']">
+            Campo obrigatório.
+          </ng-container>
+          <ng-container class="message-form-invalid" *ngIf="registrationForm.get('cpf')?.errors?.['minlength']">
+            O campo cpf precisa ter 11 digitos.
+          </ng-container>
+        </span>
       </div>
 
-      <div class="col-4 flex flex-column gap-1">
+      <div class="col-12 lg:col-4 flex flex-column gap-1">
         <label htmlFor="birthday">Data nascimento</label>
         <p-calendar formControlName="birthday" [readonlyInput]="true" [showIcon]="true" dateFormat="dd/mm/yy"
           [maxDate]="finalDate"></p-calendar>
+        <span class="message-form-invalid"
+          *ngIf="registrationForm.get('birthday')?.touched && registrationForm.get('birthday')?.invalid">
+          Campo obrigatório.
+        </span>
       </div>
 
       <div class="grid p-2">
 
-        <div class="col-3 flex flex-column gap-1">
+        <div class="col-12 sm:col-12 md:col-12 lg:col-4 flex flex-column gap-1">
           <label htmlFor="postalCode">CEP</label>
           <input formControlName="postalCode" pInputText id="postalCode" aria-describedby="postalCode" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('postalCode')?.touched && registrationForm.get('postalCode')?.invalid">
+            Campo obrigatório.
+          </span>
         </div>
 
-        <div class="col-9 flex flex-column gap-1">
+        <div class="col-12  lg:col-8 flex flex-column gap-1">
           <label htmlFor="street">Endereço</label>
           <input formControlName="street" pInputText id="street" (focus)="findCEP()" aria-describedby="street" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('street')?.touched && registrationForm.get('street')?.invalid">
+            Campo obrigatório.
+          </span>
         </div>
 
-        <div class="col-2 flex flex-column gap-1">
+        <div class="col-12  md:col-4 lg:col-2 flex flex-column gap-1">
           <label htmlFor="number">Número</label>
           <input formControlName="number" pInputText id="number" aria-describedby="number" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('number')?.touched && registrationForm.get('number')?.invalid">
+            Campo obrigatório.
+          </span>
         </div>
 
-        <div class="col-5 flex flex-column gap-1">
+        <div class="col-12  md:col-4 lg:col-4 flex flex-column gap-1">
           <label htmlFor="district">Bairro</label>
           <input formControlName="district" pInputText id="district" aria-describedby="district" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('district')?.touched && registrationForm.get('district')?.invalid">
+            Campo obrigatório.
+          </span>
         </div>
 
-        <div class="col-5 flex flex-column gap-1">
+        <div class="col-12 md:col-4 lg:col-6 flex flex-column gap-1">
           <label htmlFor="complement">Complemento</label>
           <input formControlName="complement" pInputText id="complement" aria-describedby="complement" />
         </div>
 
-        <div class="col-10 flex flex-column gap-1">
+        <div class="col-12 md:col-8 lg:col-10 flex flex-column gap-1">
           <label htmlFor="city">Cidade</label>
           <input formControlName="city" pInputText id="city" aria-describedby="city" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('city')?.touched && registrationForm.get('city')?.invalid">
+            Campo obrigatório.
+          </span>
         </div>
 
-        <div class="col-2 flex flex-column gap-1">
+        <div class="col-12 md:col-4 lg:col-2 flex flex-column gap-1">
           <label htmlFor="uf">UF</label>
           <input formControlName="uf" pInputText id="uf" aria-describedby="uf" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('uf')?.touched && registrationForm.get('uf')?.invalid">
+            Campo obrigatório.
+          </span>
+        </div>
+        <div class="col-12  flex flex-column gap-1">
+          <label htmlFor="email">E-mail</label>
+          <input formControlName="email" pInputText id="email" type="text" aria-describedby="email" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+            Campo obrigatório.
+          </span>
+        </div>
+        <div class="col-6  flex flex-column gap-1">
+          <label htmlFor="uf">Senha</label>
+          <input formControlName="password" pInputText id="password" type="password" aria-describedby="password" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
+            Campo obrigatório.
+          </span>
+        </div>
+        <div class="col-6  flex flex-column gap-1">
+          <label htmlFor="uf">Repetir senha</label>
+          <input formControlName="passwordRepeat" pInputText id="passwordRepeat" type="password"
+            aria-describedby="passwordRepeat" />
+          <span class="message-form-invalid"
+            *ngIf="registrationForm.get('passwordRepeat')?.touched && registrationForm.get('passwordRepeat')?.invalid">
+            Campo obrigatório.
+          </span>
         </div>
       </div>
 

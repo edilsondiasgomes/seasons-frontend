@@ -10,6 +10,7 @@ import { TokenService } from './token.service';
 export class UserService {
 
   private userSubject = new BehaviorSubject<any | null>(null)
+  public user: any;
 
   constructor(private tokenService: TokenService) {
     if (this.tokenService.hasToken()) {
@@ -23,8 +24,8 @@ export class UserService {
 
   public decodeJWT() {
     const token = this.tokenService.getToken()
-    const user = jwtDecode(token)
-    this.userSubject.next(user);
+    this.user = jwtDecode(token)
+    this.userSubject.next(this.user);
   }
 
   public getUser() {

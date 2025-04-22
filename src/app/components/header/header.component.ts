@@ -12,6 +12,8 @@ import { SearchFilter } from 'src/app/shared/models/model';
 })
 export class HeaderComponent implements OnInit {
 
+  private readonly userMasterId = 52
+  public isUserMaster = false;
   public inputSearch!: string;
   public minDate!: Date;
   public initialDate!: Date;
@@ -22,11 +24,22 @@ export class HeaderComponent implements OnInit {
   private accommodationsService = inject(AccommodationsService)
   private userService = inject(UserService);
   private router = inject(Router)
+  private user: any;
 
   ngOnInit() {
     this.setItems()
     this.minDate = new Date()
-    this.userService.getUser().subscribe(() => { this.setItems() })
+    this.userService.getUser().subscribe(
+      (data) => { 
+        if(data){
+          this.user = data;
+          this.checkUserMaster();
+        }
+      this.setItems() })
+  }
+
+  private checkUserMaster(){
+    this.isUserMaster = this.user.userId === this.userMasterId
   }
 
   private setItems() {
@@ -63,7 +76,7 @@ export class HeaderComponent implements OnInit {
     },
     {
       label: 'Área administrativa',
-      visible: this.userService.isUserLogged(),
+      visible: this.userService.isUserLogged() && this.isUserMaster,
       items: [
         {
           label: 'Cadastrar acomodações',

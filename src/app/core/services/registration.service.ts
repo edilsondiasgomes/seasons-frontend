@@ -9,7 +9,7 @@ import { Registration } from '../../shared/models/model';
 
 export class RegistrationService {
 
-  private readonly URL = "http://localhost:3000"
+  private readonly URL = "http://localhost:3001"
   registrations: Registration[] = [];
   register!: Registration;
 
@@ -19,13 +19,16 @@ export class RegistrationService {
     return this.httpClient.get<Registration[]>(`${this.URL}/registrations`)
   }
 
-  setRegistrations(registration: Registration): Observable<Registration> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpClient.post<Registration>(`${this.URL}/registrations`, registration, { headers })
+  getRegistrationByID(id: number): Observable<Registration> {
+    return this.httpClient.get<Registration>(`${this.URL}/registrations/${id}`)
   }
 
-  deleteRegistration(id: number): Observable<Registration> {
-    return this.httpClient.delete<Registration>(`${this.URL}/registrations/${id}`)
+  createRegistration(registration: Registration): Observable<Registration> {
+    return this.httpClient.post<Registration>(`${this.URL}/registrations/insert`, registration)
+  }
+
+  deleteRegistration(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.URL}/registrations/${id}`)
   }
 
 }
