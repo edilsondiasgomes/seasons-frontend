@@ -1,11 +1,13 @@
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
+  HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { TokenService } from '../services/token.service';
 
 @Injectable()
@@ -32,7 +34,16 @@ export class AuthInterceptor implements HttpInterceptor {
         })
       }
     }
-    return next.handle(request);
+
+    return next.handle(request)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            console.error('Não autorizado');
+          }
+          return throwError(() => {
+            return error.error.message});
+        }));
 
   }
 }

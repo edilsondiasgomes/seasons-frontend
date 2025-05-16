@@ -28,10 +28,10 @@ export class AccommodationsService {
 
   public getFilteredAccommodations(item?: SearchFilter): Observable<Accommodation[]> {
     let queryParams = '';
-    queryParams += item?.inputSearch ? `title=${item.inputSearch}&` : '';
+    queryParams += item?.inputSearch ? `city=${item.inputSearch}&` : '';
     queryParams += item?.minDate ? `initialDate=${item.minDate.toISOString()}&` : '';
     queryParams += item?.maxDate ? `finalDate=${item.maxDate.toISOString()}&` : '';
-    queryParams += item?.guests ? `guests=${item.guests.toString()}` : '';
+    queryParams += item?.guests ? `guestsAllowed=${item.guests.toString()}` : '';
     queryParams.endsWith('&') ? queryParams = queryParams.slice(0, -1) : queryParams;
 
     return this.httpClient.get<Accommodation[]>(`${this.URL}/accommodations${queryParams ? '?' + queryParams : ''}`)

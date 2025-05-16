@@ -20,38 +20,37 @@
     <div class="col-6 mt-3">
       <hr style="height: 1px; background-color: #ebebeb;border: none;">
 
-      <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+      <div style="color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p>Período</p>
         <p>{{reservation.initialDate | date :'d MMMM' }} à {{reservation.finalDate | date :'d MMMM'}} </p>
       </div>
 
-      <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+      <div style="color: grey;" class="mt-2  flex flex-direction-row justify-content-between">
         <p>Check-in</p>
         <p>às {{accomodation.checkIn}} horas</p>
       </div>
 
-      <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+      <div style="color: grey;" class="mt-2 flex flex-direction-row justify-content-between">
         <p> Check-out</p>
         <p>às {{accomodation.checkOut}} horas</p>
       </div>
 
-      <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+      <div style="color: grey;" class="mt-2 flex flex-direction-row justify-content-between">
         <p>Hóspedes</p>
         <p>{{reservation.guests}} hóspedes</p>
       </div>
 
-      <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+      <div style="color: grey;" class="mt-2 flex flex-direction-row justify-content-between">
         <p>Diárias</p>
         <p>{{reservation.quantityDaily}} diárias</p>
       </div>
 
-      <div style="font-size: 1.2rem; color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
+      <div style="color: grey;" class="mt-2 flex flex-direction-row justify-content-between">
         <p>Taxa de limpeza</p>
         <p>{{reservation.totalCleaningFee | currency: 'BRL'}}</p>
       </div>
 
-      <div style="font-size: 1.2rem; color: grey;     font-weight: 600;"
-        class="mt-3 flex flex-direction-row justify-content-between">
+      <div style="color: grey; font-weight: 600;" class="mt-2 flex flex-direction-row justify-content-between">
         <p>Valor Total </p>
         <p> {{reservation.amount | currency: 'BRL'}}</p>
       </div>
@@ -70,8 +69,8 @@
       </div>
 
       <div style="text-align: center;" class="mt-3">
-        <button type="button" style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;" pButton
-          (click)="backDetais()">Confirmar
+        <button type="button" style="justify-content: center; font-weight: 600; width: 100%;" pButton
+          (click)="sendReservation()">Confirmar
           reserva</button>
       </div>
 
@@ -80,12 +79,14 @@
       <div class="grid pl-8">
 
         <div class="col-6">
-          <h4 class="">acomodação</h4>
+          <!-- <h4 class="">acomodação</h4> -->
+          <h3 class="sub-header text-primary">Acomodação</h3>
           <p style="color:#222121b8; ">{{reservation.guests}} Hóspedes -
             {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
           </p>
 
-          <h4 class="mt-4">Animais de estimação</h4>
+          <!-- <h4 class="mt-4">Animais de estimação</h4> -->
+          <h3 class="sub-header mt-5 text-primary">Animais de estimação</h3>
           <ng-container *ngIf="verifyPetsAllowed(); else notAllowed">
             <p style="color:#222121b8;">Permitido</p>
           </ng-container>
@@ -93,7 +94,8 @@
             <p style="color:#222121b8;">Não permitido</p>
           </ng-template>
 
-          <h4 class="mt-4">Estacionamento</h4>
+          <!-- <h4 class="mt-4">Estacionamento</h4> -->
+          <h3 class="sub-header mt-5 text-primary">Estacionamento</h3>
           <ng-container *ngIf="verifyParking(); else not">
             <p style="color:#222121b8;">Grátis no local</p>
           </ng-container>
@@ -105,15 +107,15 @@
         <div class="col-6">
           <!-- imagem-principal -->
           <div>
-            <img style=" border-radius: 5px; width: 15rem;     aspect-ratio: 4/3;
-            object-fit: cover;" alt="'" [src]="accomodation.files[0]">
+            <img style=" border-radius: 5px; width: 17rem;     aspect-ratio: 5/3;
+            object-fit: cover;" alt="'" [src]="accomodation.files[0].url">
           </div>
         </div>
       </div>
       <div class="col-12" style="padding-left: 5rem;">
 
         <!-- comodidades -->
-        <h3 class="sub-header text-primary">Comodidades</h3>
+        <h3 class="sub-header mt-5 text-primary">Comodidades</h3>
         <hr style="height: 1px; background-color: #ebebeb;border: none;">
         <div class="flex flex-direction-row align-items-center flex-wrap">
           <div *ngFor="let convenience of accomodation.conveniencesPlace">

@@ -14,11 +14,11 @@ import { Accommodation, Reservation } from './../../shared/models/model';
 
 export class DetailsComponent implements OnInit {
 
+  private readonly MINIMUM_GUESTS = 1;
   accomodation!: Accommodation;
   reservation!: Reservation;
   minDate!: Date;
-
-  private readonly MINIMUM_GUESTS = 1;
+  disabledDates: Date[] = [];
 
   responsiveOptions: any[] = [
     {
@@ -38,26 +38,31 @@ export class DetailsComponent implements OnInit {
   constructor(private accommodationsService: AccommodationsService, private router: Router, private location: Location) { }
 
   ngOnInit(): void {
-
     this.accomodation = this.accommodationsService.accomodation
-    console.log(this.accomodation);
-    
-
     this.reservation = {} as Reservation;
     this.reservation.accommodationId = this.accommodationsService.accomodation.id
     this.reservation.guests = this.MINIMUM_GUESTS;
     this.setMinDate();
     this.reservation.initialDate = new Date();
     this.reservation.finalDate = this.minDate;
+    this.setDisabledDates()
   }
-
+  
   findIcon(convenience: string) {
     return ConvenienceUtils.findIcon(convenience)
   }
-
+  
   setMinDate() {
     const oneDayFromTodayTimeStamp = new Date().getTime() + (1000 * 60 * 60 * 24);
     this.minDate = new Date(oneDayFromTodayTimeStamp)
+  }
+  
+  setDisabledDates(){
+    // console.log('initialDate: ',this.accomodation.initialDate);
+    this.disabledDates.push(new Date(this.accomodation.initialDate))
+    this.disabledDates.push(new Date(this.accomodation.finalDate))
+    console.log('disabledDates: ',this.disabledDates);
+    
   }
 
   requestReservation() {

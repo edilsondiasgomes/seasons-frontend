@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize, first } from 'rxjs';
@@ -7,24 +7,23 @@ import { AlertService } from 'src/app/core/services/alert.service';
 import { RegistrationService } from 'src/app/core/services/registration.service';
 import { ViacepService } from 'src/app/core/services/viacep.service';
 import { Registration } from 'src/app/shared/models/model';
-import { formatDate } from '@angular/common';
 import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
   private readonly IDADE_MINIMA = 18;
   private readonly COUNTRY = 'Brasil'
-  dataMinima = new Date();
-  finalDate = new Date(this.dataMinima.getFullYear() - this.IDADE_MINIMA, this.dataMinima.getMonth(), this.dataMinima.getDate());
-  registrationForm!: FormGroup
-  register!: Registration
-  blockedPage!: boolean;
+  private dataMinima = new Date();
+  private register!: Registration
+  public finalDate = new Date(this.dataMinima.getFullYear() - this.IDADE_MINIMA, this.dataMinima.getMonth(), this.dataMinima.getDate());
+  public registrationForm!: FormGroup
+  public blockedPage!: boolean;
 
   constructor(
     private location: Location,
@@ -37,9 +36,13 @@ export class UserRegistrationComponent implements OnInit {
     private userService: UserService
   ) { }
 
+  ngOnDestroy(): void {
+    this.registrationForm.reset();
+  }
+
   ngOnInit(): void {
-    this.register = {} as Registration,
-      this.getRegistration();
+    this.register = {} as Registration;
+    this.getRegistration();
     this.createForm();
   }
 
@@ -64,15 +67,16 @@ export class UserRegistrationComponent implements OnInit {
 
   private createForm() {
     this.registrationForm = this.formBuilder.group({
+      id: [this.register?.id ? this.register?.id : ''],
       name: [this.register?.name ? this.register?.name : '', Validators.required],
       cpf: [this.register?.cpf ? this.register?.cpf : '', [Validators.required, Validators.minLength(11)]],
-      birthday: [this.register?.birthday ? this.register?.birthday : '', Validators.required],
-      street: [this.register?.street ?this.register?.street: '', Validators.required],
-      number: [this.register?.number ?this.register?.number: '', Validators.required],
-      complement: [this.register?.complement ?this.register?.complement: ''],
-      district: [this.register?.district ?this.register?.district: '', Validators.required],
-      postalCode: [this.register?.postalCode ?this.register?.postalCode: '', Validators.required],
-      city: [this.register?.city ?this.register?.city: '', Validators.required],
+      birthday: [this.register?.birthday ? new Date(this.register?.birthday) : '', Validators.required],
+      street: [this.register?.street ? this.register?.street : '', Validators.required],
+      number: [this.register?.number ? this.register?.number : '', Validators.required],
+      complement: [this.register?.complement ? this.register?.complement : ''],
+      district: [this.register?.district ? this.register?.district : '', Validators.required],
+      postalCode: [this.register?.postalCode ? this.register?.postalCode : '', Validators.required],
+      city: [this.register?.city ? this.register?.city : '', Validators.required],
       uf: [this.register?.uf ? this.register?.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
       country: [this.COUNTRY],
       email: ['', Validators.required],
@@ -127,34 +131,61 @@ export class UserRegistrationComponent implements OnInit {
     return password === passwordRepeat
   }
 
-  public configureBirthdayAndCPF() {
-    const birthday = this.registrationForm.get('birthday')?.value
+  public clearSpecialCharactersCPF() {
     const cpf = this.registrationForm.get('cpf')?.value
     this.registrationForm.patchValue({
       cpf: cpf.replace(/[^0-9]/g, ''),
-      birthday: formatDate(birthday, 'dd/MM/yyyy', 'pt-BR')
     })
   }
 
   public save() {
     this.validateForm();
+    this.clearSpecialCharactersCPF();
+
     if (!this.registrationForm.valid) {
       return this.alertService.info('Prencha os campos obrigatórios')
     }
-    this.configureBirthdayAndCPF();
+
     if (!this.isPasswordSame()) {
       return this.alertService.error('As senhas precisam ser iguais!')
     }
-    this.alertService.confirm('Deseja salvar o registro', '', () => {
-      this.registrationService.createRegistration(this.registrationForm.value)
+
+    const id = this.registrationForm.get('id')?.value
+    if (id) {
+      this.update()
+    } else {
+      this.create()
+    }
+  }
+
+  private update() {
+    this.alertService.confirm('Deseja editar seus dados?', '', () => {
+      this.registrationService.updateRegistration(this.registrationForm.value)
         .subscribe({
           next: () => {
-            this.alertService.success('Registro salvo com sucesso!')
+            this.alertService.success('Dados editados com sucesso!')
             this.router.navigateByUrl('/')
             this.accommodationsService.findAccommodations();
           },
           error: () => {
-            this.alertService.error('Erro ao salvar o registro!')
+            this.alertService.error('Erro ao editar os dados!')
+          }
+        })
+
+    })
+  }
+
+  public create() {
+    this.alertService.confirm('Deseja salvar seus dados?', '', () => {
+      this.registrationService.createRegistration(this.registrationForm.value)
+        .subscribe({
+          next: () => {
+            this.alertService.success('Dados salvo com sucesso!')
+            this.router.navigateByUrl('/')
+            this.accommodationsService.findAccommodations();
+          },
+          error: () => {
+            this.alertService.error('Erro ao salvar os dados!')
           }
         })
     })

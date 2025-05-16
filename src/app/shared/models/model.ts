@@ -38,13 +38,14 @@ export interface Convenience {
 
 export interface Reservation {
   accommodationId: number,
+  registrationId: number,
   initialDate: Date,
   finalDate: Date,
-  guests: number,
   quantityDaily: number,
+  amount: number
+  guests: number,
   totalDailyRate: number,
   totalCleaningFee: number
-  amount: number
 }
 
 export interface Login {
@@ -70,7 +71,7 @@ export interface Registration {
 
 export interface SearchFilter {
   inputSearch: string;
-  minDate: Date;
-  maxDate: Date;
-  guests: number;
+  minDate: Date | null;
+  maxDate: Date | null;
+  guests: number | null;
 }

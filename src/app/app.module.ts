@@ -8,7 +8,7 @@ import localeBr from '@angular/common/locales/pt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AccommodationRegistrationComponent } from './components/accommodation-registration/accommodation-registration.component';
+import { AccommodationComponent } from './components/accommodation/accommodation.component';
 import { AccommodationsListComponent } from './components/accommodations-list/accommodations-list.component';
 import { DetailsComponent } from './components/detais/details.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -16,7 +16,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
-import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
+import { UserComponent } from './components/user/user.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PrimengModule } from './primeng/primeng.module';
@@ -32,9 +32,9 @@ registerLocaleData(localeBr, 'pt')
     DetailsComponent,
     FooterComponent,
     ReservationComponent,
-    UserRegistrationComponent,
+    UserComponent,
     UsersListComponent,
-    AccommodationRegistrationComponent,
+    AccommodationComponent,
     AccommodationsListComponent,
     LoginComponent,
   ],

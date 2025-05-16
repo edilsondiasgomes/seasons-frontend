@@ -33,7 +33,7 @@
             (click)="clear(dt)"></button>
           <span class="p-input-icon-left ml-auto">
             <i class="pi pi-search"></i>
-            <input #inputDt pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            <input class="h-3rem" #inputDt pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
               placeholder="Digitar palavra" />
           </span>
         </div>

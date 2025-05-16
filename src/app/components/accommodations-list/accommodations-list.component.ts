@@ -44,6 +44,8 @@ export class AccommodationsListComponent implements OnInit {
         },
         error: (error) => {
           this.alertService.error(error, 'Atenção!')
+          console.log(error);
+          
         }
       })
   }

@@ -10,15 +10,16 @@ import { SearchFilter } from 'src/app/shared/models/model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit {
 
   private readonly userMasterId = 52
   public isUserMaster = false;
   public inputSearch!: string;
   public minDate!: Date;
-  public initialDate!: Date;
-  public finalDate!: Date;
-  public guests!: number;
+  public initialDate!: Date | null;
+  public finalDate!: Date | null;
+  public guests!: number | null; 
   public items!: MenuItem[];
   private searchFilter!: SearchFilter;
   private accommodationsService = inject(AccommodationsService)
@@ -111,6 +112,15 @@ export class HeaderComponent implements OnInit {
     this.setFilterAccommodations();
     this.router.navigateByUrl('/')
     this.accommodationsService.findAccommodations(this.searchFilter);
+  }
+
+  deleteSearching(){
+    this.inputSearch = '';
+    this.initialDate = null;
+    this.finalDate = null;
+    this.guests = null
+    this.searchAccommodations();
+
   }
 
   goToHome() {

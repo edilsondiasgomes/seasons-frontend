@@ -10,25 +10,27 @@
   </div>
 
   <div class="flex">
-    <span class="p-input-icon-left mr-2">
+    <span class="p-input-icon-left mx-1">
       <i class="pi pi-search"></i>
-      <input size="small" type="text" [(ngModel)]="inputSearch" pInputText placeholder="Digite um lugar" />
+      <input class="mx-1" size="small" type="text" [(ngModel)]="inputSearch" pInputText placeholder="Digite um lugar" />
     </span>
 
-    <div class="card mr-2">
+    <div class="card mx-1">
       <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data inicial" [(ngModel)]="initialDate"
         dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
     </div>
-    <div class="card mr-2">
+    <div class="card mx-2">
       <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data final" [(ngModel)]="finalDate"
         dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
     </div>
 
-    <p-inputNumber class="flex-auto mr-2" [min]="1" placeholder="Hóspedes"
-      [suffix]=" guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="guests" [showButtons]="true" inputId="guests">
+    <p-inputNumber class="flex-auto mx-1" [min]="1" placeholder="Hóspedes"
+      [suffix]=" guests && guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="guests" [showButtons]="true" inputId="guests">
     </p-inputNumber>
 
-    <p-button label="Buscar" icon="pi pi-search" (click)="searchAccommodations()"></p-button>
+    <p-button class="mx-1"  icon="pi pi-times" (click)="deleteSearching()"></p-button>
+    
+    <p-button class="mx-1" label="Buscar" icon="pi pi-search" (click)="searchAccommodations()"></p-button>
   </div>
   <div class="mr-7" style="display: flex; justify-content: space-between; align-items: center">
     <button type="button" class="p-button-rounded p-button-text" pButton icon="pi pi-bars"

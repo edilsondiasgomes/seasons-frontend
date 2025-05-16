@@ -40,6 +40,7 @@ export class UserService {
   public logout() {
     this.tokenService.removeToken();
     this.userSubject.next(null);
+    this.user = '';
   }
 
 

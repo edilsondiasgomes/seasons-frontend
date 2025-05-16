@@ -13,12 +13,12 @@ import { AlertService } from '../../core/services/alert.service';
 import { ConveniencesService } from '../../core/services/conveniences.service';
 
 @Component({
-  selector: 'app-accommodation-registration',
-  templateUrl: './accommodation-registration.component.html',
-  styleUrls: ['./accommodation-registration.component.scss']
+  selector: 'app-accommodation',
+  templateUrl: './accommodation.component.html',
+  styleUrls: ['./accommodation.component.scss']
 })
 
-export class AccommodationRegistrationComponent implements OnInit {
+export class AccommodationComponent implements OnInit {
 
   accomodation!: Accommodation;
   currentMainImage!: string;

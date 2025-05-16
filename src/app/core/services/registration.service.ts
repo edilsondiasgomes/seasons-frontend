@@ -27,6 +27,10 @@ export class RegistrationService {
     return this.httpClient.post<Registration>(`${this.URL}/registrations/insert`, registration)
   }
 
+  updateRegistration(registration: Registration): Observable<Registration> {
+    return this.httpClient.put<Registration>(`${this.URL}/registrations/update/${registration.id}`, registration)
+  }
+
   deleteRegistration(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.URL}/registrations/${id}`)
   }
