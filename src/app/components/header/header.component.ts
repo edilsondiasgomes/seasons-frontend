@@ -58,6 +58,12 @@ export class HeaderComponent implements OnInit {
           visible: !this.userService.isUserLogged()
         },
         {
+          label: 'QRCode',
+          icon: 'fa-solid fa-users',
+          routerLink: '/qrcode',
+          visible: !this.userService.isUserLogged()
+        },
+        {
           label: 'Meus dados',
           icon: 'fa-solid fa-user',
           routerLink: '/registration',
@@ -94,11 +100,6 @@ export class HeaderComponent implements OnInit {
           icon: 'fa-solid fa-users',
           routerLink: '/users-list'
         },
-        {
-          label: 'QRCode',
-          icon: 'fa-solid fa-users',
-          routerLink: '/qrcode'
-        }
       ]
     }
     ];
