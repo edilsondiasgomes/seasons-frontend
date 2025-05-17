@@ -15,5 +15,12 @@ export class QrcodeComponent {
     console.log('Código lido:', result);
     // aqui você pode redirecionar, buscar no banco, etc.
   }
+  onScanFailure() {
+    console.log('Nenhum código detectado no frame');
+  }
+  
+  onScanError(error: any) {
+    console.error('Erro ao escanear:', error);
+  }
 
 }

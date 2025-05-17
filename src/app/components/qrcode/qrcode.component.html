@@ -1,5 +1,8 @@
 <zxing-scanner
   [formats]="formats"
   [autostart]="true"
+  [tryHarder]="true"
+  (scanFailure)="onScanFailure()"
+  (scanError)="onScanError($event)"
   (scanSuccess)="onCodeResult($event)">
 </zxing-scanner>
