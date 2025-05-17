@@ -1,9 +1,7 @@
-<zxing-scanner
-style="width: 100%; height: auto; display: block;"
-  [formats]="formats"
-  [autostart]="true"
-  [tryHarder]="true"
-  (scanFailure)="onScanFailure()"
-  (scanError)="onScanError($event)"
-  (scanSuccess)="onCodeResult($event)">
+<zxing-scanner style="width: 100%; height: auto; display: block;" [formats]="formats" [autostart]="true"
+    [tryHarder]="true" (scanFailure)="onScanFailure()" (scanError)="onScanError($event)"
+    (scanSuccess)="onCodeResult($event)">
 </zxing-scanner>
+
+<div>Número do código lido:{{result}}
+</div>

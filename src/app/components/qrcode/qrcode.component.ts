@@ -10,9 +10,11 @@ import { BarcodeFormat } from '@zxing/library';
 export class QrcodeComponent {
 
   formats = [BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128];
+  result: any
 
   onCodeResult(result: string) {
     console.log('Código lido:', result);
+    result = result
     // aqui você pode redirecionar, buscar no banco, etc.
   }
   onScanFailure() {
