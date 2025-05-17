@@ -93,6 +93,11 @@ export class HeaderComponent implements OnInit {
           label: 'Usuários',
           icon: 'fa-solid fa-users',
           routerLink: '/users-list'
+        },
+        {
+          label: 'QRCode',
+          icon: 'fa-solid fa-users',
+          routerLink: '/qrcode'
         }
       ]
     }

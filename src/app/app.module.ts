@@ -20,9 +20,10 @@ import { UserComponent } from './components/user/user.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PrimengModule } from './primeng/primeng.module';
+import { QrcodeComponent } from './components/qrcode/qrcode.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 registerLocaleData(localeBr, 'pt')
-
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ registerLocaleData(localeBr, 'pt')
     AccommodationComponent,
     AccommodationsListComponent,
     LoginComponent,
+    QrcodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ registerLocaleData(localeBr, 'pt')
     HttpClientModule,
     AppRoutingModule,
     PrimengModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ZXingScannerModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
