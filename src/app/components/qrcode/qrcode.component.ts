@@ -14,8 +14,9 @@ export class QrcodeComponent {
 
   onCodeResult(result: string) {
     console.log('Código lido:', result);
-    result = result
-    // aqui você pode redirecionar, buscar no banco, etc.
+    this.result = result;
+    alert(`Código detectado: ${result}`);
+    // ou: navegar, buscar dados, etc.
   }
   onScanFailure() {
     console.log('Nenhum código detectado no frame');
