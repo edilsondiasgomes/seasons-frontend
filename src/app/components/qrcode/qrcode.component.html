@@ -4,10 +4,12 @@
             <h2 class="header">Leitor</h2>
             <p class="sub-header" style="color:#222121b8; ">QRCode e código de barras</p>
         </div>
-        <zxing-scanner style="width: 100%; height: auto; display: block;" [formats]="formats" [autostart]="true"
-            [tryHarder]="true" (scanFailure)="onScanFailure()" (scanError)="onScanError($event)"
-            (scanSuccess)="onCodeResult($event)">
-        </zxing-scanner>
+        <div class="scanner-container">
+
+            <zxing-scanner [formats]="formats" [autostart]="true" [tryHarder]="true" (scanFailure)="onScanFailure()"
+                (scanError)="onScanError($event)" (scanSuccess)="onCodeResult($event)">
+            </zxing-scanner>
+        </div>
 
         <label for="result">Código lido</label>
         <div class="p-inputgroup">
