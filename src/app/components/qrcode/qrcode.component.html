@@ -1,5 +1,9 @@
 <div class="grid p-4">
     <div class="col sm:col-12 lg:col-6">
+        <div class="m-2">
+            <h2 class="header">Leitor</h2>
+            <p class="sub-header" style="color:#222121b8; ">QRCode e código de barras</p>
+        </div>
         <zxing-scanner style="width: 100%; height: auto; display: block;" [formats]="formats" [autostart]="true"
             [tryHarder]="true" (scanFailure)="onScanFailure()" (scanError)="onScanError($event)"
             (scanSuccess)="onCodeResult($event)">
