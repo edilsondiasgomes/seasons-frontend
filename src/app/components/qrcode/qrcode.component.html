@@ -4,11 +4,11 @@
             [tryHarder]="true" (scanFailure)="onScanFailure()" (scanError)="onScanError($event)"
             (scanSuccess)="onCodeResult($event)">
         </zxing-scanner>
-            <!-- <label for="">Código lido</label>
-        <input class="mx-1 w-auto" type="text" [(ngModel)]="result" pInputText /> -->
-        <div class="mt-2 flex flex-column gap-1">
-            <label htmlFor="result">Código lido</label>
-            <input [(ngModel)]="result" pInputText id="result" aria-describedby="result" />
-          </div>
+
+        <label for="result">Código lido</label>
+        <div class="p-inputgroup">
+            <input type="text" pInputText [(ngModel)]="result" />
+            <button type="button" pButton icon="pi pi-times" (click)="result=''" styleClass="p-button-danger"></button>
+        </div>
     </div>
 </div>

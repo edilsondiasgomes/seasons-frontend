@@ -9,11 +9,15 @@ import { BarcodeFormat } from '@zxing/library';
 })
 export class QrcodeComponent {
 
-  formats = [BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128];
+  formats = [  BarcodeFormat.QR_CODE,
+    BarcodeFormat.CODE_128,
+    BarcodeFormat.ITF,         // Muito usado em boletos bancários
+    BarcodeFormat.EAN_13,
+    BarcodeFormat.EAN_8,
+    BarcodeFormat.CODE_39];
   result: any
 
   onCodeResult(result: string) {
-    console.log('Código lido:', result);
     this.result = result;
     alert(`Código detectado: ${result}`);
     // ou: navegar, buscar dados, etc.
