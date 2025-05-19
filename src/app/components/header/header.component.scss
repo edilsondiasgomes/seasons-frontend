@@ -8,33 +8,30 @@
       width: 8rem;
     }
 
-    .p-input-icon-left>.p-inputtext {
-      height: 3rem;
-    }
-
+ 
     .p-avatar {
       background-color: var(--primary-color)
     }
 
     .p-calendar {
-      width: 12rem;
+      // width: 12rem;
 
-      // .p-button {
-      //   background-color: #4ecbd3;
-      //   border: #4ecbd3;
-      // }
     }
 
-    // .p-button {
-    //   background: #4ecbd3 !important;
-    //   border: 1px solid #4ecbd3 !important;
-    // }
+    .p-calendar .p-inputtext {
+      width: auto;
+    }
 
     .p-button.p-button-icon-only.p-button-rounded {
       background: none !important;
       border: none !important;
       color: var(--primary-color) !important;
     }
+
+    .p-inputnumber-buttons-stacked .p-inputnumber-input {
+      width: auto;
+    }
+
 
     .p-avatar {
       // color: white!important;

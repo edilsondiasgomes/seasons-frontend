@@ -1,7 +1,14 @@
-<zxing-scanner style="width: 100%; height: auto; display: block;" [formats]="formats" [autostart]="true"
-    [tryHarder]="true" (scanFailure)="onScanFailure()" (scanError)="onScanError($event)"
-    (scanSuccess)="onCodeResult($event)">
-</zxing-scanner>
-
-<div>Número do código lido:{{result}}
+<div class="grid p-4">
+    <div class="col sm:col-12 lg:col-6">
+        <zxing-scanner style="width: 100%; height: auto; display: block;" [formats]="formats" [autostart]="true"
+            [tryHarder]="true" (scanFailure)="onScanFailure()" (scanError)="onScanError($event)"
+            (scanSuccess)="onCodeResult($event)">
+        </zxing-scanner>
+            <!-- <label for="">Código lido</label>
+        <input class="mx-1 w-auto" type="text" [(ngModel)]="result" pInputText /> -->
+        <div class="mt-2 flex flex-column gap-1">
+            <label htmlFor="result">Código lido</label>
+            <input [(ngModel)]="result" pInputText id="result" aria-describedby="result" />
+          </div>
+    </div>
 </div>
