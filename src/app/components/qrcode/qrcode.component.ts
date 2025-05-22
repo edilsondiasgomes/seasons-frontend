@@ -8,8 +8,10 @@ import { BarcodeFormat } from '@zxing/library';
   styleUrls: ['./qrcode.component.scss']
 })
 export class QrcodeComponent {
+  selectedDevice: MediaDeviceInfo | undefined;
 
-  formats = [  BarcodeFormat.QR_CODE,
+  formats = [
+    BarcodeFormat.QR_CODE,
     BarcodeFormat.CODE_128,
     BarcodeFormat.ITF,         // Muito usado em boletos bancários
     BarcodeFormat.EAN_13,
@@ -23,11 +25,12 @@ export class QrcodeComponent {
     // ou: navegar, buscar dados, etc.
   }
   onScanFailure() {
-    console.log('Nenhum código detectado no frame');
+    // alert('Nenhum código detectado no frame');
   }
-  
+
   onScanError(error: any) {
-    console.error('Erro ao escanear:', error);
+
+    // alert('Erro ao escanear: ' + error);
   }
 
 }

@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm install && ng serve --open",
+    "start": "npm install && ng serve --host 0.0.0.0 --disable-host-check --open",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
+
   },
   "private": true,
   "dependencies": {

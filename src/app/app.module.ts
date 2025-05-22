@@ -22,6 +22,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PrimengModule } from './primeng/primeng.module';
 import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 
 registerLocaleData(localeBr, 'pt')
 
@@ -39,6 +40,7 @@ registerLocaleData(localeBr, 'pt')
     AccommodationsListComponent,
     LoginComponent,
     QrcodeComponent,
+    ReservationsComponent,
   ],
   imports: [
     BrowserModule,

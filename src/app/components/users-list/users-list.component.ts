@@ -11,9 +11,10 @@ import { Registration } from 'src/app/shared/models/model';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
+
 export class UsersListComponent implements OnInit {
 
-  registrations!: Registration[]
+  public registrations!: Registration[]
 
   @ViewChild('inputDt') inputDt!: any
 
@@ -26,18 +27,18 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRegistrations()
-    
+
   }
-  
+
   toGoBack() {
     this.location.back();
   }
-  
+
   getRegistrations() {
     this.registrationService.getRegistrations()
-    .subscribe({
-      next: (data) => {
-        this.registrations = data
+      .subscribe({
+        next: (data) => {
+          this.registrations = data
         },
         error: () => {
 

@@ -100,6 +100,11 @@ export class HeaderComponent implements OnInit {
           icon: 'fa-solid fa-users',
           routerLink: '/users-list'
         },
+        {
+          label: 'Reservas',
+          icon: 'fa-solid fa-building',
+          routerLink: '/reservations'
+        },
       ]
     }
     ];

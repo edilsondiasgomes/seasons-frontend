@@ -69,3 +69,9 @@ body {
   color: red;
   font-size: smaller;
 }
+
+zxing-scanner video {
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover !important;
+}

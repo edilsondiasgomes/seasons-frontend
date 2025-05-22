@@ -13,8 +13,12 @@ export class ReservationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  createReservation(reservation: Reservation): Observable<Reservation> {
+  public createReservation(reservation: Reservation): Observable<Reservation> {
     return this.httpClient.post<Reservation>(`${this.URL}/reservations/`, reservation)
+  }
+
+  public listReservation(): Observable<Reservation[]>{
+    return this.httpClient.get<Reservation[]>(`${this.URL}/reservations`)
   }
  
 

@@ -1,8 +1,7 @@
-<div class="grid">
+<div class="grid mx-0 my-0 py-2 px-4">
 
   <div class="col">
-    <div class="flex flex-row align-items-center text-primary"
-      style="font-size: 1.4rem; padding: 1rem; font-weight: 900;">
+    <div class="flex flex-row align-items-center text-primary" style="font-size: 1.4rem; font-weight: 900;">
       <i class="fa-solid fa-seedling mr-2"></i>
       <a style="text-decoration: none;    cursor:pointer;" (click)="goToHome()">
         Seasons
@@ -15,40 +14,33 @@
     </div>
   </div>
 
-<div hidden="true">
 
-  <div class="col pt-4">
-    <span class="p-input-icon-left mx-1">
+  <div class="col ">
+    <span class="p-input-icon-left">
       <i class="pi pi-search"></i>
-      <input class="mx-1 w-auto" size="small" type="text" [(ngModel)]="inputSearch" pInputText
-      placeholder="Digite um lugar" />
+      <input class="w-auto" size="small" type="text" [(ngModel)]="inputSearch" pInputText
+        placeholder="Digite um lugar" />
     </span>
   </div>
-  <div class="col card mx-1 pt-4">
-    <p-calendar  [readonlyInput]="true" [showIcon]="true" placeholder="Data inicial"
-    [(ngModel)]="initialDate" dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
+  <div class="col card">
+    <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data inicial" [(ngModel)]="initialDate"
+      dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
   </div>
-  <div class="col card mx-2 pt-4">
-    <p-calendar  [readonlyInput]="true" [showIcon]="true" placeholder="Data final" [(ngModel)]="finalDate"
-    dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
+  <div class="col card ">
+    <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data final" [(ngModel)]="finalDate"
+      dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
   </div>
-  <div class="col pt-4">
-    <p-inputNumber class="flex-auto mx-1 w-max" [min]="1" placeholder="Hóspedes" style="    height: fit-content;"
+  <div class="col ">
+    <p-inputNumber class="flex-autow-max" [min]="1" placeholder="Hóspedes" style="    height: fit-content;"
       [suffix]=" guests && guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="guests" [showButtons]="true"
       inputId="guests">
     </p-inputNumber>
   </div>
-  <div class="col flex-auto	  pt-4">
 
-
+  <div class="col flex-auto">
     <p-button class="mx-1" icon="pi pi-times" (click)="deleteSearching()"></p-button>
-    
-    <p-button class="mx-1 w-max  pt-4" label="Buscar" icon="pi pi-search"
-    (click)="searchAccommodations()"></p-button>
-    
+    <p-button class="mx-1 w-max  " label="Buscar" icon="pi pi-search" (click)="searchAccommodations()"></p-button>
   </div>
-</div>
-
 
 </div>
-  <hr style="height: 1px; background-color: #ebebeb;border: none;">
+<hr style="height: 1px; background-color: #ebebeb;border: none;">
