@@ -11,7 +11,7 @@ import { environment } from 'src/environment';
 
 export class RegistrationService {
 
-  private readonly URL = environment.URL
+  private readonly URL = environment.apiURL
   registrations: Registration[] = [];
   register!: Registration;
 

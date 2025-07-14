@@ -11,7 +11,7 @@ import { environment } from 'src/environment';
 
 export class AccommodationsService {
 
-  private readonly URL = environment.URL
+  private readonly URL = environment.apiURL
   public accommodations!: Accommodation[];
   public accomodation!: Accommodation;
   public reservation!: Reservation;

@@ -11,7 +11,7 @@ import { environment } from 'src/environment';
 
 export class TypesService {
 
-  private readonly URL = environment.URL
+  private readonly URL = environment.apiURL
 
   constructor(private httpClient: HttpClient) { }
 

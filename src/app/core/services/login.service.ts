@@ -15,7 +15,7 @@ interface AuthResponse {
 
 export class LoginService {
 
-  private readonly URL = environment.URL
+  private readonly URL = environment.apiURL
   private login!: Login;
 
   constructor(private httpClient: HttpClient, private userService: UserService) { }

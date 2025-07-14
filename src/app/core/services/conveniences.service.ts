@@ -11,7 +11,7 @@ import { environment } from 'src/environment';
 
 export class ConveniencesService {
 
-  private readonly URL = environment.URL
+  private readonly URL = environment.apiURL
   conveniences: Convenience[] = [];
 
   constructor(private httpClient: HttpClient) { }
