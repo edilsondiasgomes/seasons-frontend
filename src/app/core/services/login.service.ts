@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Login } from '../../shared/models/model';
 import { UserService } from './user.service';
 import { Observable, tap } from 'rxjs';
-import { environment } from 'src/environment';
+import { environment } from 'src/environments/environment';
 
 interface AuthResponse {
   access_token: string

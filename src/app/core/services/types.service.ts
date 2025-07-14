@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TypeAccomodation } from '../../shared/models/model';
-import { environment } from 'src/environment';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
