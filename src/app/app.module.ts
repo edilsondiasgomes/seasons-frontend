@@ -23,6 +23,8 @@ import { PrimengModule } from './primeng/primeng.module';
 import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { DetaisDialogComponent } from './components/detais-dialog/detais-dialog.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 registerLocaleData(localeBr, 'pt')
 
@@ -41,6 +43,7 @@ registerLocaleData(localeBr, 'pt')
     LoginComponent,
     QrcodeComponent,
     ReservationsComponent,
+    DetaisDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ registerLocaleData(localeBr, 'pt')
     ZXingScannerModule
   ],
   providers: [
+    DialogService,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

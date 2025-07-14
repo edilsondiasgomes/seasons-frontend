@@ -1,4 +1,4 @@
-<div style="margin-left: 5rem;margin-right: 5rem;">
+<div class="px-5">
   <div class="mt-3 flex flex-direction-row align-items-center">
 
     <div style="text-align: left;">
@@ -15,10 +15,90 @@
 
   </div>
 
-  <div class="grid">
-
+  <div class="grid ">
     <div class="col-6 mt-3">
+
+      <div class="grid">
+        <!-- imagem-principal -->
+        <div class="col-7">
+          <div>
+            <img style=" border-radius: 5px; width: 100%;     aspect-ratio: 5/3;
+            object-fit: cover;" alt="'"
+              [src]="accomodation.files[0]?.url ? accomodation.files[0]?.url : '../../../assets/images/no_image.png'">
+          </div>
+        </div>
+        <!-- fim imagem-principal -->
+
+        <!-- Container Acomodação-Animais-Estacionamento -->
+        <div class="col-5">
+          <h3 class="sub-header text-primary">Acomodação</h3>
+          <p style="color:#222121b8; ">{{reservation.guests}} Hóspedes -
+            {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
+          </p>
+
+          <h3 class="sub-header mt-3 text-primary">Animais de estimação</h3>
+          <ng-container *ngIf="verifyPetsAllowed(); else notAllowed">
+            <p style="color:#222121b8;">Permitido</p>
+          </ng-container>
+          <ng-template #notAllowed>
+            <p style="color:#222121b8;">Não permitido</p>
+          </ng-template>
+
+          <h3 class="sub-header mt-3 text-primary">Estacionamento</h3>
+          <ng-container *ngIf="verifyParking(); else not">
+            <p style="color:#222121b8;">Grátis no local</p>
+          </ng-container>
+          <ng-template #not>
+            <p style="color:#222121b8;">Nas imediações</p>
+          </ng-template>
+          
+        </div>
+        <!-- fim Container Acomodação-Animais-Estacionamento -->
+
+      </div>
+      <div class="col-12">
+
+        <!-- comodidades -->
+        <h3 class="sub-header mt-0 text-primary">Comodidades</h3>
+        <hr style="height: 1px; background-color: #ebebeb;border: none;">
+        <div class="flex flex-direction-row align-items-center flex-wrap">
+          <div *ngFor="let convenience of accomodation.conveniencesPlace">
+            <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
+              <i class={{findIcon(convenience.name)}}></i>
+              <p style="color:#222121b8;" class="ml-1">{{convenience.name}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- end-comodidades -->
+
+      </div>
+      <div>
+
+      
+        <!-- pagamento -->
+        <h3 class="sub-header mt-5 text-primary">Pagamento</h3>
+        <hr style="height: 1px; background-color: #ebebeb;border: none;">
+        <p class="mt-2" style="color:#222121b8; ">Aguarde a confirmação da reserva para receber informações sobre
+          pagamento. </p>
+        <!-- end-pagamento -->
+  
+        <!-- cancelamento -->
+        <h3 class="sub-header mt-5 text-primary">Política de cancelamento</h3>
+        <hr style="height: 1px; background-color: #ebebeb;border: none;">
+        <p class="mt-2" style="color:#222121b8;  width: 40rem;">Cancelando até 2 dias da acomodação receberá 100% do
+          valor. Caso
+          cancele no dia receberá 50% do valor. </p>
+        <!-- end-cancelamento -->
+      </div>
+    </div>
+
+    <div class="col-6 pl-8">
+      <div class="mb-2">
+        <h2>Detalhes da reserva</h2>
+        <!-- <h3>diária</h3> -->
+      </div>
       <hr style="height: 1px; background-color: #ebebeb;border: none;">
+
 
       <div style="color: grey;" class="mt-3 flex flex-direction-row justify-content-between">
         <p>Período</p>
@@ -55,13 +135,7 @@
         <p> {{reservation.amount | currency: 'BRL'}}</p>
       </div>
 
-      <div class="mt-3 flex">
-
-        <p-dropdown style="width: 100%;" [options]="cities" [(ngModel)]="selectedCity" placeholder="Forma de pagamento"
-          optionLabel="name"></p-dropdown>
-      </div>
-
-      <div class="mt-5">
+      <div class="mt-3">
         <span class="p-float-label">
           <textarea style="width: 100%;" id="float-input" rows="5" cols="30" pInputTextarea></textarea>
           <label for="float-input">Enviar uma mensagem</label>
@@ -69,64 +143,15 @@
       </div>
 
       <div style="text-align: center;" class="mt-3">
+
+        <p-dropdown styleClass="mb-4" [options]="cities" [(ngModel)]="selectedCity" placeholder="Forma de pagamento"
+          optionLabel="name"></p-dropdown>
+
         <button type="button" style="justify-content: center; font-weight: 600; width: 100%;" pButton
           (click)="sendReservation()">Confirmar
           reserva</button>
       </div>
 
     </div>
-    <div class="col-6">
-      <div class="grid pl-8">
 
-        <div class="col-6">
-          <!-- <h4 class="">acomodação</h4> -->
-          <h3 class="sub-header text-primary">Acomodação</h3>
-          <p style="color:#222121b8; ">{{reservation.guests}} Hóspedes -
-            {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
-          </p>
-
-          <!-- <h4 class="mt-4">Animais de estimação</h4> -->
-          <h3 class="sub-header mt-5 text-primary">Animais de estimação</h3>
-          <ng-container *ngIf="verifyPetsAllowed(); else notAllowed">
-            <p style="color:#222121b8;">Permitido</p>
-          </ng-container>
-          <ng-template #notAllowed>
-            <p style="color:#222121b8;">Não permitido</p>
-          </ng-template>
-
-          <!-- <h4 class="mt-4">Estacionamento</h4> -->
-          <h3 class="sub-header mt-5 text-primary">Estacionamento</h3>
-          <ng-container *ngIf="verifyParking(); else not">
-            <p style="color:#222121b8;">Grátis no local</p>
-          </ng-container>
-          <ng-template #not>
-            <p style="color:#222121b8;">Nas imediações</p>
-          </ng-template>
-        </div>
-
-        <div class="col-6">
-          <!-- imagem-principal -->
-          <div>
-            <img style=" border-radius: 5px; width: 17rem;     aspect-ratio: 5/3;
-            object-fit: cover;" alt="'" [src]="accomodation.files[0].url">
-          </div>
-        </div>
-      </div>
-      <div class="col-12" style="padding-left: 5rem;">
-
-        <!-- comodidades -->
-        <h3 class="sub-header mt-5 text-primary">Comodidades</h3>
-        <hr style="height: 1px; background-color: #ebebeb;border: none;">
-        <div class="flex flex-direction-row align-items-center flex-wrap">
-          <div *ngFor="let convenience of accomodation.conveniencesPlace">
-            <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
-              <i class={{findIcon(convenience.name)}}></i>
-              <p style="color:#222121b8;" class="ml-1">{{convenience.name}}</p>
-            </div>
-          </div>
-        </div>
-        <!-- end-comodidades -->
-
-      </div>
-    </div>
   </div>

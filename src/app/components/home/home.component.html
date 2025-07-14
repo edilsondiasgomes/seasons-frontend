@@ -3,10 +3,10 @@
 
 </div> -->
 
-<div class="grid mx-0 my-0">
+<div class="grid mx-0 my-0 px-5">
 
 
-  <div class="mt-3 px-5">
+  <div class="mt-3">
     <h2 class="header">Aluguéis de Temporadas</h2>
     <p class="sub-header" style="color:#222121b8; ">em Santa Catarina</p>
   </div>
@@ -14,44 +14,48 @@
   <div *ngIf="spinnerOn" class="card flex justify-content-center">
     <p-progressSpinner></p-progressSpinner>
   </div>
+        <!-- src="../../../assets/images/background-home" -->
 
-  <div *ngIf="!accommodations.length && !spinnerOn" class="flex justify-content-center">
-    <p class="text-2xl	">Não existem resultados para essa busca!</p>
-  </div>
-
-  <div *ngIf="!spinnerOn" class="px-5 grid grid-nogutter flex flex-direction-row">
-
+  
+  <div *ngIf="!spinnerOn" class="grid grid-nogutter flex flex-direction-row">
+    
     <div class="col-12 sm:col-12 md:col-4 lg:col-3" *ngFor="let accomodation of accommodations">
       <div class="m-2">
         <p-galleria *ngIf="accomodation.files?.length" [value]="accomodation.files" [showItemNavigators]="true"
-          [responsiveOptions]="responsiveOptions" [showThumbnails]="false" [showIndicators]="true"
-          [showIndicatorsOnItem]="true" [circular]="true"
-          [containerStyle]="{ 'max-width': '640px', 'margin-top':'1rem' }">
-          <ng-template pTemplate="item" let-item>
-            <img [src]="item?.url"
-              style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 5px"
-              alt="principal" />
-          </ng-template>
-        </p-galleria>
+        [responsiveOptions]="responsiveOptions" [showThumbnails]="false" [showIndicators]="true"
+        [showIndicatorsOnItem]="true" [circular]="true"
+        [containerStyle]="{ 'max-width': '640px', 'margin-top':'1rem' }">
+        <ng-template pTemplate="item" let-item>
+          <img [src]="item?.url"
+          style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 5px"
+          alt="principal" />
+        </ng-template>
+      </p-galleria>
+      <div *ngIf="!accomodation.files?.length">
+        <img src="../../../assets/images/no_image.png" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 5px">
       </div>
-
-      <div style="cursor: pointer;" (click)="sendDetails(accomodation)">
-        <div class=" m-2">
-          <div
+    </div>
+    
+    <div style="cursor: pointer;" (click)="sendDetails(accomodation)">
+      <div class=" m-2">
+        <div
             style="width: auto; height: 4.2rem; margin: .5rem; display: flex; flex-direction: column; justify-content: space-between;">
             <h3> {{ accomodation.typeSelected ? accomodation.id + ' - ' + accomodation.typeSelected : accomodation.id +
               '
               - ' +'Acomodação'}} em
               {{accomodation.city}},
               {{accomodation.uf}}</h3>
-            <p style="color:#222121b8">{{accomodation.guestsAllowed}} Hóspedes - {{accomodation.rooms}} quartos -
-              {{accomodation.toilets}} banheiros
-            </p>
-            <p style="color:#222121b8"><b> {{accomodation.dailyRate| currency:'BRL' }} </b>diária</p>
+              <p style="color:#222121b8">{{accomodation.guestsAllowed}} Hóspedes - {{accomodation.rooms}} quartos -
+                {{accomodation.toilets}} banheiros
+              </p>
+              <p style="color:#222121b8"><b> {{accomodation.dailyRate| currency:'BRL' }} </b>diária</p>
+            </div>
           </div>
         </div>
       </div>
+      
     </div>
-
   </div>
-</div>
+  <div *ngIf="!accommodations.length" class="flex justify-content-center">
+    <p class="text-2xl	">Não existem resultados para essa busca!</p>
+  </div>

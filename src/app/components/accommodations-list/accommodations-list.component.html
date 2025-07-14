@@ -40,7 +40,8 @@
       </ng-template>
       <ng-template pTemplate="body" let-accomodation>
         <tr>
-          <td class="vertical-align-middle"><img [src]="accomodation.files[0].url"
+          <td class="vertical-align-middle"><img
+              [src]="accomodation.files.length > 0 ? accomodation.files[0]?.url : '../../../assets/images/no_image.png'"
               style="height: 5rem; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 5px"
               [alt]="accomodation.name" class="shadow-4" /></td>
           <td class="vertical-align-middle">{{ accomodation.id }}</td>

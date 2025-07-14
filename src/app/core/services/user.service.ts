@@ -9,6 +9,7 @@ import { TokenService } from './token.service';
 
 export class UserService {
 
+  public isUserMaster = false;
   private userSubject = new BehaviorSubject<any | null>(null)
   public user: any;
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Login } from '../../shared/models/model';
 import { UserService } from './user.service';
 import { Observable, tap } from 'rxjs';
+import { environment } from 'src/environment';
 
 interface AuthResponse {
   access_token: string
@@ -14,7 +15,7 @@ interface AuthResponse {
 
 export class LoginService {
 
-  private readonly URL = "http://localhost:3001"
+  private readonly URL = environment.URL
   private login!: Login;
 
   constructor(private httpClient: HttpClient, private userService: UserService) { }

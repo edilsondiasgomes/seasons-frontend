@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Registration } from '../../shared/models/model';
+import { environment } from 'src/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { Registration } from '../../shared/models/model';
 
 export class RegistrationService {
 
-  private readonly URL = "http://localhost:3001"
+  private readonly URL = environment.URL
   registrations: Registration[] = [];
   register!: Registration;
 

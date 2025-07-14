@@ -38,7 +38,7 @@
           <ng-container class="message-form-invalid" *ngIf="registrationForm.get('cpf')?.errors?.['required']">
             Campo obrigatório.
           </ng-container>
-          <ng-container class="message-form-invalid" *ngIf="registrationForm.get('cpf')?.errors?.['minlength']">
+          <ng-container class="message-form-invalid" *ngIf="registrationForm.get('cpf')?.errors?.['minlength'] || registrationForm.get('cpf')?.errors?.['maxlength'] ">
             O campo cpf precisa ter 11 digitos.
           </ng-container>
         </span>

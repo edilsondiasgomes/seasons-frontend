@@ -1,0 +1,83 @@
+<div class="grid">
+
+    <!-- galleria -->
+    <div class="col-6 mb-3">
+        <p-galleria [value]="accomodation.files" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
+            [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true"
+            [containerStyle]="{ 'max-width': '100%', 'margin-top':'1rem' }">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.url"
+                    style="height: 27rem; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; display: block; border-radius: 5px"
+                    alt="img" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.url" style="display: block;" alt="principal" />
+                </div>
+            </ng-template>
+        </p-galleria>
+    </div>
+    <!-- end-galleria -->
+
+    <div class="col-6">
+        <!-- título da acomodação -->
+        <div>
+            <h2 class="sub-header">{{accomodation.title}} em {{accomodation.city}}, {{accomodation.uf}}</h2>
+            <p class="mt-1" style="color:#222121b8; ">{{accomodation.guestsAllowed}} Hóspedes -
+                {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
+            </p>
+        </div>
+        <!-- end título da acomodação -->
+        <!-- text-description-->
+        <p class="mt-4" style="color:#222121b8;">
+            {{accomodation.description}}</p>
+        <!-- end-text-description-->
+
+        <!-- endereço-->
+        <h3 class="sub-header mt-4 text-primary">Endereço</h3>
+        <hr style="height: 1px; background-color: #ebebeb;border: none;">
+        <p class="mt-2" style="color:#222121b8;">
+            {{accomodation.street +', ' + accomodation.houseNumber+', ' + accomodation.city+', ' + accomodation.uf}}</p>
+        <!-- end-endereço-->
+
+
+        <!-- comodidades -->
+        <h3 class="sub-header mt-4 text-primary">Comodidades</h3>
+        <hr style="height: 1px; background-color: #ebebeb;border: none;">
+        <div class="flex flex-direction-row align-items-center flex-wrap">
+            <div *ngFor="let convenience of accomodation.conveniencesPlace">
+                <div class="flex flex-direction-row align-items-center mt-4 mr-5" style="width: max-content">
+                    <i class={{findIcon(convenience.name)}}></i>
+                    <p style="color:#222121b8;" class="ml-1">{{convenience.name}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- end-comodidades -->
+
+        <!-- informações -->
+        <h3 class="sub-header mt-4 text-primary">Informações</h3>
+        <hr style="height: 1px; background-color: #ebebeb;border: none;">
+
+        <div class="grid">
+            <div class="col-3">
+                <h4 class="sub-header mt-2">Check-in</h4>
+                <p style="color:#222121b8; "> às {{accomodation.checkIn}} horas </p>
+            </div>
+
+            <div class="col-3">
+                <h4 class="sub-header mt-2">Check-out</h4>
+                <p style="color:#222121b8; ">às {{accomodation.checkOut}} horas </p>
+            </div>
+
+            <div class="col-6">
+                <h4 class="sub-header mt-2">Animais de estimação</h4>
+
+                <ng-template #notAllowed>
+                    <p style="color:#222121b8;">Não permitido</p>
+                </ng-template>
+            </div>
+        </div>
+        <!-- end-informações -->
+
+    </div>
+</div>

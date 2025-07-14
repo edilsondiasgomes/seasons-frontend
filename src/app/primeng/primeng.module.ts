@@ -19,6 +19,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [],
@@ -43,7 +44,8 @@ import { TooltipModule } from 'primeng/tooltip';
     TooltipModule,
     InputNumberModule,
     TableModule,
-    CheckboxModule
+    CheckboxModule, 
+    DynamicDialogModule
 
   ],
   exports: [
@@ -66,7 +68,8 @@ import { TooltipModule } from 'primeng/tooltip';
     TableModule,
     TooltipModule,
     InputNumberModule,
-    CheckboxModule
+    CheckboxModule,
+    DynamicDialogModule
 
   ]
 })

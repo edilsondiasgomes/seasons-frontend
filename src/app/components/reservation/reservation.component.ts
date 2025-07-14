@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { ReservationService } from 'src/app/core/services/reservation.service';
@@ -33,7 +34,8 @@ export class ReservationComponent implements OnInit {
     private location: Location,
     private reservationService: ReservationService,
     private alertService: AlertService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,6 @@ export class ReservationComponent implements OnInit {
       { name: 'PIX', code: 'NY' },
       { name: 'Cartão de crédito', code: 'RM' },
     ];
-    console.log(this.accomodation);
 
   }
 
@@ -73,6 +74,7 @@ export class ReservationComponent implements OnInit {
           {
             next: (success) => {
               this.alertService.success('Sua reserva foi feita com sucesso!')
+              this.router.navigateByUrl('/reservations')
             },
             error: (error) => {
               this.alertService.error('Erro ao fazer sua reserva!')

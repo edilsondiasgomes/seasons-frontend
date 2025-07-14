@@ -69,7 +69,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.registrationForm = this.formBuilder.group({
       id: [this.register?.id ? this.register?.id : ''],
       name: [this.register?.name ? this.register?.name : '', Validators.required],
-      cpf: [this.register?.cpf ? this.register?.cpf : '', [Validators.required, Validators.minLength(11)]],
+      cpf: [this.register?.cpf ? this.register?.cpf : '', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       birthday: [this.register?.birthday ? new Date(this.register?.birthday) : '', Validators.required],
       street: [this.register?.street ? this.register?.street : '', Validators.required],
       number: [this.register?.number ? this.register?.number : '', Validators.required],

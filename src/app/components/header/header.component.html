@@ -3,15 +3,19 @@
   <div class="col">
     <div class="flex flex-row align-items-center text-primary" style="font-size: 1.4rem; font-weight: 900;">
       <i class="fa-solid fa-seedling mr-2"></i>
-      <a style="text-decoration: none;    cursor:pointer;" (click)="goToHome()">
-        Seasons
-      </a>
+      <div class="flex flex-column">
+        <a style="text-decoration: none; cursor:pointer;" (click)="goToHome()">
+          Seasons
+        </a>
+        <!-- <p style="font-size: 13px;margin-top: -4px;color: black;font-weight: 100;">Olá Sophia!</p> -->
+      </div>
       <div>
         <button type="button" class="p-button-rounded p-button-text" pButton icon="pi pi-bars"
-          (click)="menu.toggle($event)"></button>
+        (click)="menu.toggle($event)"></button>
         <p-menu #menu [popup]="true" [model]="items"></p-menu>
       </div>
     </div>
+    <!-- <p style="margin-top: -14px; margin-left: 28px; font-size: 13px; font-weight: 100;">Olá {{user?.userName}}!</p> -->
   </div>
 
 

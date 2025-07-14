@@ -14,99 +14,114 @@ import { SearchFilter } from 'src/app/shared/models/model';
 export class HeaderComponent implements OnInit {
 
   private readonly userMasterId = 52
-  public isUserMaster = false;
   public inputSearch!: string;
   public minDate!: Date;
   public initialDate!: Date | null;
   public finalDate!: Date | null;
-  public guests!: number | null; 
+  public guests!: number | null;
   public items!: MenuItem[];
   private searchFilter!: SearchFilter;
   private accommodationsService = inject(AccommodationsService)
   private userService = inject(UserService);
   private router = inject(Router)
-  private user: any;
+  public user: any;
 
   ngOnInit() {
     this.setItems()
     this.minDate = new Date()
     this.userService.getUser().subscribe(
-      (data) => { 
-        if(data){
+      (data) => {
+        if (data) {
           this.user = data;
           this.checkUserMaster();
         }
-      this.setItems() })
+        this.setItems()
+      })
+
   }
 
-  private checkUserMaster(){
-    this.isUserMaster = this.user.userId === this.userMasterId
+  private checkUserMaster() {
+    this.userService.isUserMaster = this.user.userId === this.userMasterId
   }
 
   private setItems() {
-    this.items = [{
-      items: [
-        // {
-        //   label: 'Home',
-        //   icon: 'fa-solid fa-home',
-        //   routerLink: '/'
-        // },
-        {
-          label: 'Entrar',
-          icon: 'fa-solid fa-user',
-          routerLink: '/login',
-          visible: !this.userService.isUserLogged()
-        },
-        {
-          label: 'QRCode',
-          icon: 'fa-solid fa-users',
-          routerLink: '/qrcode',
-          visible: !this.userService.isUserLogged()
-        },
-        {
-          label: 'Meus dados',
-          icon: 'fa-solid fa-user',
-          routerLink: '/registration',
-          visible: this.userService.isUserLogged()
-        },
-        {
-          label: 'Sair',
-          icon: 'fa-solid fa-right-from-bracket',
-          command: () => {
-            this.userService.logout()
-            this.goToHome();
-
+    this.items = [
+      {
+        label: this.user ? ('Olá, ' + this.user?.userName + '!') : 'Olá!',
+        items: [
+          {
+            label: 'Entrar',
+            icon: 'fa-solid fa-user',
+            routerLink: '/login',
+            visible: !this.userService.isUserLogged()
           },
-          visible: this.userService.isUserLogged()
-        }
-      ]
-    },
-    {
-      label: 'Área administrativa',
-      visible: this.userService.isUserLogged() && this.isUserMaster,
-      items: [
-        {
-          label: 'Cadastrar acomodações',
-          icon: 'fa-solid fa-plus',
-          routerLink: '/accomodation-registration'
-        },
-        {
-          label: 'Acomodações cadastradas',
-          icon: 'fa-solid fa-house-chimney',
-          routerLink: '/accommodations-list'
-        },
-        {
-          label: 'Usuários',
-          icon: 'fa-solid fa-users',
-          routerLink: '/users-list'
-        },
-        {
-          label: 'Reservas',
-          icon: 'fa-solid fa-building',
-          routerLink: '/reservations'
-        },
-      ]
-    }
+          {
+            label: 'QRCode',
+            icon: 'fa-solid fa-users',
+            routerLink: '/qrcode',
+            visible: !this.userService.isUserLogged()
+          },
+          {
+            label: 'Meus dados',
+            icon: 'fa-solid fa-user',
+            routerLink: '/registration',
+            visible: this.userService.isUserLogged() && !this.userService.isUserMaster
+          },
+          {
+            label: 'Minhas reservas',
+            icon: 'fa-solid fa-building',
+            routerLink: '/reservations',
+            visible: this.userService.isUserLogged() && !this.userService.isUserMaster
+          },
+          {
+            label: 'Sair',
+            icon: 'fa-solid fa-right-from-bracket',
+            command: () => {
+              this.user = '';
+              this.userService.logout()
+              this.goToHome();
+            },
+            visible: this.userService.isUserLogged() && !this.userService.isUserMaster
+          }
+        ]
+      },
+      {
+        label: 'Área administrativa',
+        visible: this.userService.isUserLogged() && this.userService.isUserMaster,
+        items: [
+          {
+            label: 'Cadastrar acomodações',
+            icon: 'fa-solid fa-plus',
+            routerLink: '/accomodation-registration'
+          },
+          {
+            label: 'Acomodações cadastradas',
+            icon: 'fa-solid fa-house-chimney',
+            routerLink: '/accommodations-list'
+          },
+          {
+            label: 'Usuários',
+            icon: 'fa-solid fa-users',
+            routerLink: '/users-list'
+          },
+          {
+            label: 'Reservas',
+            icon: 'fa-solid fa-building',
+            routerLink: '/reservations'
+          },
+          {
+            label: 'Sair',
+            icon: 'fa-solid fa-right-from-bracket',
+            command: () => {
+              this.user = '';
+              this.userService.logout()
+              this.goToHome();
+            },
+            visible: this.userService.isUserLogged()
+          }
+
+        ]
+      }
     ];
   }
 
@@ -125,7 +140,7 @@ export class HeaderComponent implements OnInit {
     this.accommodationsService.findAccommodations(this.searchFilter);
   }
 
-  deleteSearching(){
+  deleteSearching() {
     this.inputSearch = '';
     this.initialDate = null;
     this.finalDate = null;

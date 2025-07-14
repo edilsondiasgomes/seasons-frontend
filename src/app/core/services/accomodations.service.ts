@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Accommodation, Reservation, SearchFilter } from '../../shared/models/model';
+import { environment } from 'src/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,7 @@ import { Accommodation, Reservation, SearchFilter } from '../../shared/models/mo
 
 export class AccommodationsService {
 
-  private readonly URL = "http://localhost:3001"
-  // private readonly URL = "https://json-server-nine-zeta.vercel.app/api"
+  private readonly URL = environment.URL
   public accommodations!: Accommodation[];
   public accomodation!: Accommodation;
   public reservation!: Reservation;
@@ -26,8 +27,9 @@ export class AccommodationsService {
     return this.subject.asObservable();
   }
 
-  public getFilteredAccommodations(item?: SearchFilter): Observable<Accommodation[]> {
+  public getFilteredAccommodations(item?: SearchFilter, id?: number): Observable<Accommodation[]> {
     let queryParams = '';
+    queryParams += id ? `id=${id}&` : '';
     queryParams += item?.inputSearch ? `city=${item.inputSearch}&` : '';
     queryParams += item?.minDate ? `initialDate=${item.minDate.toISOString()}&` : '';
     queryParams += item?.maxDate ? `finalDate=${item.maxDate.toISOString()}&` : '';
@@ -78,7 +80,7 @@ export class AccommodationsService {
 
       else if (key === 'files') {
         value.forEach((item: any, index: number) => {
-          
+
           if (item.id) {
             formData.append(key, JSON.stringify(item))
           } else {
@@ -92,7 +94,7 @@ export class AccommodationsService {
       } else {
         formData.append(key, value as string)
       }
-      
+
 
     }
     return this.httpClient.put<Accommodation>(`${this.URL}/accommodations/${accomodation.id}`, formData)

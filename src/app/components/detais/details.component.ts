@@ -5,6 +5,7 @@ import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
 // import { Property } from './../../shared/models/model';
 import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { Accommodation, Reservation } from './../../shared/models/model';
+import { ReservationService } from 'src/app/core/services/reservation.service';
 
 @Component({
   selector: 'app-details',
@@ -35,11 +36,16 @@ export class DetailsComponent implements OnInit {
     }
   ];
 
-  constructor(private accommodationsService: AccommodationsService, private router: Router, private location: Location) { }
+  constructor(
+    private accommodationsService: AccommodationsService,
+    private router: Router,
+    private location: Location,
+    private reservationService: ReservationService
+  ) { }
 
   ngOnInit(): void {
-    this.accomodation = this.accommodationsService.accomodation
     this.reservation = {} as Reservation;
+    this.accomodation = this.accommodationsService.accomodation
     this.reservation.accommodationId = this.accommodationsService.accomodation.id
     this.reservation.guests = this.MINIMUM_GUESTS;
     this.setMinDate();
@@ -47,22 +53,50 @@ export class DetailsComponent implements OnInit {
     this.reservation.finalDate = this.minDate;
     this.setDisabledDates()
   }
-  
+
   findIcon(convenience: string) {
     return ConvenienceUtils.findIcon(convenience)
   }
-  
+
   setMinDate() {
     const oneDayFromTodayTimeStamp = new Date().getTime() + (1000 * 60 * 60 * 24);
     this.minDate = new Date(oneDayFromTodayTimeStamp)
   }
-  
-  setDisabledDates(){
-    // console.log('initialDate: ',this.accomodation.initialDate);
-    this.disabledDates.push(new Date(this.accomodation.initialDate))
-    this.disabledDates.push(new Date(this.accomodation.finalDate))
-    console.log('disabledDates: ',this.disabledDates);
-    
+
+  setDisabledDates() {
+    this.reservationService.getReservationByAccommodation(this.accomodation.id)
+      .subscribe({
+        next: (success) => {
+          const dates = success;
+          this.disabledDates = dates.map((d: any) => new Date(d))
+        },
+        error: () => { }
+      })
+  }
+
+  checkPetsAllowed(): boolean {
+    return this.accomodation?.conveniencesPlace?.some(item => item.name === 'Pets')
+  }
+
+  checkDaily() {
+    let diferenca = this.reservation.finalDate.getDate() - this.reservation.initialDate.getDate();
+    this.reservation.quantityDaily = diferenca
+    this.calculateDailyRates()
+    return this.reservation.quantityDaily;
+  }
+
+  calculateDailyRates() {
+    this.reservation.totalDailyRate = this.accomodation.dailyRate * this.reservation.quantityDaily
+  }
+
+  calculateCleaningFee() {
+    this.reservation.totalCleaningFee = this.accomodation.cleaningFee * this.reservation.quantityDaily;
+    return this.reservation.totalCleaningFee;
+  }
+
+  calculateTotalValue() {
+    this.reservation.amount = this.reservation.totalCleaningFee + this.reservation.totalDailyRate;
+    return this.reservation.amount;
   }
 
   requestReservation() {
@@ -73,32 +107,4 @@ export class DetailsComponent implements OnInit {
   backDetais() {
     this.location.back();
   }
-
-  verifyPetsAllowed(): boolean {
-    return this.accomodation?.conveniencesPlace?.some(item => item.name === 'Pets')
-  }
-
-  verificarQuantasDiarias() {
-    let diferenca = this.reservation.finalDate.getDate() - this.reservation.initialDate.getDate();
-
-    this.reservation.quantityDaily = diferenca
-
-    this.calcularValorDiarias()
-    return this.reservation.quantityDaily;
-  }
-
-  calcularValorDiarias() {
-    this.reservation.totalDailyRate = this.accomodation.dailyRate * this.reservation.quantityDaily
-  }
-
-  calcularTaxaLimpeza() {
-    this.reservation.totalCleaningFee = this.accomodation.cleaningFee * this.reservation.quantityDaily;
-    return this.reservation.totalCleaningFee;
-  }
-
-  calcularValorTotal() {
-    this.reservation.amount = this.reservation.totalCleaningFee + this.reservation.totalDailyRate;
-    return this.reservation.amount;
-  }
-
 }

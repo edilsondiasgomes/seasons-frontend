@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Convenience } from '../../shared/models/model';
+import { environment } from 'src/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { Convenience } from '../../shared/models/model';
 
 export class ConveniencesService {
 
-  private readonly URL = "http://localhost:3001"
+  private readonly URL = environment.URL
   conveniences: Convenience[] = [];
 
   constructor(private httpClient: HttpClient) { }

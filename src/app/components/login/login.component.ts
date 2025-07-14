@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.loginService.doLogin(this.login)
       .subscribe({
         next: (success) => {
-          this.alertService.success('Login efetuado com sucesso')
+          // this.alertService.success('Login efetuado com sucesso')
           this.router.navigateByUrl('/')
         },
         error: (error) => {
