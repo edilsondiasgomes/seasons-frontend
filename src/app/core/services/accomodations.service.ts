@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Accommodation, Reservation, SearchFilter } from '../../shared/models/model';
 import { environment } from 'src/environments/environment';
+import { formatDate } from '@angular/common';
 
 
 @Injectable({
@@ -31,12 +32,16 @@ export class AccommodationsService {
     let queryParams = '';
     queryParams += id ? `id=${id}&` : '';
     queryParams += item?.inputSearch ? `city=${item.inputSearch}&` : '';
-    queryParams += item?.minDate ? `initialDate=${item.minDate.toISOString()}&` : '';
-    queryParams += item?.maxDate ? `finalDate=${item.maxDate.toISOString()}&` : '';
+    queryParams += item?.minDate ? `initialDate=${this.setDate(item.minDate)}&` : '';
+    queryParams += item?.maxDate ? `finalDate=${this.setDate(item.maxDate)}&` : '';
     queryParams += item?.guests ? `guestsAllowed=${item.guests.toString()}` : '';
     queryParams.endsWith('&') ? queryParams = queryParams.slice(0, -1) : queryParams;
 
     return this.httpClient.get<Accommodation[]>(`${this.URL}/accommodations${queryParams ? '?' + queryParams : ''}`)
+  }
+
+  private setDate(date: Date) {
+    return formatDate(date, 'yyyy-MM-dd', 'pt-BR')
   }
 
   public getAccommodations(): Observable<Accommodation[]> {
