@@ -13,7 +13,7 @@ import { SearchFilter } from 'src/app/shared/models/model';
 
 export class HeaderComponent implements OnInit {
 
-  private readonly userMasterId = 52
+  private readonly userMasterId = 61
   public inputSearch!: string;
   public minDate!: Date;
   public initialDate!: Date | null;
@@ -55,12 +55,12 @@ export class HeaderComponent implements OnInit {
             routerLink: '/login',
             visible: !this.userService.isUserLogged()
           },
-          {
-            label: 'QRCode',
-            icon: 'fa-solid fa-users',
-            routerLink: '/qrcode',
-            visible: !this.userService.isUserLogged()
-          },
+          // {
+          //   label: 'QRCode',
+          //   icon: 'fa-solid fa-users',
+          //   routerLink: '/qrcode',
+          //   visible: !this.userService.isUserLogged()
+          // },
           {
             label: 'Meus dados',
             icon: 'fa-solid fa-user',

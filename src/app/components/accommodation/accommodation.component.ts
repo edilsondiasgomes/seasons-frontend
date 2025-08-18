@@ -71,66 +71,66 @@ export class AccommodationComponent implements OnInit {
     this.createForm();
   }
 
-  public createForm() {
-    this.accomodationForm = this.formBuilder.group({
-      id: [this.accomodation ? this.accomodation.id : ''],
-      typeSelected: [this.accomodation ? this.accomodation.typeSelected : '', [Validators.required]],
-      title: ['Título da acomodoção'],
-      street: [this.accomodation ? this.accomodation.street : 'Rua Alfredo Zacarias'],
-      houseNumber: [76],
-      complement: [this.accomodation ? this.accomodation.complement : ''],
-      district: [this.accomodation ? this.accomodation.district : '', Validators.required],
-      postalCode: [this.accomodation ? this.accomodation.postalCode : '13277-280', Validators.required],
-      city: [this.accomodation ? this.accomodation.city : '', Validators.required],
-      uf: [this.accomodation ? this.accomodation.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
-      country: ['Brasil'],
-      guestsAllowed: [2],
-      checkIn: ['16:00'],
-      checkOut: ['18:00'],
-      rooms: [2],
-      toilets: [2],
-      description: ['Experiência única em uma casa com arquitetura moderna e vista para as montanhas da Serra da Mantiqueira. Inserida em uma área privativa de 20mil m2 repleta de belezas naturais. É o lugar perfeito para se reconectar com quem mais importa.'],
-      conveniencesPlace: this.formBuilder.array([], Validators.required),
-      files: this.formBuilder.array([]),
-      initialDate: [new Date()],
-      finalDate: [new Date()],
-      cleaningFee: [99.00],
-      dailyRate: [200],
-    })
-    this.setFilesIntoFormArray()
-    this.currentMainImage = this.setCurrenMainImage()
-  }
-
   // public createForm() {
   //   this.accomodationForm = this.formBuilder.group({
   //     id: [this.accomodation ? this.accomodation.id : ''],
   //     typeSelected: [this.accomodation ? this.accomodation.typeSelected : '', [Validators.required]],
-  //     title: [this.accomodation ? this.accomodation.title : '', [Validators.required, Validators.minLength(10)]],
-  //     // mainImage: [this.accomodation ? this.accomodation.mainImage : ''],
-  //     street: [this.accomodation ? this.accomodation.street : '', Validators.required],
-  //     houseNumber: [this.accomodation ? this.accomodation.houseNumber : '', Validators.required],
+  //     title: [this.accomodation? this.accomodation.title: '', [Validators.required]],
+  //     street: [this.accomodation ? this.accomodation.street : ''],
+  //     houseNumber: [this.accomodation ? this.accomodation.houseNumber : ''],
   //     complement: [this.accomodation ? this.accomodation.complement : ''],
   //     district: [this.accomodation ? this.accomodation.district : '', Validators.required],
   //     postalCode: [this.accomodation ? this.accomodation.postalCode : '', Validators.required],
   //     city: [this.accomodation ? this.accomodation.city : '', Validators.required],
   //     uf: [this.accomodation ? this.accomodation.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
   //     country: ['Brasil'],
-  //     guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : '', Validators.required],
-  //     checkIn: [this.accomodation ? this.accomodation.checkIn : '', Validators.required],
-  //     checkOut: [this.accomodation ? this.accomodation.checkOut : '', Validators.required],
-  //     rooms: [this.accomodation ? this.accomodation.rooms : '', Validators.required],
-  //     toilets: [this.accomodation ? this.accomodation.toilets : '', Validators.required],
-  //     description: [this.accomodation ? this.accomodation.description : '', [Validators.required, Validators.minLength(200)]],
+  //     guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : '',],
+  //     checkIn: [this.accomodation ? this.accomodation.checkIn : '',],
+  //     checkOut: [this.accomodation ? this.accomodation.checkOut : '',],
+  //     rooms: [this.accomodation ? this.accomodation.rooms : '',],
+  //     toilets: [this.accomodation ? this.accomodation.toilets : '',],
+  //     description: [],
   //     conveniencesPlace: this.formBuilder.array([], Validators.required),
   //     files: this.formBuilder.array([]),
   //     initialDate: [new Date()],
   //     finalDate: [new Date()],
-  //     cleaningFee: [this.accomodation ? this.accomodation.cleaningFee : '', Validators.required],
-  //     dailyRate: [this.accomodation ? this.accomodation.dailyRate : '', Validators.required],
+  //     cleaningFee: [99.00],
+  //     dailyRate: [200],
   //   })
   //   this.setFilesIntoFormArray()
   //   this.currentMainImage = this.setCurrenMainImage()
   // }
+
+  public createForm() {
+    this.accomodationForm = this.formBuilder.group({
+      id: [this.accomodation ? this.accomodation.id : ''],
+      typeSelected: [this.accomodation ? this.accomodation.typeSelected : '', [Validators.required]],
+      title: [this.accomodation ? this.accomodation.title : '', [Validators.required, Validators.minLength(10)]],
+      // mainImage: [this.accomodation ? this.accomodation.mainImage : ''],
+      street: [this.accomodation ? this.accomodation.street : '', Validators.required],
+      houseNumber: [this.accomodation ? this.accomodation.houseNumber : '', Validators.required],
+      complement: [this.accomodation ? this.accomodation.complement : ''],
+      district: [this.accomodation ? this.accomodation.district : '', Validators.required],
+      postalCode: [this.accomodation ? this.accomodation.postalCode : '', Validators.required],
+      city: [this.accomodation ? this.accomodation.city : '', Validators.required],
+      uf: [this.accomodation ? this.accomodation.uf?.toUpperCase() : ''?.toUpperCase(), Validators.required],
+      country: ['Brasil'],
+      guestsAllowed: [this.accomodation ? this.accomodation.guestsAllowed : '', Validators.required],
+      checkIn: [this.accomodation ? this.accomodation.checkIn : '', Validators.required],
+      checkOut: [this.accomodation ? this.accomodation.checkOut : '', Validators.required],
+      rooms: [this.accomodation ? this.accomodation.rooms : '', Validators.required],
+      toilets: [this.accomodation ? this.accomodation.toilets : '', Validators.required],
+      description: [this.accomodation ? this.accomodation.description : '', [Validators.required, Validators.minLength(200)]],
+      conveniencesPlace: this.formBuilder.array([], Validators.required),
+      files: this.formBuilder.array([]),
+      initialDate: [new Date()],
+      finalDate: [new Date()],
+      cleaningFee: [this.accomodation ? this.accomodation.cleaningFee : '', Validators.required],
+      dailyRate: [this.accomodation ? this.accomodation.dailyRate : '', Validators.required],
+    })
+    this.setFilesIntoFormArray()
+    this.currentMainImage = this.setCurrenMainImage()
+  }
 
   private getConveniences() {
     this.conveniencesService.getConveniences()
@@ -153,8 +153,14 @@ export class AccommodationComponent implements OnInit {
   }
 
   public findCEP() {
-    const cep = this.accomodationForm.get('postalCode')?.value
-    if (cep && cep.length >= 8) {
+    const cep = this.accomodationForm.get('postalCode')?.value.replace(/[^0-9]/g, '')
+
+    if (cep && cep.length < 8) {
+      this.clearPostalCode();
+      return this.alertService.info('o cep precisa ter 8 números');
+    }
+
+    if (cep && cep.length === 8) {
       this.blockedPage = true;
       this.viaCepService.getCEP(cep)
         .pipe(
@@ -169,16 +175,25 @@ export class AccommodationComponent implements OnInit {
               this.alertService.info('O CEP digitado não existe!')
             }
           },
-          error: (error) => { this.alertService.error(error, 'Atenção!') }
+          error: (error) => {
+            this.alertService.error('Verifique o cep digitado!', 'Atenção!')
+            this.clearPostalCode();
+          }
         })
-    }
+    } 
+  }
+
+  private clearPostalCode() {
+    this.accomodationForm.patchValue({
+      postalCode: '',
+    });
   }
 
   private updateAddress(endereco: any) {
     this.accomodationForm.patchValue({
       street: endereco.logradouro,
       district: endereco.bairro,
-      postalCode: endereco.cep,
+      postalCode: endereco.cep ? endereco.cep.replace(/[^0-9]/g, '') : '',
       city: endereco.localidade,
       uf: endereco.uf?.toUpperCase(),
     });
@@ -205,7 +220,7 @@ export class AccommodationComponent implements OnInit {
 
   public onSelectImage(event: any) {
     const file = event.files?.[0] as Blob;
- 
+
     const reader = new FileReader();
     reader.onload = (e) => {
       this.getFilesFormArray().push(this.formBuilder.control(file))
@@ -214,7 +229,7 @@ export class AccommodationComponent implements OnInit {
     }
     reader.readAsDataURL(file)
     console.log(this.files);
-    
+
   }
 
   public deleteImage(file: any) {
@@ -247,7 +262,7 @@ export class AccommodationComponent implements OnInit {
     this.accomodation.files.forEach(item => {
       this.getFilesFormArray().push(this.formBuilder.control(item))
       this.files.push(item)
-      
+
     });
   }
 
@@ -306,7 +321,8 @@ export class AccommodationComponent implements OnInit {
               this.alertService.success('item alterado com sucesso!')
               this.router.navigateByUrl('/accommodations-list')
             },
-            error: (error) => { this.alertService.error(error, 'Alteração deu erro!')
+            error: (error) => {
+              this.alertService.error(error, 'Alteração deu erro!')
             }
           })
       } else {

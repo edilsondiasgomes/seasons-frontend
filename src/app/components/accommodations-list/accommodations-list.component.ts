@@ -14,6 +14,7 @@ import { Accommodation } from '../../shared/models/model';
 
 export class AccommodationsListComponent implements OnInit {
 
+  public spinnerOn!: boolean;
   accommodations!: Accommodation[];
   @ViewChild('inputDt') inputDt!: any
 
@@ -37,14 +38,17 @@ export class AccommodationsListComponent implements OnInit {
   }
 
   private getaccommodations() {
+    this.spinnerOn = true;
     this.accommodationsService.getAccommodations()
       .subscribe({
         next: (success) => {
           this.accommodations = success;
+          this.spinnerOn = false;
         },
         error: (error) => {
           this.alertService.error(error, 'Atenção!')
           console.log(error);
+          this.spinnerOn = false;
           
         }
       })
@@ -62,15 +66,18 @@ export class AccommodationsListComponent implements OnInit {
   onDelete(accommodation: Accommodation) {
     this.alertService.confirm('Tem certeza que deseja excluir essa acomodação?', 'Atenção!',
       () => {
+        this.spinnerOn = true;
         this.accommodationsService.deleteAccommodation(accommodation)
           .subscribe({
             next: (success) => {
               this.alertService.success('acomodação excluída com sucesso!')
               this.getaccommodations();
+              this.spinnerOn = false;
             },
             error: (error) => {
               console.log(error);
               this.alertService.error(error)
+              this.spinnerOn = false;
             }
           })
       })

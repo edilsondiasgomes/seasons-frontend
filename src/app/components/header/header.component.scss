@@ -4,22 +4,13 @@
       font-size: 1.3rem;
     }
 
-    .p-inputnumber-input {
-      width: 8rem;
+    .p-inputnumber {
+      width: 100% !important;
     }
+  
 
- 
     .p-avatar {
       background-color: var(--primary-color)
-    }
-
-    .p-calendar {
-      // width: 12rem;
-
-    }
-
-    .p-calendar .p-inputtext {
-      width: auto;
     }
 
     .p-button.p-button-icon-only.p-button-rounded {
@@ -28,13 +19,9 @@
       color: var(--primary-color) !important;
     }
 
-    .p-inputnumber-buttons-stacked .p-inputnumber-input {
-      width: auto;
-    }
-
+ 
 
     .p-avatar {
-      // color: white!important;
       width: 2.5rem;
       height: 2.5rem;
 
@@ -44,9 +31,11 @@
       }
     }
 
-  }
+
 
   a {
     color: inherit;
   }
+}
+
 }
