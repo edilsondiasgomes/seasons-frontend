@@ -1,26 +1,29 @@
 <div class="grid mx-0 my-0">
 
-  <!-- Header -->
-  <div class="mt-3 px-5 flex flex-direction-row align-items-center">
+  <!-- Container 1 -->
+  <div class="col-12 md:col-12 lg:col-6">
 
-    <div style="text-align: left;">
-      <a href="#" (click)="backDetais()">
-        <i class="pi pi-angle-left" style="font-size: 2rem; color: grey; margin-left: -1rem; margin-right: .5rem;"></i>
-      </a>
+    <!-- Header -->
+    <div class="mt-3 flex flex-direction-row align-items-center margin-container-1">
+
+      <div style="text-align: left;">
+        <a href="#" (click)="backDetais()">
+          <i class="pi pi-angle-left"
+            style="font-size: 2rem; color: grey; margin-left: -1rem; margin-right: .5rem;"></i>
+        </a>
+      </div>
+
+      <div>
+        <h2 class="sub-header">{{accomodation.title}} em {{accomodation.city}}, {{accomodation.uf}}</h2>
+        <p style="color:#222121b8; ">{{accomodation.guestsAllowed}} Hóspedes -
+          {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
+        </p>
+      </div>
     </div>
+    <!-- end-Header-->
 
-    <div>
-      <h2 class="sub-header">{{accomodation.title}} em {{accomodation.city}}, {{accomodation.uf}}</h2>
-      <p style="color:#222121b8; ">{{accomodation.guestsAllowed}} Hóspedes -
-        {{accomodation.rooms}} quartos - {{accomodation.toilets}} banheiros
-      </p>
-    </div>
-  </div>
-  <!-- end-Header-->
-
-  <div class="px-5 grid grid-nogutter flex justify-content-between">
     <!-- galleria -->
-    <div class="col-6 mb-3">
+    <div class="mb-3 margin-container-1">
       <p-galleria *ngIf="accomodation.files?.length" [value]="accomodation.files" [showItemNavigators]="true"
         [responsiveOptions]="responsiveOptions" [showThumbnails]="false" [showIndicators]="true"
         [showIndicatorsOnItem]="true" [containerStyle]="{ 'max-width': '100%', 'margin-top':'1rem' }">
@@ -37,8 +40,36 @@
     </div>
     <!-- end-galleria -->
 
+    <div class="margin-container-1">
+
+      <!-- text-description-->
+      <p class="mt-2 " style="color:#222121b8; word-break: break-all;">
+        {{accomodation.description}}</p>
+      <!-- end-text-description-->
+
+      <!-- pagamento -->
+      <h3 class="sub-header mt-5 text-primary">Pagamento</h3>
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+      <p class="mt-2" style="color:#222121b8; ">Aguarde a confirmação da reserva para receber informações sobre
+        pagamento. </p>
+      <!-- end-pagamento -->
+
+      <!-- cancelamento -->
+      <h3 class="sub-header mt-5 text-primary">Política de cancelamento</h3>
+      <hr style="height: 1px; background-color: #ebebeb;border: none;">
+      <p class="mt-2" style="color:#222121b8;">Cancelando até 2 dias da acomodação receberá 100% do
+        valor. Caso
+        cancele no dia receberá 50% do valor. </p>
+      <!-- end-cancelamento -->
+    </div>
+  </div>
+  <!-- end Container 1 -->
+
+  <!-- Container 2 -->
+  <div class="container-2 col-12 md:col-12 lg:col-6">
+
     <!-- container-reserva -->
-    <div class="col-6 p-fluid" style="padding-left: 5rem;">
+    <div class="p-fluid margin-container-2">
       <div class="mb-5">
         <h2> {{accomodation.dailyRate | currency: 'BRL'}} diária </h2>
         <!-- <p>diária</p> -->
@@ -93,31 +124,7 @@
     </div>
     <!-- end-container-reserva -->
 
-    <div class="col-6">
-
-      <!-- text-description-->
-      <p class="mt-2 " style="color:#222121b8; word-break: break-all;">
-        {{accomodation.description}}</p>
-      <!-- end-text-description-->
-
-      <!-- pagamento -->
-      <h3 class="sub-header mt-5 text-primary">Pagamento</h3>
-      <hr style="height: 1px; background-color: #ebebeb;border: none;">
-      <p class="mt-2" style="color:#222121b8; ">Aguarde a confirmação da reserva para receber informações sobre
-        pagamento. </p>
-      <!-- end-pagamento -->
-
-      <!-- cancelamento -->
-      <h3 class="sub-header mt-5 text-primary">Política de cancelamento</h3>
-      <hr style="height: 1px; background-color: #ebebeb;border: none;">
-      <p class="mt-2" style="color:#222121b8;  width: 40rem;">Cancelando até 2 dias da acomodação receberá 100% do
-        valor. Caso
-        cancele no dia receberá 50% do valor. </p>
-      <!-- end-cancelamento -->
-    </div>
-
-    <div class="col-6" style="padding-left: 5rem;">
-
+    <div class="p-fluid mt-3 margin-container-2">
       <!-- comodidades -->
       <h3 class="sub-header text-primary">Comodidades</h3>
       <hr style="height: 1px; background-color: #ebebeb;border: none;">
@@ -130,7 +137,6 @@
         </div>
       </div>
       <!-- end-comodidades -->
-
 
       <!-- informações -->
       <h3 class="sub-header mt-5 text-primary">Informações</h3>
@@ -157,10 +163,10 @@
           </ng-template>
         </div>
       </div>
-      <!-- end-informações -->
-
     </div>
 
-  </div>
+    <!-- end-informações -->
 
+  </div>
+  <!-- end Container 2 -->
 </div>

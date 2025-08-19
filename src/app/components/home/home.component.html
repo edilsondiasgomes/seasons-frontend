@@ -18,7 +18,7 @@
   
   <div *ngIf="!spinnerOn" class="grid grid-nogutter flex flex-direction-row">
     
-    <div class="col-12 sm:col-12 md:col-4 lg:col-3" *ngFor="let accomodation of accommodations">
+    <div class="col-12 md:col-6 lg:col-3" *ngFor="let accomodation of accommodations">
       <div class="m-2">
         <p-galleria *ngIf="accomodation.files?.length" [value]="accomodation.files" [showItemNavigators]="true"
         [responsiveOptions]="responsiveOptions" [showThumbnails]="false" [showIndicators]="true"
@@ -38,15 +38,12 @@
     <div style="cursor: pointer;" (click)="sendDetails(accomodation)">
       <div class=" m-2">
         <div
-            style="width: auto; height: 4.2rem; margin: .5rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <h3> {{ accomodation.typeSelected ? accomodation.id + ' - ' + accomodation.typeSelected : accomodation.id +
-              '
-              - ' +'Acomodação'}} em
-              {{accomodation.city}},
-              {{accomodation.uf}}</h3>
-              <p style="color:#222121b8">{{accomodation.guestsAllowed}} Hóspedes - {{accomodation.rooms}} quartos -
+            style="width: auto; height: 4.2rem;  display: flex; flex-direction: column; justify-content: flex-start;">
+            <h3 class="title"> {{ accomodation.typeSelected}} em
+              {{accomodation.city}}</h3>
+              <!-- <p style="color:#222121b8">{{accomodation.guestsAllowed}} Hóspedes - {{accomodation.rooms}} quartos -
                 {{accomodation.toilets}} banheiros
-              </p>
+              </p> -->
               <p style="color:#222121b8"><b> {{accomodation.dailyRate| currency:'BRL' }} </b>diária</p>
             </div>
           </div>
