@@ -1,16 +1,20 @@
 :host {
   ::ng-deep {
+
+
     .p-inputnumber {
+      width: -webkit-fill-available;
+    }
+    
+    .p-inputtext {
       width: -webkit-fill-available;
     }
 
     .p-dropdown {
       width: -webkit-fill-available;
+      height: 42px;
     }
-
-    .p-inputnumber-input {
-      width: 7rem;
-    }
+    
 
     .p-checkbox .p-checkbox-box.p-highlight {
       border-color: #4ecbd3;

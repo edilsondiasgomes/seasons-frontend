@@ -21,13 +21,7 @@
         <hr style="height: 1px; background-color: #ebebeb;border: none;">
       </div>
 
-      <div class="col-3 flex flex-column gap-1">
-        <label htmlFor="type">Tipo</label>
-        <p-dropdown id="type" formControlName="typeSelected" [options]="typeAccomodation" optionLabel="name"
-          optionValue="name"></p-dropdown>
-      </div>
-
-      <div class="col-7 flex flex-column gap-1">
+      <div class="col-12 flex flex-column gap-1">
         <label htmlFor="title">Título da acomodação</label>
         <input pInputText id="title" formControlName="title" maxlength="40" />
         <span class="message-form-invalid" *ngIf="isInvalidField('title')">
@@ -35,83 +29,90 @@
         </span>
       </div>
 
-      <div class="col-2 flex flex-column gap-1">
+      <div class="col-12 md:col-6 lg:col-6  flex flex-column gap-1">
+        <label htmlFor="type">Tipo</label>
+        <p-dropdown id="type" formControlName="typeSelected" [options]="typeAccomodation" optionLabel="name"
+          optionValue="name"></p-dropdown>
+      </div>
+
+      <div class="col-12 md:col-6 lg:col-6 flex flex-column gap-1">
         <label for="dailyRate">Diária</label>
         <p-inputNumber formControlName="dailyRate" inputId="dailyRate" mode="decimal" locale="pt-BR"
           [minFractionDigits]="2"> </p-inputNumber>
       </div>
 
-      <div class="grid ml-1">
 
-        <div class="col-3 flex flex-column gap-1">
-          <label htmlFor="postalCode">CEP</label>
-          <input type="text" pInputText id="postalCode" formControlName="postalCode"  />
-        </div>
-
-        <div class="col-9 flex flex-column gap-1">
-          <label htmlFor="endereço">Endereço</label>
-          <input pInputText id="endereço" formControlName="street" (focus)="findCEP()" />
-        </div>
-
-        <div class="col-2 flex flex-column gap-1">
-          <label htmlFor="houseNumber">Número</label>
-          <input pInputText id="houseNumber" formControlName="houseNumber" />
-        </div>
-
-        <div class="col-5 flex flex-column gap-1">
-          <label htmlFor="district">Bairro</label>
-          <input pInputText id="district" formControlName="district" />
-        </div>
-
-        <div class="col-5 flex flex-column gap-1">
-          <label htmlFor="complemento">Complemento</label>
-          <input pInputText id="complemento" formControlName="complement" />
-        </div>
-
-        <div class="col-10 flex flex-column gap-1">
-          <label htmlFor="city">Cidade</label>
-          <input pInputText id="city" aria-describedby="city" formControlName="city" />
-        </div>
-
-        <div class="col-2 flex flex-column gap-1">
-          <label htmlFor="uf">UF</label>
-          <input class="uppercase" pInputText id="uf" aria-describedby="uf" formControlName="uf" />
-        </div>
+      <div class="col-12 md:col-6 lg:col-4 flex flex-column gap-1">
+        <label htmlFor="postalCode">CEP</label>
+        <input type="text" pInputText id="postalCode" formControlName="postalCode" />
       </div>
 
-      <div class="col-4 flex flex-column gap-1">
+      <div class="col-12 md:col-6 lg:col-8 flex flex-column gap-1">
+        <label htmlFor="endereço">Endereço</label>
+        <input pInputText id="endereço" formControlName="street" (focus)="findCEP()" />
+      </div>
+
+      <div class="col-12 md:col-4 lg:col-2 flex flex-column gap-1">
+        <label htmlFor="houseNumber">Número</label>
+        <input pInputText id="houseNumber" formControlName="houseNumber" />
+      </div>
+
+      <div class="col-12 md:col-4 lg:col-4 flex flex-column gap-1">
+        <label htmlFor="district">Bairro</label>
+        <input pInputText id="district" formControlName="district" />
+      </div>
+
+      <div class="col-12 md:col-4 lg:col-6 flex flex-column gap-1">
+        <label htmlFor="complemento">Complemento</label>
+        <input pInputText id="complemento" formControlName="complement" />
+      </div>
+
+      <div class="col-12 md:col-8 lg:col-10 flex flex-column gap-1">
+        <label htmlFor="city">Cidade</label>
+        <input pInputText id="city" aria-describedby="city" formControlName="city" />
+      </div>
+
+      <div class="col-12 md:col-4 lg:col-2 flex flex-column gap-1">
+        <label htmlFor="uf">UF</label>
+        <input class="uppercase" pInputText id="uf" aria-describedby="uf" formControlName="uf" />
+      </div>
+
+      <div class="col-12 md:col-6 lg:col-6 flex flex-column gap-1">
         <label htmlFor="guestsAllowed">Hóspedes</label>
-        <p-inputNumber suffix=" Hóspedes" [min]="0" formControlName="guestsAllowed" [showButtons]="true"
+        <p-inputNumber suffix=" Hóspedes" [min]="0"  inputStyleClass="w-full" formControlName="guestsAllowed" [showButtons]="true"
           inputId="guestsAllowed"> </p-inputNumber>
       </div>
 
-      <div class="col-4 flex flex-column gap-1">
+      <div class="col-12 md:col-6 lg:col-6 flex flex-column gap-1">
         <label htmlFor="rooms">Quartos</label>
-        <p-inputNumber suffix=" Quartos" [min]="0" formControlName="rooms" [showButtons]="true" inputId="rooms">
+        <p-inputNumber suffix=" Quartos" [min]="0"  inputStyleClass="w-full" formControlName="rooms" [showButtons]="true" inputId="rooms">
         </p-inputNumber>
       </div>
 
-      <div class="col-4 flex flex-column gap-1">
+      <div class="col-12 md:col-6 lg:col-6 flex flex-column gap-1">
         <label htmlFor="toilets">Banheiros</label>
-        <p-inputNumber suffix=" Banheiros" [min]="0" formControlName="toilets" [showButtons]="true" inputId="toilets">
+        <p-inputNumber suffix=" Banheiros" [min]="0"  inputStyleClass="w-full" formControlName="toilets" [showButtons]="true" inputId="toilets">
         </p-inputNumber>
       </div>
 
-      <div class="col-5 flex flex-column gap-1">
-        <label htmlFor="check-in">Check-in</label>
-        <p-inputMask formControlName="checkIn" mask="99:99" slotChar="_" placeholder="HH:MM"></p-inputMask>
-      </div>
+      <!-- class="w-full" inputStyleClass="w-full" -->
 
-      <div class="col-5 flex flex-column gap-1">
-        <label htmlFor="check-in">Check-out</label>
-        <p-inputMask formControlName="checkOut" mask="99:99" slotChar="_" placeholder="HH:MM"></p-inputMask>
-      </div>
-
-      <div class="col-2 flex flex-column gap-1">
+      <div class="col-12 md:col-6 lg:col-6 flex flex-column gap-1">
         <label for="cleaningFee">Taxa limpeza</label>
         <p-inputNumber formControlName="cleaningFee" inputId="cleaningFee" mode="decimal" locale="pt-BR"
           [minFractionDigits]="2"> </p-inputNumber>
       </div>
+
+      <div class="col-12 md:col-6 lg:col-6 flex flex-column gap-1">
+        <label htmlFor="check-in">Check-in</label>
+        <p-inputMask formControlName="checkIn" mask="99:99"  inputStyleClass="w-full" class="w-full" slotChar="_" placeholder="HH:MM"></p-inputMask>
+      </div>
+
+      <div class="col-12 md:col-6 lg:col-6 flex flex-column gap-1">
+        <label htmlFor="check-in">Check-out</label>
+        <p-inputMask formControlName="checkOut"  class="w-full" mask="99:99" slotChar="_" placeholder="HH:MM"></p-inputMask>
+      </div>
+
 
       <div class="col-12 flex flex-column gap-1">
         <label>Descrição </label>
@@ -199,10 +200,10 @@
     </div>
 
 
-  <p-blockUI [blocked]="blockedPage">
-    <div class="card flex justify-content-center">
-      <p-progressSpinner></p-progressSpinner>
-    </div>
-  </p-blockUI>
+    <p-blockUI [blocked]="blockedPage">
+      <div class="card flex justify-content-center">
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+    </p-blockUI>
 
-</div>
+  </div>

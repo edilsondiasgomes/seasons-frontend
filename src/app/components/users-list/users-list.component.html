@@ -3,8 +3,7 @@
   <div class="mt-3 flex flex-direction-row align-items-center">
 
     <div style="text-align: left;">
-      <i class="pi pi-angle-left"
-        style="font-size: 2rem; color: grey; margin-right: .5rem;cursor: pointer;"
+      <i class="pi pi-angle-left" style="font-size: 2rem; color: grey; margin-right: .5rem;cursor: pointer;"
         (click)="toGoBack()"></i>
     </div>
 
@@ -15,7 +14,7 @@
 
   </div>
   <div class="mt-3">
-    <p-table #dt [value]="registrations" dataKey="id"
+    <p-table #dt [value]="registrations" dataKey="id" responsiveLayout="stack" [breakpoint]="'960px'"
       [globalFilterFields]="['id', 'name', 'cpf','birthday' ]">
       <ng-template pTemplate="header">
         <tr>
@@ -31,7 +30,7 @@
 
       <ng-template pTemplate="caption">
         <div class="flex">
-          <button pButton label="Limpar filtro" class="p-button-outlined" icon="pi pi-filter-slash"
+          <button pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
             (click)="clear(dt)"></button>
           <span class="p-input-icon-left ml-auto">
             <i class="pi pi-search"></i>
@@ -42,16 +41,19 @@
       </ng-template>
       <ng-template pTemplate="body" let-register>
         <tr>
-          <td class="vertical-align-middle">{{ register.id }}</td>
+          <td class="vertical-align-middle"><span class="p-column-title">ID</span>{{ register.id }}</td>
           <td class="vertical-align-middle">
             <p-avatar [label]="register.name.substring(0,1)" [style]="{'background-color': '#75ced4', 'color': 'white'}"
               styleClass="mr-1" shape="circle"></p-avatar>
             {{ register.name }}
           </td>
-          <td class="vertical-align-middle">{{ register.cpf }}</td>
-          <td class="vertical-align-middle">{{ register.birthday | date :'dd MMMM yyyy'}}</td>
-          <td class="vertical-align-middle">{{ register.street +', '+ register.number + ', '+
-            register.city +', ' + register.uf}}</td>
+          <td class="vertical-align-middle"><span class="p-column-title">CPF</span>{{ register.cpf }}</td>
+          <td class="vertical-align-middle"><span class="p-column-title">Nascimento</span>{{ register.birthday | date
+            :'dd MMMM yyyy'}}</td>
+          <td class="vertical-align-middle"><span class="p-column-title">Endereço</span><span style="    text-align: end;
+            margin-left: 1rem;
+        ">{{ register.street +', '+ register.number + ', '+
+              register.city +', ' + register.uf}}</span></td>
 
 
           <td class="vertical-align-middle">

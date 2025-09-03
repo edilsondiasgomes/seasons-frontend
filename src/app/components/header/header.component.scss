@@ -10,6 +10,10 @@
       width: 100% !important;
     }
 
+    .p-calendar {
+      width: -webkit-fill-available;
+    }
+
     .p-avatar {
       background-color: var(--primary-color)
     }
@@ -30,9 +34,15 @@
       }
     }
 
-  a {
-    color: inherit;
+    a {
+      color: inherit;
+    }
   }
-}
-
-}
+  // @media (max-width: 991px) {
+  //   .button {
+  //     width: 100%;
+  //   }
+  // }
+  
+  
+  }
