@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         },
         error: (error) => {
           console.log(error);
-          this.alertService.error(error.error, 'Erro ao efeturar login')
+          this.alertService.error(error, 'Atenção!')
         }
       });
   }
