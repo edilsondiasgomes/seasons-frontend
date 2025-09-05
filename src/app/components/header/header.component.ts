@@ -4,6 +4,9 @@ import { MenuItem } from 'primeng/api';
 import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { SearchFilter } from 'src/app/shared/models/model';
+import { DialogService } from 'primeng/dynamicdialog';
+import { LoginComponent } from '../login/login.component';
+
 
 @Component({
   selector: 'app-header',
@@ -26,6 +29,8 @@ export class HeaderComponent implements OnInit {
   private router = inject(Router)
   public user: any;
 
+  constructor(public dialogService: DialogService) { }
+
   ngOnInit() {
     this.setItems()
     this.minDate = new Date()
@@ -44,6 +49,10 @@ export class HeaderComponent implements OnInit {
     this.userService.isUserMaster = this.user.userId === this.userMasterId
   }
 
+  show() {
+    this.dialogService.open(LoginComponent, { header: '' });
+  }
+
   private setItems() {
     this.items = [
       {
@@ -52,7 +61,10 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Entrar',
             icon: 'fa-solid fa-user',
-            routerLink: '/login',
+            // routerLink: '/login',
+            command: () => {
+              this.show();
+            },
             visible: !this.userService.isUserLogged()
           },
           // {

@@ -2,6 +2,7 @@ declare var google: any;
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { LoginService } from 'src/app/core/services/login.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private router: Router,
+    private ref: DynamicDialogRef,
     private alertService: AlertService,
     private userService: UserService) {
     this.login = {} as Login;
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
+    this.ref.close();
     this.loginService.doLogin(this.login)
       .subscribe({
         next: (success) => {

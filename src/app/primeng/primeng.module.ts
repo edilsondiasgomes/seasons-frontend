@@ -20,13 +20,17 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogModule } from 'primeng/dialog';
+
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    DialogModule,
     BlockUIModule,
     ProgressSpinnerModule,
+    DynamicDialogModule,
     AvatarModule,
     RadioButtonModule,
     InputMaskModule,
@@ -50,6 +54,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
   ],
   exports: [
     ButtonModule,
+    DialogModule,
+    DynamicDialogModule,
     BlockUIModule,
     ProgressSpinnerModule,
     AvatarModule,
