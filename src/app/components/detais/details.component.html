@@ -76,13 +76,13 @@
       </div>
 
       <div class="grid">
-        <div class="col-6" style="margin-top: inherit;">
+        <div class="col-12 md:col-12 lg:col-6" style="margin-top: inherit;">
           <label>Check-in</label>
           <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="reservation.initialDate"
             dateFormat="dd/mm/yy" [minDate]="reservation.initialDate" [disabledDates]="disabledDates"></p-calendar>
         </div>
 
-        <div class="col-6" style="margin-top: inherit;">
+        <div class="col-12 md:col-12 lg:col-6" style="margin-top: inherit;">
           <label>Check-out</label>
           <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="reservation.finalDate" dateFormat="dd/mm/yy"
             [minDate]="minDate" [disabledDates]="disabledDates"></p-calendar>
@@ -143,17 +143,17 @@
       <hr style="height: 1px; background-color: #ebebeb;border: none;">
 
       <div class="grid">
-        <div class="col-3">
+        <div class="col-12 md:col-3 lg:col-3">
           <h4 class="sub-header mt-2">Check-in</h4>
           <p style="color:#222121b8; "> às {{accomodation.checkIn}} horas </p>
         </div>
 
-        <div class="col-3">
+        <div class="col-12 md:col-3 lg:col-3">
           <h4 class="sub-header mt-2">Check-out</h4>
           <p style="color:#222121b8; ">às {{accomodation.checkOut}} horas </p>
         </div>
 
-        <div class="col-6">
+        <div class="col-12 md:col-3 lg:col-6">
           <h4 class="sub-header mt-2">Animais de estimação</h4>
           <ng-container *ngIf="checkPetsAllowed(); else notAllowed">
             <p style="color:#222121b8;">Permitido</p>
