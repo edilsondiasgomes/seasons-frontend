@@ -6,17 +6,17 @@
     <h2 style="text-align: center; color: white;">Login</h2>
     
     
-    <div class="mt-2 flex flex-column gap-1" style="width: 20rem;">
+    <div class="mt-2 flex flex-column gap-1" >
       <label htmlFor="username">Login</label>
       <input [(ngModel)]="login.email" pInputText id="username" aria-describedby="username" />
     </div>
 
-    <div class="mt-2  flex flex-column gap-1" style="width: 20rem;">
+    <div class="mt-2  flex flex-column gap-1" style="width: 100%;">
       <label htmlFor="password">Senha</label>
       <input [(ngModel)]="login.password" pInputText type="password" id="password" aria-describedby="password" />
     </div>
     
-    <div class="flex mt-4 justify-content-center" style="width: 20rem;">
+    <div class="flex mt-4 justify-content-center" style="width:100%;">
       <button style="color: white" type="button"
       style="justify-content: center; font-weight: 600; font-size: 1.2rem; width: 100%;" (click)="doLogin()"
       pButton>Entrar</button>
@@ -24,7 +24,7 @@
     
     
   </div>
-  <div style="text-align: center; width: 30rem;" class="mt-2">
+  <div style="text-align: center; width:100%;" class="mt-2">
     <span style="cursor: pointer;" (click)="goToRegistration()" class="text-primary ml-2 font-medium">Não sou
       cadastrado</span>
     </div>
