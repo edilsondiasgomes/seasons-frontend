@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router)
   public user: any;
+  visible = false
 
   constructor(public dialogService: DialogService) { }
 
@@ -47,6 +48,14 @@ export class HeaderComponent implements OnInit {
 
   private checkUserMaster() {
     this.userService.isUserMaster = this.user.userId === this.userMasterId
+  }
+
+  showDialog(){
+    this.visible = true;
+  }
+
+  closeDialog(){
+    this.visible = false
   }
 
   show() {
@@ -150,6 +159,7 @@ export class HeaderComponent implements OnInit {
     this.setFilterAccommodations();
     this.router.navigateByUrl('/')
     this.accommodationsService.findAccommodations(this.searchFilter);
+    this.inputSearch = '';
   }
 
   deleteSearching() {

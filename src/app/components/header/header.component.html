@@ -1,6 +1,7 @@
 <div class="grid mx-0 my-0 py-2 px-3">
 
-  <div class="col md:col-3 lg:col-2 flex flex-row align-items-center text-primary" style="font-size: 1.4rem; font-weight: 900;">
+  <div class="col md:col-3 lg:col-2 flex flex-row align-items-center text-primary"
+    style="font-size: 1.4rem; font-weight: 900;">
     <i class="fa-solid fa-seedling mr-2"></i>
     <div class="flex flex-column">
       <a style="text-decoration: none; cursor:pointer;" (click)="goToHome()">
@@ -14,20 +15,29 @@
     </div>
   </div>
 
-  <div class="col-12 md:col-9 lg:col-2 p-input-icon-left">
-    <input class="w-full" size="small" type="text" [(ngModel)]="inputSearch" pInputText placeholder="Digite um lugar" />
-    <i class="pi pi-search"></i>
+  <div class="mobile col-12 text-center">
+    <button type="button" class="p-button-text" pButton (click)="showDialog()" style="color: white; width: 100%;     justify-content: center; background-color: white !important;
+      color: grey; border: .1rem solid #ced4da !important;">   <i class="mr-2 pi pi-search"></i>Escolha um
+      lugar</button>
   </div>
-  <div class="col-6 md:col-4 lg:col-2">
-    <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data inicial" [(ngModel)]="initialDate"
+<div class="desktop">
+
+  <div class="col-12 md:col-9 lg:col-2 p-input-icon-left">
+    <input class="w-full" size="small" type="text" [(ngModel)]="inputSearch"  pInputText
+      placeholder="Digite um lugar" />
+      <i class="pi pi-search"></i>
+    </div>
+    
+    <div class="col-6 md:col-4 lg:col-2">
+      <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data inicial" [(ngModel)]="initialDate"
       dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
   </div>
   <div class="col-6 md:col-4 lg:col-2">
     <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data final" [(ngModel)]="finalDate"
       dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
-  </div>
-  <div class="col-12 md:col-4 lg:col-2">
-    <p-inputNumber [min]="1" placeholder="Hóspedes" class="w-full" inputStyleClass="w-full"
+    </div>
+    <div class="col-12 md:col-4 lg:col-2">
+      <p-inputNumber [min]="1" placeholder="Hóspedes" class="w-full" inputStyleClass="w-full"
       [suffix]=" guests && guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="guests" [showButtons]="true"
       inputId="guests">
     </p-inputNumber>
@@ -38,6 +48,39 @@
   <div class="col">
     <p-button class="button" icon="pi pi-search" label="Buscar" (click)="searchAccommodations()"></p-button>
   </div>
+</div>
 
 </div>
 <hr style="height: 1px; background-color: #ebebeb;border: none;">
+
+<div class="card flex justify-content-center">
+  <p-dialog  [(visible)]="visible" [modal]="true" [style]="{ width: '80vw' }" [draggable]="false" [resizable]="false">
+
+      <div class="col-12 md:col-9 lg:col-2 p-input-icon-left">
+        <input class="w-full" size="small" type="text" [(ngModel)]="inputSearch"  pInputText
+          placeholder="Digite um lugar" />
+          <i class="pi pi-search"></i>
+        </div>
+        
+        <div class="col-12">
+          <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data inicial" [(ngModel)]="initialDate"
+          dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
+      </div>
+      <div class="col-12">
+        <p-calendar [readonlyInput]="true" [showIcon]="true" placeholder="Data final" [(ngModel)]="finalDate"
+          dateFormat="dd/mm/yy" [minDate]="minDate"></p-calendar>
+        </div>
+        <div class="col-12 md:col-4 lg:col-2">
+          <p-inputNumber [min]="1" placeholder="Hóspedes" class="w-full" inputStyleClass="w-full"
+          [suffix]=" guests && guests < 2 ? ' hóspede': ' hóspedes'" [(ngModel)]="guests" [showButtons]="true"
+          inputId="guests">
+        </p-inputNumber>
+      </div>
+      <!-- <div class="col">
+        <p-button icon="pi pi-times" (click)="deleteSearching()"></p-button>
+      </div> -->
+      <div class="col-12">
+        <p-button class="button" [style]="{width:'100%'}" icon="pi pi-search" label="Buscar" (click)="searchAccommodations(); closeDialog()"></p-button>
+      </div>
+  </p-dialog>
+</div>
