@@ -1,6 +1,6 @@
 {
   "name": "seasons-frontend",
-  "version": "0.0.0",
+  "version": "2025.9.08.1",
   "scripts": {
     "ng": "ng",
     "start": "npm install && ng serve --host 0.0.0.0 --disable-host-check --open",
