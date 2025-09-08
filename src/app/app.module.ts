@@ -20,7 +20,6 @@ import { UserComponent } from './components/user/user.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PrimengModule } from './primeng/primeng.module';
-import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { DetaisDialogComponent } from './components/detais-dialog/detais-dialog.component';
@@ -41,7 +40,6 @@ registerLocaleData(localeBr, 'pt')
     AccommodationComponent,
     AccommodationsListComponent,
     LoginComponent,
-    QrcodeComponent,
     ReservationsComponent,
     DetaisDialogComponent,
   ],

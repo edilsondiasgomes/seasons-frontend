@@ -9,7 +9,6 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { UserComponent } from './components/user/user.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { authGuard } from './core/guards/auth.guard';
-import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 
 const routes: Routes = [
@@ -30,9 +29,7 @@ const routes: Routes = [
   {
     path: 'registration', component: UserComponent,
   },
-  {
-    path: 'qrcode', component: QrcodeComponent,
-  },
+
   {
     path: 'users-list', component: UsersListComponent,
     canActivate: [authGuard]
