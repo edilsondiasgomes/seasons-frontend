@@ -35,6 +35,10 @@ export class DetaisDialogComponent implements OnInit {
 
   }
 
+  checkPetsAllowed(): boolean {
+    return this.accomodation?.conveniencesPlace?.some(item => item.name === 'Pets')
+  }
+
    
     findIcon(convenience: string) {
       return ConvenienceUtils.findIcon(convenience)

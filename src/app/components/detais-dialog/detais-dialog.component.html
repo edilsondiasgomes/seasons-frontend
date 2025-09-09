@@ -1,13 +1,13 @@
 <div class="grid">
 
     <!-- galleria -->
-    <div class="col-12  lg:col-6 mb-3">
+    <div class="col-12 lg:col-6 mb-3">
         <p-galleria [value]="accomodation.files" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
             [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true"
             [containerStyle]="{ 'max-width': '100%', 'margin-top':'1rem' }">
             <ng-template pTemplate="item" let-item>
-                <img [src]="item.url"
-                    style="height: 27rem; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; display: block; border-radius: 5px"
+                <img class="img-galleria" [src]="item.url"
+                    style="aspect-ratio: 4 / 3; object-fit: cover; width: 100%; display: block; border-radius: 5px"
                     alt="img" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
@@ -59,19 +59,21 @@
         <hr style="height: 1px; background-color: #ebebeb;border: none;">
 
         <div class="grid">
-            <div class="col-3">
+            <div class="col-12 md:col-3 lg:col-3">
                 <h4 class="sub-header mt-2">Check-in</h4>
                 <p style="color:#222121b8; "> às {{accomodation.checkIn}} horas </p>
             </div>
 
-            <div class="col-3">
+            <div class="col-12 md:col-3 lg:col-3">
                 <h4 class="sub-header mt-2">Check-out</h4>
                 <p style="color:#222121b8; ">às {{accomodation.checkOut}} horas </p>
             </div>
 
-            <div class="col-6">
+            <div class="col-12 md:col-3 lg:col-3">
                 <h4 class="sub-header mt-2">Animais de estimação</h4>
-
+                <ng-container *ngIf="checkPetsAllowed(); else notAllowed">
+                    <p style="color:#222121b8;">Permitido</p>
+                </ng-container>
                 <ng-template #notAllowed>
                     <p style="color:#222121b8;">Não permitido</p>
                 </ng-template>
