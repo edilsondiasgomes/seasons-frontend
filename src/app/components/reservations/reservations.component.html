@@ -34,11 +34,11 @@
       </ng-template>
       <ng-template pTemplate="caption">
         <div class="flex">
-          <button pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+          <button pButton  class="p-button-outlined" icon="pi pi-filter-slash"
             (click)="clear(dt)"></button>
           <span class="p-input-icon-left ml-auto">
             <i class="pi pi-search"></i>
-            <input class="h-3rem" #inputDt pInputText type="text"
+            <input class="h-3rem w-full" #inputDt pInputText type="text"
               (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Digitar palavra" />
           </span>
         </div>

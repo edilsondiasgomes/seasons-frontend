@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
     this.visible = false
   }
 
-  show() {
+  showDialogLogin() {
     this.dialogService.open(LoginComponent, { header: '' });
   }
 
@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit {
             icon: 'fa-solid fa-user',
             // routerLink: '/login',
             command: () => {
-              this.show();
+              this.showDialogLogin();
             },
             visible: !this.userService.isUserLogged()
           },

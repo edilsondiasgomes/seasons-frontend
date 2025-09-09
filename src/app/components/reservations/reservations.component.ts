@@ -66,7 +66,7 @@ export class ReservationsComponent implements OnInit {
     this.ref = this.dialogService.open(DetaisDialogComponent, {
       data: this.accommodationSelected,
       header: 'Detalhes',
-      width: '80%',
+      width: '95%',
     })
   }
 
