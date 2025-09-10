@@ -19,8 +19,12 @@ export class HeaderComponent implements OnInit {
   private readonly userMasterId = 61
   public inputSearch!: string;
   public minDate!: Date;
-  public initialDate!: Date | null;
-  public finalDate!: Date | null;
+
+  public rangeDates!: Date[];
+
+  // public initialDate!: Date | null;
+  // public finalDate!: Date | null;
+
   public guests!: number | null;
   public items!: MenuItem[];
   private searchFilter!: SearchFilter;
@@ -149,8 +153,8 @@ export class HeaderComponent implements OnInit {
   private setFilterAccommodations() {
     this.searchFilter = {
       inputSearch: this.inputSearch,
-      minDate: this.initialDate,
-      maxDate: this.finalDate,
+      minDate: this.rangeDates[0],
+      maxDate: this.rangeDates[1],
       guests: this.guests
     }
   }
@@ -164,8 +168,7 @@ export class HeaderComponent implements OnInit {
 
   deleteSearching() {
     this.inputSearch = '';
-    this.initialDate = null;
-    this.finalDate = null;
+    this.rangeDates = [];
     this.guests = null
     this.searchAccommodations();
 
