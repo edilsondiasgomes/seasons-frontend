@@ -22,8 +22,8 @@ export class HeaderComponent implements OnInit {
 
   public rangeDates!: Date[];
 
-  // public initialDate!: Date | null;
-  // public finalDate!: Date | null;
+  public initialDate!: Date | null;
+  public finalDate!: Date | null;
 
   public guests!: number | null;
   public items!: MenuItem[];
@@ -153,8 +153,8 @@ export class HeaderComponent implements OnInit {
   private setFilterAccommodations() {
     this.searchFilter = {
       inputSearch: this.inputSearch,
-      minDate: this.rangeDates[0],
-      maxDate: this.rangeDates[1],
+      minDate: this.initialDate ?? this.rangeDates[0],
+      maxDate: this.finalDate?? this.rangeDates[1],
       guests: this.guests
     }
   }

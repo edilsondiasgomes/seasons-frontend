@@ -1,17 +1,17 @@
 <div class="grid mx-0 my-0 py-2 px-2">
 
   <div class="col md:col-3 lg:col-2 flex flex-row align-items-center text-primary"
-    style="font-size: 1.4rem; font-weight: 900;">
+  style="font-size: 1.4rem; font-weight: 900;">
+  <div>
+    <button type="button" class="p-button-rounded p-button-text" pButton icon="pi pi-bars"
+      (click)="menu.toggle($event)"></button>
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+  </div>
     <i class="fa-solid fa-seedling mr-2"></i>
     <div class="flex flex-column">
       <a style="text-decoration: none; cursor:pointer;" (click)="goToHome()">
         Seasons
       </a>
-    </div>
-    <div>
-      <button type="button" class="p-button-rounded p-button-text" pButton icon="pi pi-bars"
-        (click)="menu.toggle($event)"></button>
-      <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>
   </div>
 
@@ -60,7 +60,10 @@
     </div>
 
     <div class="col-12">
-      <p-calendar appendTo="body" [(ngModel)]="rangeDates" selectionMode="range" [minDate]="minDate" dateFormat="dd/mm/yy" [showIcon]="true" placeholder="Datas" [readonlyInput]="true"></p-calendar>
+      <p-calendar appendTo="body" [(ngModel)]="initialDate"  [minDate]="minDate" dateFormat="dd/mm/yy" [showIcon]="true" placeholder="Data inicial" [readonlyInput]="true"></p-calendar>
+    </div>
+    <div class="col-12">
+      <p-calendar appendTo="body" [(ngModel)]="finalDate"  [minDate]="minDate" dateFormat="dd/mm/yy" [showIcon]="true" placeholder="Data final" [readonlyInput]="true"></p-calendar>
     </div>
 
      <div class="col-12 md:col-4 lg:col-2">
