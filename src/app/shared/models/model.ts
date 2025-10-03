@@ -45,6 +45,8 @@ export interface Reservation {
   amount: number
   guests: number,
   totalDailyRate: number,
+  userId: number,
+  userName: string,
   totalCleaningFee: number
 }
 
