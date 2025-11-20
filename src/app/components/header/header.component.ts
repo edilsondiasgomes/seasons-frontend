@@ -6,6 +6,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { SearchFilter } from 'src/app/shared/models/model';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LoginComponent } from '../login/login.component';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class HeaderComponent implements OnInit {
   public user: any;
   visible = false
 
-  constructor(public dialogService: DialogService) { }
+  constructor(public dialogService: DialogService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.setItems()
@@ -54,11 +55,11 @@ export class HeaderComponent implements OnInit {
     this.userService.isUserMaster = this.user.userId === this.userMasterId
   }
 
-  showDialog(){
+  showDialogBusca() {
     this.visible = true;
   }
 
-  closeDialog(){
+  closeDialog() {
     this.visible = false
   }
 
@@ -150,20 +151,26 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
+  private validadeDate() {
+    if ((this.initialDate && !this.finalDate) || (this.rangeDates[0] && !this.rangeDates[1])) {
+      return this.alertService.info('Escolha umaa data de entrada e saída')
+    }
+  }
+
   private setFilterAccommodations() {
     this.searchFilter = {
       inputSearch: this.inputSearch,
-      minDate: this.initialDate ?? this.rangeDates[0],
-      maxDate: this.finalDate?? this.rangeDates[1],
+      minDate: this.initialDate || (this.rangeDates && this.rangeDates[0]) || null,
+      maxDate: this.finalDate || (this.rangeDates && this.rangeDates[1]) || null,
       guests: this.guests
     }
   }
 
   searchAccommodations() {
+    this.validadeDate();
     this.setFilterAccommodations();
     this.router.navigateByUrl('/')
     this.accommodationsService.findAccommodations(this.searchFilter);
-    this.inputSearch = '';
   }
 
   deleteSearching() {
