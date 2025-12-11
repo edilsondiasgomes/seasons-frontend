@@ -78,14 +78,14 @@
       <div class="grid">
         <div class="col-12 md:col-12 lg:col-6" style="margin-top: inherit;">
           <label>Check-in</label>
-          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="reservation.initialDate"
-            dateFormat="dd/mm/yy" [minDate]="reservation.initialDate" [disabledDates]="disabledDates"></p-calendar>
+          <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="reservation.initialDate" (ngModelChange)="getFinalminDate()"
+            dateFormat="dd/mm/yy" [minDate]="minDate" [disabledDates]="disabledDates"></p-calendar>
         </div>
 
         <div class="col-12 md:col-12 lg:col-6" style="margin-top: inherit;">
           <label>Check-out</label>
           <p-calendar [readonlyInput]="true" [showIcon]="true" [(ngModel)]="reservation.finalDate" dateFormat="dd/mm/yy"
-            [minDate]="minDate" [disabledDates]="disabledDates"></p-calendar>
+            [minDate]="minFinalDate" [disabledDates]="disabledDates"></p-calendar>
         </div>
       </div>
 

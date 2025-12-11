@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConvenienceUtils } from 'src/app/shared/utils/icon-convenience-utils';
-// import { Property } from './../../shared/models/model';
 import { AccommodationsService } from 'src/app/core/services/accomodations.service';
 import { Accommodation, Reservation } from './../../shared/models/model';
 import { ReservationService } from 'src/app/core/services/reservation.service';
@@ -19,6 +18,7 @@ export class DetailsComponent implements OnInit {
   accomodation!: Accommodation;
   reservation!: Reservation;
   minDate!: Date;
+  minFinalDate!: Date
   disabledDates: Date[] = [];
 
   responsiveOptions: any[] = [
@@ -59,8 +59,16 @@ export class DetailsComponent implements OnInit {
   }
 
   setMinDate() {
-    const oneDayFromTodayTimeStamp = new Date().getTime() + (1000 * 60 * 60 * 24);
-    this.minDate = new Date(oneDayFromTodayTimeStamp)
+    const date = new Date();
+    date.setDate(date.getDate() + 1)
+    this.minDate = new Date(date);
+  }
+
+  getFinalminDate() {
+    const initial = new Date(this.reservation.initialDate)
+    initial.setDate(initial.getDate() + 1)
+    this.minFinalDate = new Date(initial)
+    this.reservation.finalDate = this.minFinalDate
   }
 
   setDisabledDates() {
@@ -69,6 +77,8 @@ export class DetailsComponent implements OnInit {
         next: (success) => {
           const dates = success;
           this.disabledDates = dates.map((d: any) => new Date(d))
+          console.log(this.disabledDates);
+          
         },
         error: () => { }
       })
